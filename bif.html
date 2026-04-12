@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BIF — Your Digital Immune System | Studio Starman</title>
+<meta name="description" content="A breathing circle that protects you. Seven emotional states. Zero notifications. BIF communicates through color. When it turns red, you pay attention.">
+<meta property="og:title" content="BIF — Your Digital Immune System">
+<meta property="og:description" content="One circle. Seven colors. Zero notifications. BIF watches so you don't have to.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/dark-figures.png">
+<link rel="canonical" href="https://studiostarman.com/bif">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "BIF",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "SecurityApplication",
+  "description": "Digital immune system that communicates through breathing color. 4-layer email threat analysis. 7 emotional states. Zero traditional UI.",
+  "creator": {
+    "@type": "Organization",
+    "name": "Studio Starman",
+    "url": "https://studiostarman.com"
+  }
+}
+</script>
+
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+/* ── BIF overrides ── */
+body{background:var(--deep)}
+::selection{background:var(--danger);color:var(--black)}
+.grain{opacity:.03}
+
+/* ── Scroll progress — cyan for BIF ── */
+.sp{position:fixed;left:0;top:0;width:2px;height:0%;background:var(--cyan);z-index:9100;transition:height .1s;box-shadow:0 0 6px rgba(0,212,170,.3)}
+
+/* ══════════════════════════════════════════
+   HERO — The Orb
+   ══════════════════════════════════════════ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+
+.orb-container{position:relative;width:280px;height:280px;display:flex;align-items:center;justify-content:center}
+
+.orb{width:180px;height:180px;border-radius:50%;background:var(--cyan);position:absolute;transition:background-color 4s ease,box-shadow 4s ease;animation:breathe 5s ease-in-out infinite}
+.orb-glow{width:252px;height:252px;border-radius:50%;position:absolute;background:var(--cyan);opacity:.12;filter:blur(40px);animation:breathe 5s ease-in-out infinite;transition:background-color 4s ease}
+
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+.hero-label{margin-top:64px;font-size:10px;letter-spacing:.6em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp 1s ease 1s forwards}
+.hero-state{margin-top:12px;font-family:'Playfair Display',serif;font-size:clamp(1rem,1.5vw,1.2rem);font-weight:400;font-style:italic;color:var(--muted-s);opacity:0;animation:fadeUp 1s ease 1.3s forwards;transition:color 4s ease}
+
+.hero-scroll{position:absolute;bottom:48px;text-align:center;opacity:0;animation:fadeUp 1s ease 2s forwards}
+.hero-scroll span{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:12px}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--cyan),transparent);margin:0 auto;animation:scrollP 2s ease infinite}
+
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes scrollP{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+
+/* ══════════════════════════════════════════
+   STATEMENT
+   ══════════════════════════════════════════ */
+.statement{padding:160px 48px;max-width:700px;margin:0 auto;text-align:center}
+.statement h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:400;font-style:italic;line-height:1.4;margin-bottom:32px}
+.statement h2 span{color:var(--cyan)}
+.statement h2{text-shadow:-1px 0 rgba(0,212,170,.1),1px 0 rgba(255,23,68,.06)}
+.statement p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted-s);line-height:1.8}
+
+/* ══════════════════════════════════════════
+   SEVEN STATES
+   ══════════════════════════════════════════ */
+.states{padding:120px 48px;max-width:1100px;margin:0 auto}
+.states-label{font-size:10px;letter-spacing:.6em;text-transform:uppercase;color:var(--cyan);margin-bottom:48px}
+.states-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+
+.state-card{padding:32px 20px;background:rgba(232,228,223,.015);border:1px solid rgba(232,228,223,.04);text-align:center;transition:all .4s ease;cursor:pointer;position:relative;overflow:hidden}
+.state-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;opacity:0;transition:opacity .4s}
+.state-card:hover::before{opacity:1}
+.state-card:hover{background:rgba(232,228,223,.03)}
+
+.state-dot{width:32px;height:32px;border-radius:50%;margin:0 auto 16px;transition:transform .4s ease,box-shadow .4s ease}
+.state-card:hover .state-dot{transform:scale(1.15)}
+.state-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:900;font-style:italic;margin-bottom:6px}
+.state-meaning{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.state-bpm{font-size:11px;color:var(--muted)}
+
+/* ══════════════════════════════════════════
+   LA SENTINELLA
+   ══════════════════════════════════════════ */
+.sentinella{padding:160px 48px;max-width:900px;margin:0 auto}
+.sentinella-label{font-size:10px;letter-spacing:.6em;text-transform:uppercase;color:var(--danger);margin-bottom:32px}
+.sentinella h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;font-style:italic;line-height:1.1;margin-bottom:24px}
+.sentinella h2 span{color:var(--danger)}
+.sentinella h2{text-shadow:-1px 0 rgba(255,23,68,.12),1px 0 rgba(0,255,65,.08)}
+.sentinella>p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted-s);line-height:1.8;max-width:550px;margin-bottom:64px}
+
+.layers{display:flex;flex-direction:column;gap:2px}
+.layer{display:grid;grid-template-columns:180px 1fr;gap:2px}
+.layer-label{padding:32px 24px;background:rgba(255,23,68,.04);border:1px solid rgba(255,23,68,.08);display:flex;flex-direction:column;justify-content:center}
+.layer-num{font-size:9px;letter-spacing:.2em;color:var(--danger);margin-bottom:6px}
+.layer-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;font-style:italic}
+.layer-content{padding:32px 24px;background:rgba(232,228,223,.015);border:1px solid rgba(232,228,223,.04)}
+.layer-content p{font-size:clamp(.8rem,1vw,.88rem);color:var(--muted-s);line-height:1.7}
+.layer-content code{font-family:'Space Mono',monospace;font-size:11px;color:var(--danger);background:rgba(255,23,68,.06);padding:2px 6px;border-radius:2px}
+
+/* ══════════════════════════════════════════
+   PHILOSOPHY
+   ══════════════════════════════════════════ */
+.philosophy{padding:200px 48px;text-align:center;position:relative;overflow:hidden}
+.philosophy-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,212,170,.06) 0%,transparent 50%)}
+.philosophy blockquote{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2.4rem);font-weight:400;font-style:italic;line-height:1.5;max-width:700px;margin:0 auto;position:relative;z-index:2}
+.philosophy blockquote span{color:var(--cyan)}
+.philosophy blockquote{text-shadow:-1px 0 rgba(0,212,170,.08),1px 0 rgba(255,23,68,.05)}
+
+/* ── SYS_TIME in footer ── */
+.sys-time{font-size:9px;letter-spacing:.15em;color:var(--cyan);opacity:.4;font-variant-numeric:tabular-nums;transition:opacity .3s}
+.sys-time:hover{opacity:.8}
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+.footer{padding:64px 48px;border-top:1px solid rgba(232,228,223,.04);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-left{font-size:10px;letter-spacing:.3em;color:var(--muted)}
+.footer-left a{color:var(--cyan);text-decoration:none}
+.footer-right a{font-size:10px;letter-spacing:.3em;color:var(--muted);text-decoration:none;margin-left:24px;transition:color .3s}
+.footer-right a:hover{color:var(--white)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:var(--deep)}
+::-webkit-scrollbar-thumb{background:var(--cyan)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .states-grid{grid-template-columns:repeat(3,1fr)}
+  .layer{grid-template-columns:1fr}
+  .nav{padding:14px 20px}
+}
+@media(max-width:600px){
+  .states-grid{grid-template-columns:1fr 1fr}
+  .statement{padding:100px 24px}
+  .sentinella{padding:100px 24px}
+  .states{padding:80px 24px}
+}
+</style>
+</head>
+<body data-cursor="cyan">
+
+<!-- CURSOR -->
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<!-- SCANLINES -->
+<div class="scanlines"></div>
+
+<!-- GRAIN -->
+<div class="grain">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" seed="0"><animate attributeName="seed" from="0" to="100" dur="1.5s" repeatCount="indefinite"/></feTurbulence><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#gF)" opacity="0.5"/>
+  </svg>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="sp" id="sp"></div>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════
+     HERO — The Breathing Orb
+     ════════════════════════════════════════════════ -->
+<section class="hero" id="heroSection">
+  <div class="orb-container">
+    <div class="orb-glow" id="orbGlow"></div>
+    <div class="orb" id="orb"></div>
+  </div>
+  <p class="hero-label">Digital Immune System</p>
+  <p class="hero-state" id="heroState">Ciano — Il Respiro</p>
+  <div class="hero-scroll">
+    <span>Discover</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     STATEMENT
+     ════════════════════════════════════════════════ -->
+<section class="statement rv">
+  <h2>Open the app. See a color that <span>breathes.</span> Nothing else. If everything is fine, that's all you see.</h2>
+  <p>Nothingness as interface. Absence as communication. Touch the screen — the color reacts. Like touching the surface of water.</p>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     SEVEN STATES
+     ════════════════════════════════════════════════ -->
+<section class="states rv">
+  <p class="states-label">Seven Emotional States</p>
+  <div class="states-grid" id="statesGrid">
+
+    <div class="state-card" data-color="#0A0A0A" data-glow="#1A1A2E">
+      <div class="state-dot" style="background:#0A0A0A;border:1px solid rgba(232,228,223,.1);box-shadow:0 0 20px #1A1A2E"></div>
+      <div class="state-name">Pace</div>
+      <div class="state-meaning">Total silence</div>
+      <div class="state-bpm">4-6 BPM</div>
+      <div style="display:none">::before{background:#1A1A2E}</div>
+    </div>
+
+    <div class="state-card" data-color="#00D4AA" data-glow="#003D32">
+      <div class="state-dot" style="background:#00D4AA;box-shadow:0 0 20px #003D32"></div>
+      <div class="state-name">Calma</div>
+      <div class="state-meaning">Active monitoring</div>
+      <div class="state-bpm">8-12 BPM</div>
+    </div>
+
+    <div class="state-card" data-color="#1A237E" data-glow="#0D1342">
+      <div class="state-dot" style="background:#1A237E;box-shadow:0 0 20px #0D1342"></div>
+      <div class="state-name">Notte</div>
+      <div class="state-meaning">Night watch</div>
+      <div class="state-bpm">4-6 BPM</div>
+    </div>
+
+    <div class="state-card" data-color="#FF6D00" data-glow="#4A2000">
+      <div class="state-dot" style="background:#FF6D00;box-shadow:0 0 20px #4A2000"></div>
+      <div class="state-name">Fuoco</div>
+      <div class="state-meaning">Something found</div>
+      <div class="state-bpm">24-30 BPM</div>
+    </div>
+
+    <div class="state-card" data-color="#AA00FF" data-glow="#2A0044">
+      <div class="state-dot" style="background:#AA00FF;box-shadow:0 0 20px #2A0044"></div>
+      <div class="state-name">Intuizione</div>
+      <div class="state-meaning">Something's off</div>
+      <div class="state-bpm">16-20 BPM</div>
+    </div>
+
+    <div class="state-card" data-color="#FF1744" data-glow="#4A0011">
+      <div class="state-dot" style="background:#FF1744;box-shadow:0 0 20px #4A0011"></div>
+      <div class="state-name">Pericolo</div>
+      <div class="state-meaning">Real threat</div>
+      <div class="state-bpm">40-60 BPM</div>
+    </div>
+
+    <div class="state-card" data-color="#FFB300" data-glow="#4A3400">
+      <div class="state-dot" style="background:#FFB300;box-shadow:0 0 20px #4A3400"></div>
+      <div class="state-name">Calore</div>
+      <div class="state-meaning">Human connection</div>
+      <div class="state-bpm">8-14 BPM</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     LA SENTINELLA
+     ════════════════════════════════════════════════ -->
+<section class="sentinella rv">
+  <p class="sentinella-label">La Sentinella</p>
+  <h2>Four layers between you and <span>danger.</span></h2>
+  <p>BIF analyzes every email through a weighted multi-layer scoring system. Typosquatting detection. Language manipulation analysis. Structural forensics. Behavioral context. The Sentinel never sleeps.</p>
+
+  <div class="layers">
+    <div class="layer rv">
+      <div class="layer-label">
+        <span class="layer-num">Layer 01</span>
+        <div class="layer-name">Domain</div>
+      </div>
+      <div class="layer-content">
+        <p>Levenshtein distance for typosquatting (<code>p0ste.it</code> vs <code>poste.it</code>). Leet-speak normalization. Fresh domain detection. TLD analysis against known Italian banks, couriers, and institutions.</p>
+      </div>
+    </div>
+
+    <div class="layer rv">
+      <div class="layer-label">
+        <span class="layer-num">Layer 02</span>
+        <div class="layer-name">Language</div>
+      </div>
+      <div class="layer-content">
+        <p>Urgency patterns. Fear triggers. Authority impersonation. Isolation tactics. 20+ heuristic signals calibrated for Italian phishing — because scams speak your language.</p>
+      </div>
+    </div>
+
+    <div class="layer rv">
+      <div class="layer-label">
+        <span class="layer-num">Layer 03</span>
+        <div class="layer-name">Structure</div>
+      </div>
+      <div class="layer-content">
+        <p>Masked links. Suspicious attachments. Sender/content mismatch. Header forgery. The anatomy of deception, laid bare.</p>
+      </div>
+    </div>
+
+    <div class="layer rv">
+      <div class="layer-label">
+        <span class="layer-num">Layer 04</span>
+        <div class="layer-name">Context</div>
+      </div>
+      <div class="layer-content">
+        <p>Time-of-day patterns. Frequency anomalies. Behavioral fingerprint. BIF knows what's normal for you — so it knows when something isn't.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     PHILOSOPHY
+     ════════════════════════════════════════════════ -->
+<section class="philosophy">
+  <div class="philosophy-bg"></div>
+  <blockquote class="rv">
+    The best security doesn't shout. It <span>breathes.</span>
+    When you open BIF and see calm cyan, that calm is earned.
+    Every second of peace is a second BIF spent <span>watching</span> for you.
+  </blockquote>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-left">BIF &mdash; by <a href="index.html">Studio Starman</a> &mdash; Naples, 2026 &nbsp; <span class="sys-time" id="sysTime">SYS: --:--:--</span></div>
+  <div class="footer-right">
+    <a href="index.html">Studio</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="anima.html">ANIMA</a>
+    <a href="lab.html">Lab</a>
+  </div>
+</footer>
+
+
+<script src="cd-heartbeat.js"></script>
+<script src="cd-physics.js"></script>
+<script src="cd-core.js"></script>
+<script>
+(()=>{
+'use strict';
+
+// ── SCROLL PROGRESS ──
+const sp=document.getElementById('sp');
+if(sp){
+  window.addEventListener('scroll',()=>{
+    const p=scrollY/(document.documentElement.scrollHeight-innerHeight);
+    sp.style.height=(p*100)+'%';
+  });
+}
+
+// ── REVEAL ── (CDPhysics handles staggered reveals if loaded)
+if(!window.CDPhysics){
+  const rvEls=document.querySelectorAll('.rv');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+  },{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+  rvEls.forEach(el=>obs.observe(el));
+}
+
+// ── ORB — Now heartbeat-synced with SVG turbulence ──
+const orb=document.getElementById('orb');
+const orbGlow=document.getElementById('orbGlow');
+const heroState=document.getElementById('heroState');
+
+// Mark orb for turbulence filter (cd-physics.js auto-detects data-bif-orb)
+if(orb) orb.setAttribute('data-bif-orb','true');
+
+const states=[
+  {name:'Ciano — Il Respiro',color:'#00D4AA',glow:'#003D32',bpm:10,state:'calma'},
+  {name:'Nero — La Pace',color:'#0A0A0A',glow:'#1A1A2E',bpm:5,state:'pace'},
+  {name:'Blu — La Notte',color:'#1A237E',glow:'#0D1342',bpm:5,state:'notte'},
+  {name:'Viola — L\'Intuizione',color:'#AA00FF',glow:'#2A0044',bpm:18,state:'intuizione'},
+  {name:'Arancione — Il Fuoco',color:'#FF6D00',glow:'#4A2000',bpm:27,state:'fuoco'},
+  {name:'Rosso — Il Pericolo',color:'#FF1744',glow:'#4A0011',bpm:50,state:'pericolo'},
+  {name:'Ambra — Il Calore',color:'#FFB300',glow:'#4A3400',bpm:11,state:'calore'},
+];
+
+let si=0;
+let stateTimer=0;
+const stateDurations=[5,4,4,3,2.5,2,4]; // seconds per state
+
+if(window.CDHeartbeat){
+  // Heartbeat-driven orb: scale, color, glow all synced
+  CDHeartbeat.subscribe('bifPageOrb',(beat)=>{
+    if(!orb) return;
+
+    // Cycle through states on timer
+    stateTimer+=beat.dt;
+    if(stateTimer>stateDurations[si]){
+      stateTimer=0;
+      si=(si+1)%states.length;
+      const s=states[si];
+
+      // Update heartbeat engine state to match orb
+      CDHeartbeat.setState(s.state);
+
+      if(heroState){
+        heroState.textContent=s.name;
+        heroState.style.color=s.color==='#0A0A0A'?'var(--muted-s)':s.color;
+      }
+    }
+
+    const s=states[si];
+
+    // Breathing: scale driven by heartbeat phase, not CSS animation
+    orb.style.animation='none';
+    if(orbGlow) orbGlow.style.animation='none';
+
+    const scale=0.88+beat.phase*0.24; // larger range than artists page
+    orb.style.transform=`scale(${scale})`;
+    orb.style.backgroundColor=s.color;
+
+    // Glow intensity pulses with heartbeat
+    const glowSize=40+beat.pulse*40;
+    const glowOpacity=0.15+beat.pulse*0.2;
+    orb.style.boxShadow=`0 0 ${glowSize}px ${s.glow}`;
+
+    if(orbGlow){
+      orbGlow.style.backgroundColor=s.color;
+      orbGlow.style.transform=`scale(${0.95+beat.phase*0.1})`;
+      orbGlow.style.opacity=0.08+beat.pulse*0.08;
+    }
+
+    // Cursor color matches orb
+    const curEl=document.querySelector('.cur');
+    if(curEl) curEl.style.backgroundColor=s.color==='#0A0A0A'?'var(--white)':s.color;
+  });
+} else {
+  // Fallback: original CSS animation cycle
+  function cycleState(){
+    const s=states[si];
+    orb.style.backgroundColor=s.color;
+    orb.style.boxShadow=`0 0 60px ${s.glow}`;
+    if(orbGlow) orbGlow.style.backgroundColor=s.color;
+    if(heroState){
+      heroState.textContent=s.name;
+      heroState.style.color=s.color==='#0A0A0A'?'var(--muted-s)':s.color;
+    }
+    const cycleDur=(60/s.bpm)+'s';
+    orb.style.animationDuration=cycleDur;
+    if(orbGlow) orbGlow.style.animationDuration=cycleDur;
+    si=(si+1)%states.length;
+    setTimeout(cycleState,stateDurations[si]*1000);
+  }
+  cycleState();
+}
+
+// ── STATE CARDS INTERACTION ──
+document.querySelectorAll('.state-card').forEach(card=>{
+  card.addEventListener('mouseenter',()=>{
+    const c=card.dataset.color;
+    const g=card.dataset.glow;
+    const state=card.dataset.state;
+    if(c){
+      orb.style.backgroundColor=c;
+      orb.style.boxShadow=`0 0 60px ${g}`;
+      if(orbGlow) orbGlow.style.backgroundColor=c;
+      // Sync heartbeat to hovered state
+      if(state && window.CDHeartbeat) CDHeartbeat.setState(state);
+      // Boost heartbeat on hover
+      if(window.CDHeartbeat) CDHeartbeat.boost(0.4);
+    }
+  });
+});
+
+// ── SYS_TIME ──
+const sysTime=document.getElementById('sysTime');
+if(sysTime){
+  function updateSysTime(){
+    const now=new Date();
+    const h=String(now.getHours()).padStart(2,'0');
+    const m=String(now.getMinutes()).padStart(2,'0');
+    const s=String(now.getSeconds()).padStart(2,'0');
+    sysTime.textContent=`SYS: ${h}:${m}:${s}`;
+  }
+  updateSysTime();
+  setInterval(updateSysTime,1000);
+}
+
+})();
+</script>
+</body>
+</html>

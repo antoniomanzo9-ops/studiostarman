@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 4" width="100" height="4" preserveAspectRatio="none">
+  <!-- Base -->
+  <rect width="100" height="4" fill="#0a0a0a" />
+
+  <!-- Scanline: 1px line, 2px gap = 3px total, repeats -->
+  <line x1="0" y1="0" x2="100" y2="0" stroke="#1a1a1e" stroke-width="1" opacity="0.04" />
+  <!-- Gap at y="1-2" -->
+  <line x1="0" y1="3" x2="100" y2="3" stroke="#1a1a1e" stroke-width="1" opacity="0.04" />
+</svg>

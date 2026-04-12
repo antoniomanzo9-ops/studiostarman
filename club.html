@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Club — Studio Starman</title>
+  <meta name="description" content="Studio Starman è un club di decisione culturale. Usiamo arte, AI e segnali per progettare come persone e brand pensano, imparano e agiscono nel futuro.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cd-tokens.css">
+  <link rel="stylesheet" href="cd-components.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      color: #E8E4DF;
+      font-family: 'Space Mono', monospace;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO — risposta alla domanda silenziosa ── */
+    .cl-hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: clamp(100px, 12vw, 160px) clamp(28px, 6vw, 100px) clamp(60px, 8vh, 100px);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(232, 228, 223, .04);
+    }
+
+    .cl-hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .cl-hero-label {
+      font-size: 9px;
+      letter-spacing: .65em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .55);
+      margin-bottom: 32px;
+    }
+
+    .cl-hero-statement {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 6.5vw, 100px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: .9;
+      color: #E8E4DF;
+      max-width: 880px;
+      margin-bottom: 48px;
+    }
+
+    .cl-hero-def {
+      font-size: clamp(13px, 1.4vw, 17px);
+      line-height: 1.9;
+      color: rgba(232, 228, 223, .5);
+      letter-spacing: .04em;
+      max-width: 640px;
+      border-left: 2px solid rgba(168, 0, 0, .2);
+      padding-left: 24px;
+    }
+
+    .cl-hero-def strong {
+      color: #E8E4DF;
+      font-weight: 700;
+    }
+
+    /* Two doors row */
+    .cl-doors {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(232, 228, 223, .04);
+      margin-top: 80px;
+    }
+
+    .cl-door {
+      background: #000;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      transition: background .4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cl-door::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .cl-door--ceo::after  { background: rgba(168, 0, 0, .6); }
+    .cl-door--ind::after  { background: rgba(0, 212, 170, .5); }
+
+    .cl-door--ceo:hover { background: rgba(168, 0, 0, .03); }
+    .cl-door--ind:hover { background: rgba(0, 212, 170, .03); }
+
+    .cl-door:hover::after { transform: scaleX(1); }
+
+    .cl-door-left {}
+
+    .cl-door-tag {
+      font-size: 8px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .cl-door--ceo .cl-door-tag { color: rgba(168, 0, 0, .5); }
+    .cl-door--ind .cl-door-tag { color: rgba(0, 212, 170, .5); }
+
+    .cl-door-label {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2vw, 28px);
+      font-weight: 900;
+      font-style: italic;
+      color: #E8E4DF;
+    }
+
+    .cl-door-sub {
+      font-size: 10px;
+      color: rgba(232, 228, 223, .3);
+      letter-spacing: .08em;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .cl-door-arrow {
+      font-size: 24px;
+      color: rgba(232, 228, 223, .2);
+      transition: color .3s, transform .3s;
+      flex-shrink: 0;
+    }
+    .cl-door:hover .cl-door-arrow {
+      color: rgba(232, 228, 223, .7);
+      transform: translateX(6px);
+    }
+
+    /* ── WHAT IS THE CLUB ── */
+    .cl-what {
+      padding: clamp(100px, 14vw, 180px) clamp(28px, 6vw, 100px);
+    }
+
+    .cl-section-label {
+      font-size: 8px;
+      letter-spacing: .7em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .5);
+      margin-bottom: 64px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .cl-section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 80px;
+      height: 1px;
+      background: rgba(168, 0, 0, .2);
+    }
+
+    .cl-what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .cl-what-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 56px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.05;
+      color: #E8E4DF;
+    }
+
+    .cl-what-text {
+      font-size: 13px;
+      line-height: 2.1;
+      color: rgba(232, 228, 223, .55);
+      letter-spacing: .03em;
+    }
+    .cl-what-text p + p { margin-top: 24px; }
+    .cl-what-text em {
+      color: rgba(232, 228, 223, .85);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── 4 LEVELS ── */
+    .cl-levels {
+      padding: clamp(80px, 10vw, 140px) clamp(28px, 6vw, 100px);
+      border-top: 1px solid rgba(232, 228, 223, .04);
+    }
+
+    .cl-levels-header {
+      max-width: 560px;
+      margin-bottom: 80px;
+    }
+
+    .cl-levels-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 52px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.05;
+      color: #E8E4DF;
+      margin-top: 24px;
+    }
+
+    /* Level cards */
+    .cl-levels-list { display: grid; gap: 1px; background: rgba(232, 228, 223, .04); }
+
+    .cl-level {
+      background: #000;
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 40px;
+      align-items: center;
+      padding: 40px;
+      transition: background .3s ease;
+    }
+    .cl-level:hover { background: rgba(232, 228, 223, .015); }
+
+    .cl-level-num {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .cl-level-body {}
+
+    .cl-level-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 900;
+      font-style: italic;
+      color: #E8E4DF;
+      margin-bottom: 10px;
+    }
+
+    .cl-level-desc {
+      font-size: 11px;
+      line-height: 1.8;
+      color: rgba(232, 228, 223, .38);
+      letter-spacing: .02em;
+      max-width: 520px;
+    }
+
+    .cl-level-access {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .cl-level-access-type {
+      font-size: 8px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .cl-level-access-note {
+      font-size: 10px;
+      color: rgba(232, 228, 223, .25);
+    }
+
+    /* Level colors */
+    .cl-level-01 .cl-level-num { color: rgba(232, 228, 223, .06); }
+    .cl-level-01 .cl-level-access-type { color: rgba(0, 212, 170, .5); }
+
+    .cl-level-02 .cl-level-num { color: rgba(168, 0, 0, .12); }
+    .cl-level-02 .cl-level-access-type { color: rgba(168, 0, 0, .5); }
+    .cl-level-02 { background: rgba(168, 0, 0, .02); }
+
+    .cl-level-03 .cl-level-num { color: rgba(232, 228, 223, .06); }
+    .cl-level-03 .cl-level-access-type { color: rgba(232, 228, 223, .4); }
+
+    .cl-level-04 .cl-level-num { color: rgba(170, 0, 255, .08); }
+    .cl-level-04 .cl-level-access-type { color: rgba(170, 0, 255, .4); }
+
+    /* ── FOR BRAND / CEO SECTION ── */
+    .cl-ceo {
+      padding: clamp(100px, 14vw, 180px) clamp(28px, 6vw, 100px);
+      position: relative;
+    }
+
+    .cl-ceo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .cl-ceo-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 56px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.05;
+      color: #E8E4DF;
+      margin-top: 24px;
+    }
+
+    .cl-ceo-lead {
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(232, 228, 223, .5);
+      letter-spacing: .03em;
+      margin-top: 28px;
+    }
+
+    /* Problem → Process → Output */
+    .cl-process {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .cl-process-step {
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(232, 228, 223, .05);
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 24px;
+    }
+
+    .cl-process-step-tag {
+      font-size: 8px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .45);
+      padding-top: 3px;
+    }
+
+    .cl-process-step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-style: italic;
+      font-weight: 900;
+      color: #E8E4DF;
+      margin-bottom: 10px;
+    }
+
+    .cl-process-step-body {
+      font-size: 11px;
+      line-height: 1.85;
+      color: rgba(232, 228, 223, .4);
+      letter-spacing: .02em;
+    }
+
+    /* Deliverables */
+    .cl-deliverables {
+      margin-top: 44px;
+      background: rgba(168, 0, 0, .03);
+      border: 1px solid rgba(168, 0, 0, .1);
+      padding: 32px 36px;
+    }
+
+    .cl-deliverables-label {
+      font-size: 8px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .45);
+      margin-bottom: 24px;
+    }
+
+    .cl-deliverables-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cl-deliverable {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .cl-deliverable-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(168, 0, 0, .5);
+      margin-top: 7px;
+    }
+
+    .cl-deliverable-text {
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(232, 228, 223, .55);
+    }
+
+    .cl-price-note {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(232, 228, 223, .05);
+      font-size: 10px;
+      letter-spacing: .04em;
+      color: rgba(232, 228, 223, .25);
+      line-height: 1.8;
+    }
+
+    /* ── FOR INDIVIDUALS ── */
+    .cl-individual {
+      padding: clamp(80px, 10vw, 140px) clamp(28px, 6vw, 100px);
+      border-top: 1px solid rgba(232, 228, 223, .04);
+      background: radial-gradient(ellipse at 100% 50%, rgba(0, 212, 170, .03) 0%, transparent 60%);
+    }
+
+    .cl-individual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .cl-individual-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 56px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.05;
+      color: #E8E4DF;
+      margin-top: 24px;
+    }
+
+    .cl-individual-tag { color: rgba(0, 212, 170, .45) !important; }
+
+    .cl-individual-lead {
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(232, 228, 223, .5);
+      letter-spacing: .03em;
+      margin-top: 28px;
+    }
+    .cl-individual-lead em {
+      color: rgba(232, 228, 223, .85);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .cl-ind-process { display: flex; flex-direction: column; gap: 0; }
+
+    .cl-ind-step {
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(232, 228, 223, .04);
+    }
+
+    .cl-ind-step-num {
+      font-size: 8px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      color: rgba(0, 212, 170, .35);
+      margin-bottom: 12px;
+    }
+
+    .cl-ind-step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(15px, 1.6vw, 20px);
+      font-style: italic;
+      font-weight: 900;
+      color: #E8E4DF;
+      margin-bottom: 8px;
+    }
+
+    .cl-ind-step-body {
+      font-size: 11px;
+      line-height: 1.8;
+      color: rgba(232, 228, 223, .38);
+    }
+
+    .cl-ind-deliverables {
+      margin-top: 44px;
+      background: rgba(0, 212, 170, .02);
+      border: 1px solid rgba(0, 212, 170, .1);
+      padding: 32px 36px;
+    }
+
+    .cl-ind-del-label {
+      font-size: 8px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      color: rgba(0, 212, 170, .4);
+      margin-bottom: 24px;
+    }
+
+    /* ── PROOF — mostre finte come casi studio ── */
+    .cl-proof {
+      padding: clamp(80px, 10vw, 140px) clamp(28px, 6vw, 100px);
+      border-top: 1px solid rgba(232, 228, 223, .04);
+    }
+
+    .cl-proof-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 50px);
+      font-weight: 900;
+      font-style: italic;
+      color: #E8E4DF;
+      max-width: 560px;
+      line-height: 1.1;
+      margin: 24px 0 64px;
+    }
+
+    .cl-proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(232, 228, 223, .04);
+    }
+
+    .cl-proof-item {
+      background: #000;
+      padding: 40px;
+      transition: background .3s;
+    }
+    .cl-proof-item:hover { background: rgba(232, 228, 223, .015); }
+
+    .cl-proof-type {
+      font-size: 8px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .4);
+      margin-bottom: 20px;
+    }
+
+    .cl-proof-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-style: italic;
+      font-weight: 900;
+      color: #E8E4DF;
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .cl-proof-desc {
+      font-size: 11px;
+      line-height: 1.8;
+      color: rgba(232, 228, 223, .35);
+    }
+
+    .cl-proof-output {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(232, 228, 223, .04);
+      font-size: 9px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(0, 212, 170, .35);
+    }
+
+    /* ── CTA FINALE ── */
+    .cl-cta {
+      padding: clamp(100px, 14vw, 180px) clamp(28px, 6vw, 100px);
+      text-align: center;
+      border-top: 1px solid rgba(232, 228, 223, .04);
+      background: radial-gradient(ellipse at 50% 0%, rgba(168, 0, 0, .04) 0%, transparent 60%);
+    }
+
+    .cl-cta-eyebrow {
+      font-size: 9px;
+      letter-spacing: .65em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .45);
+      margin-bottom: 24px;
+    }
+
+    .cl-cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 72px);
+      font-weight: 900;
+      font-style: italic;
+      color: #E8E4DF;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .cl-cta-sub {
+      font-size: 12px;
+      color: rgba(232, 228, 223, .35);
+      letter-spacing: .06em;
+      line-height: 1.9;
+      max-width: 480px;
+      margin: 0 auto 56px;
+    }
+
+    .cl-cta-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cl-cta-link {
+      font-size: 9px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 40px;
+      border: 1px solid;
+      transition: background .3s, color .3s;
+    }
+
+    .cl-cta-link--primary {
+      border-color: rgba(168, 0, 0, .4);
+      color: rgba(168, 0, 0, .7);
+    }
+    .cl-cta-link--primary:hover {
+      background: rgba(168, 0, 0, .08);
+      color: #A80000;
+      border-color: rgba(168, 0, 0, .7);
+    }
+
+    .cl-cta-link--secondary {
+      border-color: rgba(232, 228, 223, .1);
+      color: rgba(232, 228, 223, .4);
+    }
+    .cl-cta-link--secondary:hover {
+      background: rgba(232, 228, 223, .03);
+      color: rgba(232, 228, 223, .7);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .cl-what-grid,
+      .cl-ceo-grid,
+      .cl-individual-grid { grid-template-columns: 1fr; gap: 48px; }
+      .cl-proof-grid { grid-template-columns: 1fr; }
+      .cl-level { grid-template-columns: 52px 1fr; gap: 24px; }
+      .cl-level-access { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .cl-doors { grid-template-columns: 1fr; }
+      .cl-process-step { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cur" id="cursor"></div>
+  <div class="cur-ring" id="cursor-ring"></div>
+
+  <div class="grain" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <filter id="grain-f">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain-f)" opacity="1"/>
+    </svg>
+  </div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="amb-line" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Navigazione principale">
+    <a href="index.html" class="nav-brand">Studio Starman</a>
+    <div class="nav-links">
+      <a href="studio.html">Studio</a>
+      <a href="club.html" aria-current="page">Club</a>
+      <a href="nouvelle-vague.html">Nouvelle Vague</a>
+      <a href="honey.html">Honey</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-curtain" aria-hidden="true"></div>
+
+  <!-- ── HERO ── -->
+  <section class="cl-hero" aria-label="Club di Decisione Culturale">
+    <div class="cl-hero-content">
+      <p class="cl-hero-label">Studio Starman — La risposta chiara</p>
+      <h1 class="cl-hero-statement">Un club di decisione<br>culturale.</h1>
+      <p class="cl-hero-def">
+        Usiamo <strong>arte, AI e segnali</strong> per progettare come persone e brand<br>
+        pensano, imparano e agiscono nel futuro.<br><br>
+        Non siamo un'agenzia. Non siamo un'academy.<br>
+        Siamo il luogo dove il tuo modo di pensare diventa un vantaggio competitivo<br>
+        replicabile — non solo una campagna o un contenuto.
+      </p>
+    </div>
+
+    <!-- Two doors -->
+    <div class="cl-doors" role="navigation" aria-label="Due percorsi">
+      <a href="#per-ceo" class="cl-door cl-door--ceo">
+        <div class="cl-door-left">
+          <span class="cl-door-tag">Per CEO / Brand</span>
+          <span class="cl-door-label">Decision Infrastructure</span>
+          <p class="cl-door-sub">Il tuo team è sommerso da segnali, tool, AI.<br>Non ha un modo coerente di decidere.</p>
+        </div>
+        <span class="cl-door-arrow" aria-hidden="true">↓</span>
+      </a>
+      <a href="#per-individui" class="cl-door cl-door--ind">
+        <div class="cl-door-left">
+          <span class="cl-door-tag">Per Individui / Creator</span>
+          <span class="cl-door-label">Personal Decision Lab</span>
+          <p class="cl-door-sub">Vuoi riprogettare il tuo modo di pensare,<br>creare e decidere — non solo i tuoi contenuti.</p>
+        </div>
+        <span class="cl-door-arrow" aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── WHAT IS THE CLUB ── -->
+  <section class="cl-what" aria-label="Cos'è il Club">
+    <p class="cl-section-label">Cos'è il Club</p>
+    <div class="cl-what-grid">
+      <h2 class="cl-what-title">Non vendi<br>un servizio.<br>Costruisce<br>un metodo.</h2>
+      <div class="cl-what-text">
+        <p>
+          Studio 54 non era solo una discoteca. Era un laboratorio culturale che ha educato il mondo a un nuovo modo di vivere la notte. <em>Studio Starman è un laboratorio culturale che educa a un nuovo modo di pensare con l'AI.</em>
+        </p>
+        <p>
+          Il Club funziona su quattro livelli. Il primo è pubblico — aperto a chiunque voglia capire come leggiamo il mondo. Il secondo è il club vero — su invito, dove dimostriamo vivo come si risolvono i problemi del futuro. Il terzo è il lavoro con brand e CEO. Il quarto è la libreria silenziosa — gli strumenti che un giorno diventeranno prodotto scalabile.
+        </p>
+        <p>
+          Quello che vedi sui social e nelle mostre non è marketing. <em>È il trailer di ciò che accade dentro.</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4 LEVELS ── -->
+  <section class="cl-levels" aria-label="I quattro livelli del Club">
+    <div class="cl-levels-header">
+      <p class="cl-section-label">L'architettura</p>
+      <h2 class="cl-levels-title">Quattro livelli.<br>Un sistema coerente.</h2>
+    </div>
+
+    <ol class="cl-levels-list">
+      <li class="cl-level cl-level-01">
+        <span class="cl-level-num">01</span>
+        <div class="cl-level-body">
+          <div class="cl-level-name">Segnali Pubblici</div>
+          <p class="cl-level-desc">Signals, social, mostre finte. Qui dimostriamo il nostro modo di leggere il mondo — prima che diventi mainstream. Funzione: educare e selezionare chi sente risonanza.</p>
+        </div>
+        <div class="cl-level-access">
+          <span class="cl-level-access-type">Aperto</span>
+          <span class="cl-level-access-note">gratuito</span>
+        </div>
+      </li>
+      <li class="cl-level cl-level-02">
+        <span class="cl-level-num">02</span>
+        <div class="cl-level-body">
+          <div class="cl-level-name">Club Nouvelle Vague</div>
+          <p class="cl-level-desc">Il prodotto centrale. Dentro il club: mostre finte come casi studio vivi, stanze tematiche (brand, prodotto, education, AI), rituali come Decision Rooms e Signal Reviews. Non intrattenimento — pratica.</p>
+        </div>
+        <div class="cl-level-access">
+          <span class="cl-level-access-type">Su invito</span>
+          <span class="cl-level-access-note">membership</span>
+        </div>
+      </li>
+      <li class="cl-level cl-level-03">
+        <span class="cl-level-num">03</span>
+        <div class="cl-level-body">
+          <div class="cl-level-name">Studio Interno</div>
+          <p class="cl-level-desc">Per CEO e brand: Decision Infrastructure Design — progettiamo il modo in cui la tua organizzazione prende decisioni su prodotto, marketing, cultura interna. Per privati high-end: percorsi di re-design del proprio sistema di pensiero.</p>
+        </div>
+        <div class="cl-level-access">
+          <span class="cl-level-access-type">High-ticket</span>
+          <span class="cl-level-access-note">su misura</span>
+        </div>
+      </li>
+      <li class="cl-level cl-level-04">
+        <span class="cl-level-num">04</span>
+        <div class="cl-level-body">
+          <div class="cl-level-name">Libreria Silenziosa</div>
+          <p class="cl-level-desc">Template, playbook, mappe mentali, toolkit. Non ancora pubblica — è ciò che cristallizza dal lavoro vivo dei primi tre livelli. Diventerà prodotto scalabile nel tempo.</p>
+        </div>
+        <div class="cl-level-access">
+          <span class="cl-level-access-type">In sviluppo</span>
+          <span class="cl-level-access-note">2026 →</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ── FOR CEO / BRAND ── -->
+  <section class="cl-ceo" id="per-ceo" aria-label="Per CEO e Brand">
+    <div class="cl-ceo-grid">
+      <div>
+        <p class="cl-section-label">Per CEO / Brand</p>
+        <h2 class="cl-ceo-title">Il tuo team<br>non ha un modo<br>di decidere.</h2>
+        <p class="cl-ceo-lead">
+          Non mancano i dati. Non mancano i tool. Non manca nemmeno l'AI. Manca un sistema coerente per trasformare segnali in azioni. Manca la Decision Room.
+        </p>
+      </div>
+      <div class="cl-process">
+
+        <div class="cl-process-step">
+          <span class="cl-process-step-tag">Il problema</span>
+          <div>
+            <div class="cl-process-step-title">"Siamo sommersi da segnali, trend, tool AI. Non abbiamo un modo coerente di scegliere."</div>
+            <p class="cl-process-step-body">Ogni decisione parte da un brief diverso, con criteri diversi, interpretati in modo diverso. L'AI amplifica il caos, non lo risolve. Il risultato: velocità alta, coerenza bassa.</p>
+          </div>
+        </div>
+
+        <div class="cl-process-step">
+          <span class="cl-process-step-tag">Il processo</span>
+          <div>
+            <div class="cl-process-step-title">6–8 settimane per costruire la vostra Decision Room</div>
+            <p class="cl-process-step-body">1 workshop di immersione. 3 sessioni di co-design con il team. Identifichiamo i rituali di decisione che funzionano, eliminiamo quelli che creano rumore, costruiamo un sistema replicabile.</p>
+          </div>
+        </div>
+
+        <div class="cl-process-step">
+          <span class="cl-process-step-tag">L'output</span>
+          <div>
+            <div class="cl-process-step-title">Un playbook operativo + un ciclo di follow-up</div>
+            <p class="cl-process-step-body">Non una presentazione da dimenticare. Un sistema che il team usa ogni settimana. Rituali di lettura dei segnali. Criteri di scelta documentati. Una Decision Room fisica o digitale.</p>
+          </div>
+        </div>
+
+        <div class="cl-deliverables">
+          <p class="cl-deliverables-label">Cosa ricevi</p>
+          <div class="cl-deliverables-list">
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot"></div>
+              <span class="cl-deliverable-text">1 workshop di immersione (full-day, on-site o remoto)</span>
+            </div>
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot"></div>
+              <span class="cl-deliverable-text">3 sessioni di co-design con il team strategico</span>
+            </div>
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot"></div>
+              <span class="cl-deliverable-text">Playbook Decision Infrastructure (formato operativo, non consultivo)</span>
+            </div>
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot"></div>
+              <span class="cl-deliverable-text">Accesso a Sibilla Signal Feed personalizzato per il tuo settore (3 mesi)</span>
+            </div>
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot"></div>
+              <span class="cl-deliverable-text">1 ciclo di follow-up a 30 giorni per calibrare il sistema</span>
+            </div>
+          </div>
+          <p class="cl-price-note">
+            Decision Infrastructure Design — a partire da €8.500<br>
+            Studio Partnership continuativo — €2.400/mese<br>
+            <br>
+            Questo non è un corso. Non è un audit. È un cambio permanente nel modo in cui la tua organizzazione decide.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOR INDIVIDUALS ── -->
+  <section class="cl-individual" id="per-individui" aria-label="Per Individui e Creator">
+    <div class="cl-individual-grid">
+      <div>
+        <p class="cl-section-label cl-individual-tag">Per Individui / Creator</p>
+        <h2 class="cl-individual-title">Non stai<br>comprando<br>contenuti.<br>Stai cambiando<br>come pensi.</h2>
+        <p class="cl-individual-lead">
+          Da consumatore di contenuti ad <em>architetto del proprio sistema di pensiero.</em> Il Personal Decision Lab è un percorso privato, intensivo, non replicabile. Una volta sola, con Antonio, per riprogettare come cerchi, come connetti, come decidi.
+        </p>
+      </div>
+      <div>
+        <div class="cl-ind-process">
+
+          <div class="cl-ind-step">
+            <div class="cl-ind-step-num">Sessione 01</div>
+            <div class="cl-ind-step-title">La mappa del tuo sistema attuale</div>
+            <p class="cl-ind-step-body">Come prendi decisioni oggi? Quali segnali ascolti? Dove perdi coerenza tra ciò che sai e ciò che fai? Diagnosi senza pietà.</p>
+          </div>
+
+          <div class="cl-ind-step">
+            <div class="cl-ind-step-num">Sessioni 02 – 04</div>
+            <div class="cl-ind-step-title">Co-design del tuo sistema nuovo</div>
+            <p class="cl-ind-step-body">Costruiamo insieme rituali di lettura dei segnali, criteri di scelta, un flusso di lavoro con l'AI che amplifica il tuo punto di vista — non lo sostituisce.</p>
+          </div>
+
+          <div class="cl-ind-step">
+            <div class="cl-ind-step-num">Sessione 05 – 06</div>
+            <div class="cl-ind-step-title">Test vivo + calibrazione</div>
+            <p class="cl-ind-step-body">Applichi il sistema su un progetto reale. Vediamo cosa funziona, cosa va modificato. Il sistema diventa tuo, non una metodologia da manuale.</p>
+          </div>
+
+        </div>
+
+        <div class="cl-ind-deliverables">
+          <p class="cl-ind-del-label">Cosa ricevi</p>
+          <div class="cl-deliverables-list">
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot" style="background: rgba(0,212,170,.5)"></div>
+              <span class="cl-deliverable-text">5–6 sessioni 1:1 con Antonio (90 minuti ciascuna)</span>
+            </div>
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot" style="background: rgba(0,212,170,.5)"></div>
+              <span class="cl-deliverable-text">Il tuo Personal Decision System documentato e pronto all'uso</span>
+            </div>
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot" style="background: rgba(0,212,170,.5)"></div>
+              <span class="cl-deliverable-text">Accesso al Club Nouvelle Vague per 6 mesi</span>
+            </div>
+            <div class="cl-deliverable">
+              <div class="cl-deliverable-dot" style="background: rgba(0,212,170,.5)"></div>
+              <span class="cl-deliverable-text">Sibilla Signal Feed per 3 mesi</span>
+            </div>
+          </div>
+          <p class="cl-price-note" style="color: rgba(0,212,170,.3)">
+            Personal Decision Lab — €1.800 (percorso completo 5–6 settimane)<br>
+            Accesso Club Nouvelle Vague — su invito, contatto diretto<br>
+            <br>
+            Massimo 4 percorsi attivi simultaneamente. Nessuna lista d'attesa pubblica.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROOF ── -->
+  <section class="cl-proof" aria-label="Il metodo in azione">
+    <p class="cl-section-label">Il metodo in azione</p>
+    <h2 class="cl-proof-title">Le mostre finte non sono eventi.<br>Sono casi studio vivi.</h2>
+    <div class="cl-proof-grid">
+      <article class="cl-proof-item">
+        <p class="cl-proof-type">Caso Studio — Aprile 2026</p>
+        <h3 class="cl-proof-name">Nouvelle Vague — Epiphany I</h3>
+        <p class="cl-proof-desc">Una serata costruita come un esperimento: nessun telefono, laser sull'acqua, musica selezionata da Pneuma in base ai segnali emotivi della stanza. Caso studio su come lo spazio fisico può diventare un sistema di decisione condivisa.</p>
+        <p class="cl-proof-output">Output: Decision Room Protocol v.1</p>
+      </article>
+      <article class="cl-proof-item">
+        <p class="cl-proof-type">Caso Studio — ongoing</p>
+        <h3 class="cl-proof-name">Sibilla Signal Feed — Week 15</h3>
+        <p class="cl-proof-desc">4 segnali pubblicati ogni settimana: fonte, pattern, interpretazione, scadenza, confidence. Non informazione — intelligenza applicata. Ogni segnale è una micro-decisione già presa per chi la legge.</p>
+        <p class="cl-proof-output">Output: Signal Intelligence Framework</p>
+      </article>
+      <article class="cl-proof-item">
+        <p class="cl-proof-type">Caso Studio — in development</p>
+        <h3 class="cl-proof-name">Partenope — Gallery Aprile 2026</h3>
+        <p class="cl-proof-desc">"Napoli è nata sul dolore di una donna che non è riuscita a vincere." Un'esperienza WebGL su mito, dolore e costruzione. Caso studio su come la narrazione culturale diventa leva di posizionamento emotivo per un brand.</p>
+        <p class="cl-proof-output">Output: Emotional Positioning Framework</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cl-cta" aria-label="Entra nel Club">
+    <p class="cl-cta-eyebrow">Prossimo passo</p>
+    <h2 class="cl-cta-title">Il club è aperto.<br>L'ingresso non è pubblico.</h2>
+    <p class="cl-cta-sub">
+      Non c'è un form di registrazione. Non c'è una landing page.<br>
+      C'è un indirizzo email. Il resto viene da sé.
+    </p>
+    <div class="cl-cta-links">
+      <a href="contact.html?type=ceo" class="cl-cta-link cl-cta-link--primary">Sono un CEO / Brand →</a>
+      <a href="contact.html?type=individual" class="cl-cta-link cl-cta-link--secondary">Sono un individuo →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cd-footer">
+    <div class="cd-footer-grid">
+      <div>
+        <h3>Studio Starman</h3>
+        <a href="studio.html">Lo Studio</a>
+        <a href="club.html" aria-current="page">Il Club</a>
+        <a href="world.html">Il Mondo</a>
+        <a href="method.html">Il Metodo</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h3>Nel Club</h3>
+        <a href="nouvelle-vague.html">Nouvelle Vague</a>
+        <a href="honey.html">Honey</a>
+        <a href="signals.html">Signal Feed</a>
+        <a href="collection.html">Collection</a>
+      </div>
+      <div>
+        <h3>Entrare</h3>
+        <a href="contact.html">hello@studiostarman.com</a>
+        <a href="contact.html?type=ceo">Per CEO / Brand</a>
+        <a href="contact.html?type=individual">Per Individui</a>
+      </div>
+    </div>
+    <div class="cd-footer-bottom">
+      <p>© 2026 Studio Starman. Decision Infrastructure Design.</p>
+      <p>Club di Decisione Culturale — <a href="world.html">Napoli, Anno I</a></p>
+    </div>
+  </footer>
+
+  <div class="bif-global" id="bif-orb" aria-hidden="true"></div>
+  <script src="cd-core.js"></script>
+</body>
+</html>

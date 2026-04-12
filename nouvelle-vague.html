@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nouvelle Vague — Studio Starman</title>
+<meta name="description" content="Un locale. Napoli. Aprile 2026.">
+<meta property="og:title" content="Nouvelle Vague — Studio Starman">
+<meta property="og:description" content="Un locale. Napoli. Aprile 2026.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/silver-faces-club.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nouvelle Vague — Studio Starman">
+<meta name="twitter:image" content="https://studiostarman.com/images/ourstudio/silver-faces-club.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+
+body {
+  background: #000;
+  color: #E8E4DF;
+  font-family: 'Space Mono', monospace;
+}
+
+/* ── HERO — full theater ── */
+.nv-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+}
+.nv-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: saturate(.72) contrast(1.15);
+}
+.nv-hero-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 40%, rgba(0,0,0,.7) 100%);
+}
+/* top-left: identity */
+.nv-hero-tl {
+  position: absolute;
+  top: clamp(100px,12vh,160px);
+  left: clamp(28px,5vw,80px);
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.5);
+}
+/* top-right: status */
+.nv-hero-tr {
+  position: absolute;
+  top: clamp(100px,12vh,160px);
+  right: clamp(28px,5vw,80px);
+  text-align: right;
+  font: 10px/1.8 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.35);
+}
+/* bottom-left: title */
+.nv-hero-bl {
+  position: absolute;
+  bottom: clamp(48px,8vh,100px);
+  left: clamp(28px,5vw,80px);
+}
+.nv-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: .88;
+  color: #E8E4DF;
+  letter-spacing: -.01em;
+  margin: 0;
+}
+/* bottom-right: tagline */
+.nv-hero-br {
+  position: absolute;
+  bottom: clamp(48px,8vh,100px);
+  right: clamp(28px,5vw,80px);
+  text-align: right;
+  max-width: 300px;
+}
+.nv-hero-br p {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-style: italic;
+  line-height: 1.4;
+  color: rgba(232,228,223,.7);
+}
+
+/* ── POOL SECTION — la notte vera ── */
+.nv-pool {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+}
+.nv-pool-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.85) contrast(1.1);
+}
+.nv-pool-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.2) 60%, transparent 100%);
+}
+.nv-pool-text {
+  position: absolute;
+  top: 50%;
+  left: clamp(28px,5vw,80px);
+  transform: translateY(-50%);
+  max-width: 480px;
+}
+.nv-pool-kicker {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.4);
+  margin-bottom: 28px;
+  display: block;
+}
+.nv-pool-statement {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.1;
+  color: #E8E4DF;
+  margin-bottom: 32px;
+}
+.nv-pool-sub {
+  font: 12px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.45);
+}
+
+/* ── PROSSIMA DATA — annuncio istituzionale ── */
+.nv-date {
+  padding: clamp(80px,12vh,140px) clamp(28px,5vw,80px);
+  background: #000;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 80px;
+  align-items: center;
+}
+.nv-date-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: .92;
+  color: #E8E4DF;
+}
+.nv-date-title span { color: #A80000; }
+.nv-date-info {
+  border-left: 1px solid rgba(232,228,223,.1);
+  padding-left: 48px;
+}
+.nv-date-row {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(232,228,223,.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+}
+.nv-date-row:last-child { border-bottom: none; }
+.nv-date-row dt {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.25);
+}
+.nv-date-row dd {
+  font: 13px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.8);
+  text-align: right;
+}
+
+/* ── COLLECTION — i capi ── */
+.nv-collection {
+  padding: clamp(60px,10vh,120px) clamp(28px,5vw,80px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.05);
+}
+.nv-coll-header {
+  margin-bottom: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.nv-coll-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  color: #E8E4DF;
+}
+.nv-coll-sub {
+  font: 11px/1.7 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+  max-width: 300px;
+  text-align: right;
+}
+.nv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+}
+.nv-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  display: block;
+  text-decoration: none;
+}
+.nv-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(.25) contrast(1.05);
+  transition: transform .7s cubic-bezier(.25,.46,.45,.94), filter .5s ease;
+  display: block;
+}
+.nv-item:hover img {
+  transform: scale(1.04);
+  filter: grayscale(0) contrast(1.05);
+}
+.nv-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.85) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+}
+.nv-item-name {
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #E8E4DF;
+  margin-bottom: 8px;
+}
+.nv-item-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #E8E4DF;
+}
+.nv-item-acquire {
+  position: absolute;
+  top: 20px; right: 20px;
+  font: 700 9px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #020202;
+  background: #E8E4DF;
+  padding: 8px 14px;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.nv-item:hover .nv-item-acquire { opacity: 1; }
+
+/* ── QUOTE — la voce del posto ── */
+.nv-quote {
+  position: relative;
+  min-height: 80svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.nv-quote-bg {
+  position: absolute;
+  inset: 0;
+  background: url("images/ourstudio/cityscape-signal.png") center/cover no-repeat;
+  filter: grayscale(.8) contrast(1.2);
+  opacity: .35;
+}
+.nv-quote-veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+}
+.nv-quote-inner {
+  position: relative;
+  padding: 80px clamp(28px,5vw,80px);
+  max-width: 900px;
+}
+.nv-quote-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 6vw, 5.5rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.05;
+  color: #E8E4DF;
+  margin-bottom: 40px;
+}
+.nv-quote-cite {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.3);
+}
+
+/* ── FOOTER ── */
+.nv-footer {
+  padding: 56px clamp(28px,5vw,80px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.nv-footer a, .nv-footer span {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.3);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nv-footer a:hover { color: #E8E4DF; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .nv-date { grid-template-columns: 1fr; }
+  .nv-date-info { border-left: none; padding-left: 0; border-top: 1px solid rgba(232,228,223,.1); padding-top: 40px; }
+  .nv-grid { grid-template-columns: 1fr; }
+  .nv-pool-veil { background: rgba(0,0,0,.65); }
+  .nv-hero-br { display: none; }
+}
+@media (max-width: 600px) {
+  .nv-hero-title { font-size: 4rem; }
+  .nv-coll-sub { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.45"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html" aria-current="page">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="nv-hero" aria-label="Nouvelle Vague">
+  <img class="nv-hero-img" src="images/ourstudio/silver-faces-club.png" alt="">
+  <div class="nv-hero-veil" aria-hidden="true"></div>
+
+  <p class="nv-hero-tl">Studio Starman — Napoli</p>
+
+  <div class="nv-hero-tr" aria-hidden="true">
+    <p>Aprile 2026</p>
+    <p>Epiphany I</p>
+  </div>
+
+  <div class="nv-hero-bl">
+    <h1 class="nv-hero-title">
+      Nouvelle<br>Vague
+    </h1>
+  </div>
+
+  <div class="nv-hero-br">
+    <p>La porta si aprì tardi.<br>Dentro, l'argento sui volti<br>sembrava ricordare cose<br>che nessuno aveva ancora vissuto.</p>
+  </div>
+</section>
+
+<!-- ── POOL PARTY — la notte vera ── -->
+<section class="nv-pool" aria-label="La notte">
+  <img class="nv-pool-img" src="images/ourstudio/pool-party-nv.png" alt="Nouvelle Vague — pool party indoor">
+  <div class="nv-pool-veil" aria-hidden="true"></div>
+  <div class="nv-pool-text">
+    <span class="nv-pool-kicker">La sera — Epiphany I</span>
+    <p class="nv-pool-statement">
+      Una piscina al chiuso.<br>
+      Laser sull'acqua.<br>
+      Nessuno aveva il telefono.
+    </p>
+    <p class="nv-pool-sub">
+      Nouvelle Vague non è una serata. È una soglia.<br>
+      Si entra diversi. Si esce cambiati.
+    </p>
+  </div>
+</section>
+
+<!-- ── DATA ── -->
+<section class="nv-date" aria-label="Prossima data">
+  <h2 class="nv-date-title">
+    La<br>prossima<br><span>notte.</span>
+  </h2>
+  <dl class="nv-date-info">
+    <div class="nv-date-row">
+      <dt>Dove</dt>
+      <dd>Pozzuoli / Area Flegrea</dd>
+    </div>
+    <div class="nv-date-row">
+      <dt>Quando</dt>
+      <dd>Coming — Anno I</dd>
+    </div>
+    <div class="nv-date-row">
+      <dt>Accesso</dt>
+      <dd>Privato — su invito</dd>
+    </div>
+    <div class="nv-date-row">
+      <dt>Info</dt>
+      <dd>hello@studiostarman.com</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ── COLLECTION ── -->
+<section class="nv-collection" aria-label="Collection 01">
+  <div class="nv-coll-header">
+    <h2 class="nv-coll-title">Collection 01</h2>
+    <p class="nv-coll-sub">Capi trovati nella luce sbagliata. Ogni pezzo sa già chi lo indosserà.</p>
+  </div>
+  <div class="nv-grid">
+    <a class="nv-item" href="collection.html">
+      <img src="images/ourstudio/partenope-submerged.png" alt="SUIT / DEPTH-01" loading="lazy">
+      <div class="nv-item-overlay">
+        <p class="nv-item-name">SUIT / DEPTH-01</p>
+        <p class="nv-item-price">€280</p>
+      </div>
+      <span class="nv-item-acquire">Acquire</span>
+    </a>
+    <a class="nv-item" href="collection.html">
+      <img src="images/ourstudio/cityscape-signal.png" alt="JACKET / SIGNAL" loading="lazy">
+      <div class="nv-item-overlay">
+        <p class="nv-item-name">JACKET / SIGNAL</p>
+        <p class="nv-item-price">€195</p>
+      </div>
+      <span class="nv-item-acquire">Acquire</span>
+    </a>
+    <a class="nv-item" href="collection.html">
+      <img src="images/ourstudio/backstage-mirror.png" alt="LAYER / MIRROR" loading="lazy">
+      <div class="nv-item-overlay">
+        <p class="nv-item-name">LAYER / MIRROR</p>
+        <p class="nv-item-price">€145</p>
+      </div>
+      <span class="nv-item-acquire">Acquire</span>
+    </a>
+    <a class="nv-item" href="collection.html">
+      <img src="images/ourstudio/silver-faces-club.png" alt="MASK / ARGENTO" loading="lazy">
+      <div class="nv-item-overlay">
+        <p class="nv-item-name">MASK / ARGENTO</p>
+        <p class="nv-item-price">€90</p>
+      </div>
+      <span class="nv-item-acquire">Acquire</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── QUOTE ── -->
+<section class="nv-quote" aria-label="Archivio">
+  <div class="nv-quote-bg" aria-hidden="true"></div>
+  <div class="nv-quote-veil" aria-hidden="true"></div>
+  <div class="nv-quote-inner">
+    <p class="nv-quote-text">
+      L'ambiente del 2050<br>
+      non cambierà forma.<br>
+      Cambierà significato.
+    </p>
+    <p class="nv-quote-cite">— archivio, aprile 2026</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="nv-footer">
+  <a href="/">Ritorno allo studio</a>
+  <span>Nouvelle Vague — parte di Epiphany I</span>
+  <a href="contact.html">hello@studiostarman.com</a>
+</footer>
+
+<script src="cd-core.js"></script>
+</body>
+</html>

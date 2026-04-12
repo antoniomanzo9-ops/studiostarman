@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CREATIVE DISASTER — April: Partenope</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&display=swap');
+
+:root {
+  --black: #020202;
+  --white: #E8E4DF;
+  --red: #A80000;
+  --muted: rgba(232,228,223,0.35);
+  --muted-s: rgba(232,228,223,0.55);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+::selection{background:var(--red);color:var(--black)}
+html{overflow-x:hidden;cursor:none}
+body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── CURSOR ── */
+.cur{position:fixed;width:10px;height:10px;background:var(--red);border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1)}
+.cur.big{width:60px;height:60px;background:rgba(168,0,0,.35)}
+.cur-ring{position:fixed;width:40px;height:40px;border:1px solid var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:.2}
+
+/* ── GRAIN (SVG feTurbulence) ── */
+.grain{position:fixed;inset:0;width:100%;height:100%;z-index:9000;pointer-events:none;opacity:.04}
+.grain svg{width:100%;height:100%}
+
+/* ── AMBIENT VERTICAL LINE ── */
+.amb-line{position:fixed;left:50%;top:0;width:1px;height:100vh;z-index:100;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,var(--red) 30%,var(--red) 70%,transparent 100%);opacity:.04}
+
+/* ── PRELOADER ── */
+.pre{position:fixed;inset:0;background:var(--black);z-index:9500;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px}
+.pre.done{pointer-events:none}
+.pre-t{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;font-style:italic;color:var(--white)}
+.pre-m{font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--red)}
+.pre-bar{width:160px;height:1px;background:rgba(232,228,223,.06)}
+.pre-fill{height:100%;width:0%;background:var(--red)}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
+.nav-b{font-family:'Playfair Display',serif;font-size:12px;font-weight:900;font-style:italic;letter-spacing:.12em;color:var(--white);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.nav-r,.nav-vague{font-size:10px;letter-spacing:0;text-transform:uppercase;color:var(--muted);transition:opacity .3s}
+.nav-vague{text-decoration:none}
+.nav-vague:hover{color:var(--white)}
+
+/* ── SCROLL PROGRESS ── */
+.sp{position:fixed;left:0;top:0;width:2px;height:0%;background:var(--red);z-index:9100}
+
+/* ── PROGRESS DOTS ── */
+.dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:8px;mix-blend-mode:difference}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(232,228,223,.15);transition:all .5s cubic-bezier(.16,1,.3,1);cursor:pointer}
+.dot.on{background:var(--red);transform:scale(2)}
+
+/* ══════════════════════════════════════════
+   SECTIONS
+   ══════════════════════════════════════════ */
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 32px;position:relative}
+.hero-t{font-size:clamp(3.5rem,12vw,11rem);font-weight:700;line-height:.82;text-transform:uppercase;letter-spacing:-.03em;text-align:center;position:relative}
+.hero-t .c{display:inline-block;opacity:0;transform:translateY(100%) rotateX(90deg);transform-origin:bottom center}
+.hero-t .r{color:var(--red)}
+.hero-sub{font-size:clamp(.6rem,.9vw,.75rem);letter-spacing:.5em;text-transform:uppercase;color:var(--muted);margin-top:48px;opacity:0;max-width:500px;text-align:center;line-height:1.8}
+.hero-gallery{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);text-align:center;opacity:0}
+.hero-gallery p{font-family:'Space Mono',monospace;font-size:clamp(.65rem,.9vw,.8rem);color:var(--muted);letter-spacing:.2em;text-transform:uppercase}
+
+/* ── GLITCH ── */
+.glitch{position:relative}
+.glitch.active::before,
+.glitch.active::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;opacity:.8}
+.glitch.active::before{color:var(--red);clip-path:polygon(0 0,100% 0,100% 33%,0 33%);transform:translate(-3px,-2px);animation:g1 .15s linear 2}
+.glitch.active::after{color:var(--white);clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%);transform:translate(3px,2px);animation:g2 .15s linear 2}
+@keyframes g1{0%{transform:translate(-3px,-2px)}25%{transform:translate(3px,1px)}50%{transform:translate(-2px,3px)}75%{transform:translate(2px,-3px)}100%{transform:translate(-3px,-2px)}}
+@keyframes g2{0%{transform:translate(3px,2px)}25%{transform:translate(-3px,-1px)}50%{transform:translate(2px,-3px)}75%{transform:translate(-2px,3px)}100%{transform:translate(3px,2px)}}
+
+/* ── FULL BLEED IMAGE ── */
+.bleed{position:relative;width:100%;overflow:hidden}
+.bleed img{width:100%;height:100%;object-fit:cover;display:block}
+.bleed-tall{min-height:90vh}
+.bleed-tall img{position:absolute;inset:0}
+
+/* ── SCANLINES on image sections ── */
+.bleed::after,
+.webgl-wrap::after,
+.split-img::after,
+.dual::after{
+  content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);
+  mix-blend-mode:multiply
+}
+
+/* ── TEXT SECTION ── */
+.txt{padding:100px 32px;display:flex;align-items:center;justify-content:center;min-height:50vh}
+.txt-inner{max-width:600px;text-align:center}
+.txt-inner h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;font-style:italic;line-height:1.05;margin-bottom:20px}
+.txt-inner h2 span{color:var(--red)}
+.txt-inner p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted);line-height:1.7}
+
+/* ── SPLIT GRID ── */
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
+.split-img{position:relative;overflow:hidden}
+.split-img img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05)}
+.split-text{display:flex;align-items:center;justify-content:center;padding:64px}
+.split-text-inner{max-width:420px}
+.split-text-inner h3{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;font-style:italic;line-height:1.05;margin-bottom:16px}
+.split-text-inner h3 span{color:var(--red)}
+.split-text-inner p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted);line-height:1.7}
+
+/* ── DUAL IMAGE ── */
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:4px;position:relative}
+.dual img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── DARK FIGURES (full bleed with fog) ── */
+.fog-wrap{position:relative;width:100%;min-height:90vh;overflow:hidden}
+.fog-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.fog-wrap::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 30%,var(--black) 85%)}
+.fog-wrap::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);
+  mix-blend-mode:multiply}
+.fog-quote{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:32px}
+.fog-quote blockquote{font-family:'Playfair Display',serif;font-size:clamp(1rem,1.8vw,1.4rem);font-weight:900;font-style:italic;text-align:center;color:var(--white);max-width:400px;line-height:1.5;opacity:.9}
+.fog-quote blockquote span{color:var(--red)}
+
+/* ── HORIZONTAL SCROLL (VANITY) ── */
+.hscroll{position:relative;overflow:hidden}
+.hscroll-bg{position:absolute;inset:0;z-index:0}
+.hscroll-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.12);opacity:.6}
+.hscroll-track{display:flex;align-items:center;height:100vh;position:relative;z-index:2}
+.hscroll-inner{display:flex;align-items:center;gap:clamp(60px,10vw,160px);padding:0 10vw;white-space:nowrap}
+.hscroll-phrase{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,2.4rem);font-weight:900;font-style:italic;color:var(--muted);flex-shrink:0;opacity:0}
+.hscroll-big{font-size:clamp(4rem,14vw,12rem);font-weight:700;font-family:'Space Mono',monospace;color:var(--red);text-transform:uppercase;letter-spacing:-.04em;flex-shrink:0;opacity:0}
+
+/* ── EGG ── */
+.egg-section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px;position:relative}
+.egg-wrap{position:relative;display:flex;align-items:center;justify-content:center;max-width:600px;width:90%}
+.egg-wrap img{width:100%;display:block;opacity:0;transform:scale(.92);transition:opacity 1.8s cubic-bezier(.16,1,.3,1),transform 1.8s cubic-bezier(.16,1,.3,1)}
+.egg-wrap.visible img{opacity:1;transform:scale(1)}
+.egg-wrap::after{content:'';position:absolute;inset:-20%;border-radius:50%;z-index:-1;
+  background:radial-gradient(ellipse at center,rgba(168,0,0,.15) 0%,transparent 60%);
+  opacity:0;transition:opacity 1.5s ease;
+  animation:none}
+.egg-wrap.visible::after{opacity:1;animation:eggGlow 4s ease-in-out infinite}
+@keyframes eggGlow{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.05);opacity:1}}
+.egg-text{max-width:500px;text-align:center;margin-top:48px;opacity:0}
+.egg-text p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted);line-height:1.7}
+.egg-text p + p{margin-top:12px}
+
+/* ── REVELATION ── */
+.reveal{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 32px;position:relative;overflow:hidden}
+.reveal-bg{position:absolute;inset:0;z-index:0}
+.reveal-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.7) brightness(.18);display:block}
+.reveal-bg::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,transparent 20%,var(--black) 75%)}
+.reveal-content{position:relative;z-index:2;text-align:center}
+.reveal-1{font-size:clamp(1rem,2vw,1.6rem);text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin-bottom:24px;opacity:0;filter:blur(10px);transform:scale(.9)}
+.reveal-2{font-size:clamp(3.5rem,12vw,10rem);font-weight:700;text-transform:uppercase;line-height:.82;letter-spacing:-.03em;text-align:center;opacity:0;transform:translateY(60px) scale(.9);filter:blur(20px)}
+.reveal-2 span{color:var(--red)}
+
+/* ── CODA ── */
+.coda{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:80px 32px;position:relative;overflow:hidden}
+.coda-bg{position:absolute;inset:0;z-index:0}
+.coda-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.1);display:block}
+.coda-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px}
+.coda-l{font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--muted);opacity:0}
+.coda-l a{color:var(--red);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
+.coda-l a:hover{border-color:var(--red)}
+.coda-end{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--muted-s);margin-top:24px;text-align:center;max-width:380px;line-height:1.5;opacity:0}
+
+/* ── GALLERY LABEL ── */
+.gl{position:absolute;bottom:32px;left:32px;z-index:50;max-width:280px;opacity:0}
+.gl-n{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.gl-t{font-family:'Playfair Display',serif;font-size:clamp(.85rem,1.2vw,1.05rem);font-weight:900;font-style:italic;color:var(--white);margin-bottom:4px}
+.gl-c{font-size:10px;color:var(--muted);line-height:1.4}
+.gl-line{width:30px;height:1px;background:var(--red);opacity:.3;margin:8px 0}
+.gl-y{font-size:8px;letter-spacing:.3em;color:var(--muted);margin-top:4px}
+
+/* ── CANVAS (WebGL) ── */
+.webgl-wrap{position:relative;width:100%;min-height:90vh;overflow:hidden}
+.webgl-wrap canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* ── CRT / VISUAL DNA ── */
+.scanlines-g{position:fixed;inset:0;z-index:8999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);mix-blend-mode:multiply}
+.hero-t{text-shadow:-1.5px 0 rgba(168,0,0,.12),1.5px 0 rgba(0,255,65,.08)}
+.txt-inner h2{text-shadow:-1px 0 rgba(168,0,0,.1),1px 0 rgba(0,255,65,.06)}
+.split-text-inner h3{text-shadow:-1px 0 rgba(168,0,0,.08),1px 0 rgba(0,255,65,.05)}
+.reveal-2{text-shadow:-2px 0 rgba(168,0,0,.15),2px 0 rgba(0,255,65,.1)}
+.fog-quote blockquote{text-shadow:-1px 0 rgba(168,0,0,.1),1px 0 rgba(0,255,65,.06)}
+.sp{box-shadow:0 0 6px rgba(0,255,65,.2)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:var(--red)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .split{grid-template-columns:1fr}
+  .split-text{padding:40px 24px;min-height:40vh}
+  .split.reverse-m{direction:ltr}
+  .split.reverse-m .split-img{order:1}
+  .split.reverse-m .split-text{order:2}
+  .dual{grid-template-columns:1fr;gap:2px}
+  .dots{display:none}
+  .nav{padding:14px 20px}
+  .gl{bottom:16px;left:16px}
+  .fog-wrap{min-height:70vh}
+  .hscroll-big{font-size:clamp(3rem,10vw,6rem)}
+  .amb-line{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<!-- SCANLINES — global CRT decay -->
+<div class="scanlines-g"></div>
+
+<!-- GRAIN (SVG feTurbulence, animated) -->
+<div class="grain" id="grain">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <filter id="grainF">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" seed="0">
+        <animate attributeName="seed" from="0" to="100" dur="1.5s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grainF)" opacity="0.5"/>
+  </svg>
+</div>
+
+<!-- AMBIENT VERTICAL LINE -->
+<div class="amb-line"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="sp" id="sp"></div>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- DOTS -->
+<div class="dots" id="dots"></div>
+
+<!-- PRELOADER -->
+<div class="pre" id="pre">
+  <div class="pre-t">Studio Starman</div>
+  <div class="pre-m">April 2026 — Partenope</div>
+  <div class="pre-bar"><div class="pre-fill" id="pf"></div></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     1. ENTRANCE — AM I ULYSSES?
+     ═══════════════════════════════════════════════ -->
+<section class="hero" data-s="Entrance">
+  <h1 class="hero-t glitch" id="ht" data-text="AM I ULYSSES?">
+    <span class="c">A</span><span class="c">M</span>&nbsp;<span class="c r">I</span><br>
+    <span class="c">U</span><span class="c">L</span><span class="c">Y</span><span class="c">S</span><span class="c">S</span><span class="c">E</span><span class="c">S</span><span class="c r">?</span>
+  </h1>
+  <p class="hero-sub" id="hsub">A city born on the pain of a woman who could not win</p>
+  <div class="hero-gallery" id="hg">
+    <p>This is not a website. This is a gallery.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     2. THE SONG — partenope-reaching (WebGL)
+     ═══════════════════════════════════════════════ -->
+<section class="webgl-wrap" data-s="I — The Song">
+  <canvas id="c01"></canvas>
+  <div class="gl" id="gl01">
+    <div class="gl-n">Opera I</div>
+    <div class="gl-t">The Song</div>
+    <div class="gl-line"></div>
+    <div class="gl-c">She sang not to seduce but to exist.</div>
+    <div class="gl-y">2026</div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     3. THE WATER — water-text (full bleed, no overlay)
+     ═══════════════════════════════════════════════ -->
+<section class="bleed bleed-tall" data-s="II — The Water">
+  <img src="images/water-text.jpg" alt="The water makes them slow — submerged text dissolving beneath the surface" width="834" height="461" loading="lazy" id="img02">
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     4. TEXT BREAK
+     ═══════════════════════════════════════════════ -->
+<section class="txt" data-s>
+  <div class="txt-inner" id="txt01">
+    <h2>She didn't throw herself into the sea because he <span>escaped.</span></h2>
+    <p>She died because he didn't look. Not tragedy. Wounded vanity.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     5. THE GAZE — audience-glass (split)
+     ═══════════════════════════════════════════════ -->
+<section class="split" data-s="III — The Gaze">
+  <div class="split-img">
+    <img src="images/audience-glass.png" alt="The gaze — an audience seen through frosted glass, watching and being watched" width="2000" height="1125" loading="lazy" id="img03">
+  </div>
+  <div class="split-text">
+    <div class="split-text-inner" id="st01">
+      <h3>Who is <span>watching</span> whom?</h3>
+      <p>The glass between seeing and being seen is thinner than you think.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     6. THE WITNESSES — dark-figures (fog)
+     ═══════════════════════════════════════════════ -->
+<section class="fog-wrap" data-s="IV — The Witnesses">
+  <img src="images/dark-figures.png" alt="The witnesses — dark silhouettes emerging from fog, observing in silence" width="2000" height="1125" loading="lazy" id="img04">
+  <div class="fog-quote" id="fq01">
+    <blockquote>A siren who dies<br>not from <span>rejection</span><br>but from being ignored.</blockquote>
+  </div>
+  <div class="gl" id="gl04">
+    <div class="gl-n">Opera IV</div>
+    <div class="gl-t">The Witnesses</div>
+    <div class="gl-line"></div>
+    <div class="gl-c">Every myth needs witnesses. Every audience needs a victim.</div>
+    <div class="gl-y">2026</div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     7. THE BODY BECOMES THE LAND — dual (no text)
+     ═══════════════════════════════════════════════ -->
+<section class="dual" data-s="V — The Body Becomes the Land">
+  <div>
+    <img src="images/volcano-brand.jpg" alt="Studio Starman — volcanic terrain branded with fire and pressure" width="842" height="465" loading="lazy" id="img05a">
+  </div>
+  <div>
+    <img src="images/volcano-text.jpg" alt="The mountain will do what it wants — Solfatara steam rising over scorched earth" width="826" height="449" loading="lazy" id="img05b">
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     8. VANITY — horizontal scroll
+     ═══════════════════════════════════════════════ -->
+<section class="hscroll" data-s="VI — Vanity">
+  <div class="hscroll-bg">
+    <img src="images/ornate-room.png" alt="An ornate Neapolitan room — gilded decay, baroque excess turned inward" width="2000" height="1125" loading="lazy">
+  </div>
+  <div class="hscroll-track" id="hscrollTrack">
+    <div class="hscroll-inner" id="hscrollInner">
+      <span class="hscroll-phrase">She built palaces from pain.</span>
+      <span class="hscroll-phrase">Gilded every wound.</span>
+      <span class="hscroll-phrase">Called it beauty.</span>
+      <span class="hscroll-phrase">Called it culture.</span>
+      <span class="hscroll-phrase">Called it survival.</span>
+      <span class="hscroll-big">ARE YOU LOOKING AT ME?</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     9. THE CITY — naples-aerial (split)
+     ═══════════════════════════════════════════════ -->
+<section class="split" data-s="VII — The City">
+  <div class="split-text">
+    <div class="split-text-inner" id="st03">
+      <h3>Her body became <span>the city.</span></h3>
+      <p>Every building a scar. Every street a nerve ending.</p>
+    </div>
+  </div>
+  <div class="split-img">
+    <img src="images/naples-aerial.png" alt="Naples from above — the city sprawling across the bay, body becoming geography" width="2000" height="1125" loading="lazy" id="img07">
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     10. TEXT BREAK
+     ═══════════════════════════════════════════════ -->
+<section class="txt" data-s>
+  <div class="txt-inner" id="txt02">
+    <h2>Every palazzo, every song, every gesture is Partenope still asking the same <span>question.</span></h2>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     11. THE EGG — golden-egg-dark (breathing)
+     ═══════════════════════════════════════════════ -->
+<section class="egg-section" data-s="VIII — The Egg">
+  <div class="egg-wrap" id="eggWrap">
+    <img src="images/golden-egg-dark.jpg" alt="The golden egg — Virgil's egg beneath Castel dell'Ovo, glowing in darkness" width="2000" height="1125" loading="lazy">
+  </div>
+  <div class="egg-text" id="eggText">
+    <p>Beneath Castel dell'Ovo, Virgil placed an egg.</p>
+    <p>Not a miracle. An awareness. The moment you realize you can choose.</p>
+    <p>Partenope died wanting to be seen. The egg doesn't need to be seen. It holds.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     12. REVELATION — egg-in-waves bg
+     ═══════════════════════════════════════════════ -->
+<section class="reveal" data-s="Revelation">
+  <div class="reveal-bg">
+    <img src="images/egg-in-waves.jpg" alt="The egg carried by waves — revelation rising from the Tyrrhenian Sea" width="2000" height="1125" loading="lazy">
+  </div>
+  <div class="reveal-content">
+    <p class="reveal-1" id="rv1">You are not Ulysses.</p>
+    <h2 class="reveal-2" id="rv2">YOU ARE<br>THE <span>EGG.</span></h2>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     13. THE IMPOSSIBLE CITY — city-sphere
+     ═══════════════════════════════════════════════ -->
+<section class="bleed bleed-tall" data-s="IX — The Impossible City">
+  <img src="images/city-sphere.png" alt="The impossible city — Naples folded into a sphere, gravity suspended" width="2000" height="1125" loading="lazy" id="img10">
+  <div class="gl" id="gl10">
+    <div class="gl-n">Opera IX</div>
+    <div class="gl-t">The Impossible City</div>
+    <div class="gl-line"></div>
+    <div class="gl-c">A city that shouldn't exist, floating above its own impossibility.</div>
+    <div class="gl-y">2026</div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     14. CODA
+     ═══════════════════════════════════════════════ -->
+<section class="coda" data-s="Coda">
+  <div class="coda-bg">
+    <img src="images/naples-aerial.png" alt="Naples from above — the coda, a wound that learned to sing" width="2000" height="1125" loading="lazy">
+  </div>
+  <div class="coda-content">
+    <p class="coda-l">Studio Starman — April 2026</p>
+    <p class="coda-l">Concept & Direction — Antonio Lazzaro</p>
+    <p class="coda-l"><a href="https://studiostarman.com" target="_blank">studiostarman.com</a></p>
+    <p class="coda-end" id="codaEnd">Naples is not a place.<br>It's a wound that learned to sing.</p>
+  </div>
+</section>
+
+
+<!-- LIBS -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+(()=>{
+'use strict';
+
+// ── LENIS ──
+const lenis = new Lenis({ duration:1.5, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));
+gsap.ticker.lagSmoothing(0);
+(function r(t){lenis.raf(t);requestAnimationFrame(r)})(0);
+
+let mx=innerWidth/2, my=innerHeight/2, smx=mx, smy=my;
+
+// ── PRELOADER ──
+const pre=document.getElementById('pre'), pf=document.getElementById('pf');
+let lp=0;
+(function t(){lp+=(100-lp)*.02;pf.style.width=lp+'%';if(lp<99)requestAnimationFrame(t)})();
+window.addEventListener('load',()=>{
+  lp=100;pf.style.width='100%';
+  setTimeout(()=>{
+    gsap.to(pre,{opacity:0,duration:1.2,ease:'power2.inOut',onComplete:()=>{
+      pre.classList.add('done');pre.style.display='none';go();
+    }});
+  },500);
+});
+
+// ── CURSOR ──
+const cur=document.getElementById('cur'), ring=document.getElementById('ring');
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function ac(){
+  smx+=(mx-smx)*.1; smy+=(my-smy)*.1;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+  ring.style.left=smx+'px'; ring.style.top=smy+'px';
+  requestAnimationFrame(ac);
+})();
+// Expand cursor on links and interactive elements
+function bindCursorHover(){
+  document.querySelectorAll('a,.dot,.nav-b').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+    el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+  });
+}
+bindCursorHover();
+
+// ── MAGNETIC NAV LOGO ──
+const navB=document.getElementById('navB');
+navB.addEventListener('mousemove',e=>{
+  const r=navB.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  const dx=(e.clientX-cx)*0.25, dy=(e.clientY-cy)*0.25;
+  navB.style.transform=`translate(${dx}px,${dy}px)`;
+});
+navB.addEventListener('mouseleave',()=>{
+  navB.style.transform='translate(0,0)';
+});
+
+// ── SCROLL PROGRESS ──
+const sp=document.getElementById('sp');
+function updateScrollProgress(){
+  const p=scrollY/(document.documentElement.scrollHeight-innerHeight);
+  sp.style.height=(p*100)+'%';
+  return p;
+}
+window.addEventListener('scroll',updateScrollProgress);
+
+// ── DOTS ──
+const sections=document.querySelectorAll('[data-s]');
+const dotsC=document.getElementById('dots');
+sections.forEach((s,i)=>{
+  const d=document.createElement('div');
+  d.className='dot';
+  d.addEventListener('click',()=>{
+    lenis.scrollTo(s,{duration:2});
+  });
+  dotsC.appendChild(d);
+});
+const allDots=[...dotsC.querySelectorAll('.dot')];
+
+// ── CHAPTER TRACKER (IntersectionObserver) ──
+const navR=document.getElementById('navR');
+const sObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const i=[...sections].indexOf(e.target);
+      allDots.forEach((d,j)=>d.classList.toggle('on',j===i));
+      const label=e.target.getAttribute('data-s');
+      if(label) navR.textContent=label;
+    }
+  });
+},{threshold:.25});
+sections.forEach(s=>sObs.observe(s));
+
+// ── GLITCH EFFECT (every 5s) ──
+const heroTitle=document.getElementById('ht');
+setInterval(()=>{
+  heroTitle.classList.add('active');
+  setTimeout(()=>heroTitle.classList.remove('active'),300);
+},5000);
+
+
+// ═══════════════════════════════════════
+// THREE.JS — Section 01 displacement
+// ═══════════════════════════════════════
+function initHeroImage(){
+  const canvas=document.getElementById('c01');
+  const section=canvas.parentElement;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,100);
+  camera.position.z=1;
+
+  function resize(){
+    const r=section.getBoundingClientRect();
+    renderer.setSize(r.width,r.height);
+    camera.aspect=r.width/r.height;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+
+  new THREE.TextureLoader().load('images/partenope-reaching.jpg',tex=>{
+    const fs=`
+      uniform sampler2D uTex;
+      uniform float uTime;
+      uniform vec2 uMouse;
+      varying vec2 vUv;
+      void main(){
+        vec2 uv=vUv;
+        float d=distance(uv,uMouse);
+        // Water ripple from cursor
+        float ripple=sin(d*25.0-uTime*2.5)*exp(-d*4.5)*0.012;
+        uv+=ripple;
+        // Slow drift
+        uv.x+=sin(uv.y*6.0+uTime*.3)*.0015;
+        uv.y+=cos(uv.x*5.0+uTime*.25)*.0015;
+        vec4 c=texture2D(uTex,uv);
+        // Near-monochrome
+        float g=dot(c.rgb,vec3(.299,.587,.114));
+        c.rgb=mix(vec3(g),c.rgb,.12);
+        c.rgb=pow(c.rgb*.6,vec3(1.1));
+        // Red bleed near cursor
+        c.r+=smoothstep(.3,.0,d)*.12;
+        // Cinematic vignette
+        c.rgb*=1.0-smoothstep(.2,.85,distance(vUv,vec2(.5)));
+        gl_FragColor=c;
+      }`;
+    const vs=`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
+    const asp=tex.image.width/tex.image.height;
+    const geo=new THREE.PlaneGeometry(asp*1.2,1.2,48,48);
+    const mat=new THREE.ShaderMaterial({
+      uniforms:{uTex:{value:tex},uTime:{value:0},uMouse:{value:new THREE.Vector2(.5,.5)}},
+      vertexShader:vs,fragmentShader:fs
+    });
+    const r=section.getBoundingClientRect();
+    const s=Math.max((r.width/r.height)/asp,1)*1.6;
+    const mesh=new THREE.Mesh(geo,mat);
+    mesh.scale.set(s,s,1);
+    scene.add(mesh);
+
+    let vis=false;
+    new IntersectionObserver(e=>{vis=e[0].isIntersecting},{threshold:.05}).observe(section);
+
+    (function a(){
+      if(vis){
+        mat.uniforms.uTime.value+=.016;
+        const r=section.getBoundingClientRect();
+        mat.uniforms.uMouse.value.set(
+          THREE.MathUtils.clamp((mx-r.left)/r.width,0,1),
+          THREE.MathUtils.clamp(1-(my-r.top)/r.height,0,1)
+        );
+        renderer.render(scene,camera);
+      }
+      requestAnimationFrame(a);
+    })();
+  });
+
+  window.addEventListener('resize',resize);
+}
+initHeroImage();
+
+
+// ═══════════════════════════════════════
+// GSAP ANIMATIONS
+// ═══════════════════════════════════════
+function go(){
+
+  // Hero chars — rotateX entrance
+  gsap.to('.hero-t .c',{
+    opacity:1, y:0, rotateX:0,
+    duration:1.3, stagger:.04, ease:'expo.out', delay:.15
+  });
+  gsap.to('#hsub',{opacity:1,duration:1.5,delay:1.2,ease:'power2.out'});
+  gsap.to('#hg',{opacity:1,duration:1.8,delay:1.8,ease:'power2.out'});
+
+  // Hero parallax out
+  gsap.to('.hero-t',{yPercent:20,opacity:0,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+  gsap.to('#hsub',{yPercent:40,opacity:0,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+  gsap.to('#hg',{yPercent:60,opacity:0,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+
+  // Gallery labels
+  document.querySelectorAll('.gl').forEach(gl=>{
+    gsap.to(gl,{opacity:1,duration:1,ease:'power2.out',
+      scrollTrigger:{trigger:gl.parentElement,start:'top 50%',toggleActions:'play none none reverse'}});
+  });
+
+  // Full bleed images — parallax
+  document.querySelectorAll('.bleed-tall img').forEach(img=>{
+    gsap.fromTo(img,{y:'-5%'},{y:'5%',ease:'none',
+      scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:1.5}});
+  });
+
+  // Text sections
+  document.querySelectorAll('.txt-inner').forEach(t=>{
+    gsap.fromTo(t,{opacity:0,y:40},{opacity:1,y:0,duration:1.2,ease:'power3.out',
+      scrollTrigger:{trigger:t,start:'top 75%',toggleActions:'play none none reverse'}});
+  });
+
+  // Split text blocks
+  document.querySelectorAll('.split-text-inner').forEach(t=>{
+    gsap.fromTo(t,{opacity:0,y:30},{opacity:1,y:0,duration:1,ease:'power3.out',
+      scrollTrigger:{trigger:t,start:'top 70%',toggleActions:'play none none reverse'}});
+  });
+
+  // Split images — scale on scroll (scrub)
+  document.querySelectorAll('.split-img img').forEach(img=>{
+    gsap.to(img,{scale:1,ease:'none',
+      scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:2}});
+  });
+
+  // Dual images — staggered reveal
+  document.querySelectorAll('.dual > div').forEach((item,i)=>{
+    gsap.fromTo(item,{opacity:0,y:30},{opacity:1,y:0,duration:1,delay:i*.15,ease:'power3.out',
+      scrollTrigger:{trigger:item.parentElement,start:'top 70%',toggleActions:'play none none reverse'}});
+  });
+
+  // Fog quote
+  gsap.fromTo('#fq01 blockquote',{opacity:0,y:20},{opacity:.9,y:0,duration:1.5,ease:'power3.out',
+    scrollTrigger:{trigger:'.fog-wrap',start:'top 40%',toggleActions:'play none none reverse'}});
+
+  // ── HORIZONTAL SCROLL (VANITY) ──
+  const hInner=document.getElementById('hscrollInner');
+  const hTrack=document.getElementById('hscrollTrack');
+  if(hInner && hTrack){
+    // Calculate total scroll distance
+    const getScrollWidth=()=>hInner.scrollWidth - window.innerWidth;
+
+    const hTl=gsap.timeline({
+      scrollTrigger:{
+        trigger:'.hscroll',
+        start:'top top',
+        end:()=>'+='+hInner.scrollWidth,
+        pin:true,
+        scrub:1,
+        invalidateOnRefresh:true
+      }
+    });
+    hTl.to(hInner,{x:()=>-getScrollWidth(),ease:'none'});
+
+    // Staggered reveal of phrases
+    document.querySelectorAll('.hscroll-phrase, .hscroll-big').forEach((ph,i)=>{
+      gsap.to(ph,{opacity:1,duration:.5,
+        scrollTrigger:{trigger:ph,start:'left 80%',end:'left 50%',scrub:1,
+          containerAnimation:hTl,
+        }
+      });
+    });
+  }
+
+  // ── EGG (classList toggle for CSS transition) ──
+  const eggWrap=document.getElementById('eggWrap');
+  const eggText=document.getElementById('eggText');
+  ScrollTrigger.create({
+    trigger:'.egg-section',
+    start:'top 50%',
+    onEnter:()=>{
+      eggWrap.classList.add('visible');
+      gsap.to(eggText,{opacity:1,y:0,duration:1.5,delay:.5,ease:'power3.out'});
+    },
+    onLeaveBack:()=>{
+      eggWrap.classList.remove('visible');
+      gsap.set(eggText,{opacity:0});
+    }
+  });
+  gsap.set(eggText,{opacity:0,y:30});
+
+  // ── REVELATION ──
+  // Glitch burst on enter
+  ScrollTrigger.create({
+    trigger:'.reveal',
+    start:'top 60%',
+    onEnter:()=>{
+      heroTitle.classList.add('active');
+      setTimeout(()=>heroTitle.classList.remove('active'),400);
+    },
+    once:true
+  });
+
+  gsap.to('#rv1',{opacity:1,scale:1,filter:'blur(0px)',duration:1.5,ease:'power3.out',
+    scrollTrigger:{trigger:'.reveal',start:'top 50%',toggleActions:'play none none reverse'}});
+  gsap.to('#rv2',{opacity:1,y:0,scale:1,filter:'blur(0px)',duration:2,ease:'expo.out',
+    scrollTrigger:{trigger:'.reveal',start:'top 35%',toggleActions:'play none none reverse'}});
+
+  // ── IMPOSSIBLE CITY — parallax handled by bleed-tall ──
+
+  // ── CODA ──
+  document.querySelectorAll('.coda-l').forEach((l,i)=>{
+    gsap.to(l,{opacity:1,duration:1.2,delay:i*.15,ease:'power2.out',
+      scrollTrigger:{trigger:'.coda',start:'top 70%',toggleActions:'play none none none'}});
+  });
+  gsap.to('#codaEnd',{opacity:1,duration:2,delay:.3,ease:'power2.out',
+    scrollTrigger:{trigger:'.coda',start:'top 60%',toggleActions:'play none none none'}});
+
+  // Refresh ScrollTrigger after everything is set up
+  ScrollTrigger.refresh();
+}
+
+
+// ═══════════════════════════════════════
+// AMBIENT AUDIO (Web Audio API)
+// ═══════════════════════════════════════
+let aOn=false;
+function sA(){
+  if(aOn)return;aOn=true;
+  const ac=new(AudioContext||webkitAudioContext)();
+  const comp=ac.createDynamicsCompressor();
+  comp.threshold.value=-30;comp.ratio.value=4;comp.connect(ac.destination);
+
+  // Feedback delay for depth
+  const del=ac.createDelay();del.delayTime.value=.35;
+  const fb=ac.createGain();fb.gain.value=.2;
+  del.connect(fb);fb.connect(del);del.connect(comp);
+
+  function osc(f,v,t,type='sine'){
+    const o=ac.createOscillator(),g=ac.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=0;
+    o.connect(g);g.connect(comp);if(t)g.connect(del);
+    o.start();g.gain.linearRampToValueAtTime(v,ac.currentTime+5);
+    return{o,g};
+  }
+  // 35Hz sine drone + 70Hz harmonic + 28Hz triangle sub
+  const d1=osc(35,.08,true);
+  osc(70,.025,false);
+  osc(28,.03,false,'triangle');
+
+  // Heartbeat every ~1050ms
+  function hb(){
+    const o=ac.createOscillator(),g=ac.createGain();
+    o.type='sine';o.frequency.value=48;
+    g.gain.setValueAtTime(0,ac.currentTime);
+    g.gain.linearRampToValueAtTime(.04,ac.currentTime+.03);
+    g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.3);
+    o.connect(g);g.connect(comp);
+    o.start(ac.currentTime);o.stop(ac.currentTime+.35);
+    setTimeout(hb,1050);
+  }
+  setTimeout(hb,3500);
+
+  // Drone pitch rises with scroll (35 -> 50Hz) + volume swells
+  window.addEventListener('scroll',()=>{
+    const p=scrollY/(document.documentElement.scrollHeight-innerHeight);
+    d1.o.frequency.setTargetAtTime(35+p*15,ac.currentTime,.5);
+    d1.g.gain.setTargetAtTime(.05+p*.06,ac.currentTime,.3);
+  });
+}
+document.addEventListener('click',sA,{once:true});
+document.addEventListener('scroll',sA,{once:true});
+document.addEventListener('touchstart',sA,{once:true});
+
+// ═══════════════════════════════════════
+// SCROLL VELOCITY DETECTION
+// The site FEELS how you move
+// ═══════════════════════════════════════
+let scrollVel=0, lastScrollY=scrollY, lastScrollT=performance.now();
+const grainEl=document.getElementById('grain');
+
+function trackVelocity(){
+  const now=performance.now();
+  const dt=now-lastScrollT;
+  if(dt>0){
+    const dy=Math.abs(scrollY-lastScrollY);
+    const rawVel=dy/dt; // px/ms
+    scrollVel+=(rawVel-scrollVel)*.15; // smooth
+  }
+  lastScrollY=scrollY;
+  lastScrollT=now;
+
+  // Grain reacts to velocity (0.04 calm → 0.15 fast)
+  const grainTarget=Math.min(.15,.04+scrollVel*.8);
+  grainEl.style.opacity=grainTarget;
+
+  // Ambient line opacity reacts
+  const ambLine=document.querySelector('.amb-line');
+  if(ambLine) ambLine.style.opacity=Math.min(.12,.03+scrollVel*.5);
+
+  requestAnimationFrame(trackVelocity);
+}
+trackVelocity();
+
+
+// ═══════════════════════════════════════
+// BIF BREATHING ORB
+// Persistent element — color maps to section emotional state
+// ═══════════════════════════════════════
+(function initBifOrb(){
+  const orb=document.createElement('div');
+  orb.id='bifOrbG';
+  orb.style.cssText=`
+    position:fixed;bottom:32px;right:32px;width:44px;height:44px;
+    border-radius:50%;z-index:800;pointer-events:none;
+    transition:background-color 4s ease,box-shadow 4s ease;
+    animation:bifBreatheG 5s ease-in-out infinite;
+  `;
+  const glow=document.createElement('div');
+  glow.style.cssText=`
+    position:fixed;bottom:24px;right:24px;width:60px;height:60px;
+    border-radius:50%;z-index:799;pointer-events:none;opacity:.08;
+    filter:blur(20px);transition:background-color 4s ease;
+    animation:bifBreatheG 5s ease-in-out infinite;
+  `;
+  document.body.appendChild(glow);
+  document.body.appendChild(orb);
+
+  const style=document.createElement('style');
+  style.textContent=`@keyframes bifBreatheG{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}`;
+  document.head.appendChild(style);
+
+  // Section → BIF emotional state mapping
+  const sectionStates={
+    'Entrance':      {color:'#0A0A0A',glow:'#1A1A2E',bpm:5},    // pace
+    'I — The Song':  {color:'#00D4AA',glow:'#003D32',bpm:10},   // calma
+    'II — The Water':{color:'#00D4AA',glow:'#003D32',bpm:10},   // calma
+    'III — The Gaze':{color:'#AA00FF',glow:'#2A0044',bpm:18},   // intuizione
+    'IV — The Witnesses':{color:'#FF6D00',glow:'#4A2000',bpm:27}, // fuoco
+    'V — The Body Becomes the Land':{color:'#FF6D00',glow:'#4A2000',bpm:27}, // fuoco
+    'VI — Vanity':   {color:'#FF1744',glow:'#4A0011',bpm:50},   // pericolo
+    'VII — The City':{color:'#FF6D00',glow:'#4A2000',bpm:27},   // fuoco
+    'VIII — The Egg':{color:'#AA00FF',glow:'#2A0044',bpm:18},   // intuizione
+    'Revelation':    {color:'#FFB300',glow:'#4A3400',bpm:11},    // calore
+    'IX — The Impossible City':{color:'#AA00FF',glow:'#2A0044',bpm:18}, // intuizione
+    'Coda':          {color:'#0A0A0A',glow:'#1A1A2E',bpm:5},    // pace
+  };
+  const defaultState={color:'#00D4AA',glow:'#003D32',bpm:10};
+
+  function setOrbState(s){
+    orb.style.backgroundColor=s.color;
+    orb.style.boxShadow=`0 0 30px ${s.glow}`;
+    glow.style.backgroundColor=s.color;
+    const dur=(60/s.bpm)+'s';
+    orb.style.animationDuration=dur;
+    glow.style.animationDuration=dur;
+  }
+  setOrbState(defaultState);
+
+  // Observe sections
+  const bifObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const label=e.target.getAttribute('data-s');
+        const s=sectionStates[label]||defaultState;
+        setOrbState(s);
+      }
+    });
+  },{threshold:.3});
+  sections.forEach(s=>bifObs.observe(s));
+
+  // Velocity affects BPM — faster scroll = faster breathing
+  setInterval(()=>{
+    const velBoost=Math.min(2,1+scrollVel*3);
+    const currentDur=parseFloat(orb.style.animationDuration)||5;
+    orb.style.animationDuration=(currentDur/velBoost)+'s';
+    glow.style.animationDuration=(currentDur/velBoost)+'s';
+  },200);
+})();
+
+
+// ═══════════════════════════════════════
+// CURSOR MEMORY — Ephemeral traces
+// Like touching water
+// ═══════════════════════════════════════
+(function initCursorMemory(){
+  const canvas=document.createElement('canvas');
+  canvas.style.cssText='position:fixed;inset:0;width:100%;height:100%;z-index:9998;pointer-events:none;';
+  document.body.appendChild(canvas);
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+  resize();
+  window.addEventListener('resize',resize);
+
+  const particles=[];
+  const MAX=120;
+  let lastMx=mx,lastMy=my;
+
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+
+    // Spawn particles on movement
+    const dx=mx-lastMx,dy=my-lastMy;
+    const speed=Math.sqrt(dx*dx+dy*dy);
+    if(speed>2 && particles.length<MAX){
+      particles.push({
+        x:mx,y:my,
+        vx:(Math.random()-.5)*.3,
+        vy:(Math.random()-.5)*.3,
+        life:1,
+        decay:.008+Math.random()*.008,
+        size:1.5+Math.random()*2,
+      });
+    }
+    lastMx=mx;lastMy=my;
+
+    // Update & draw
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];
+      p.x+=p.vx;
+      p.y+=p.vy;
+      p.life-=p.decay;
+      if(p.life<=0){particles.splice(i,1);continue}
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);
+      ctx.fillStyle=`rgba(168,0,0,${p.life*.25})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+
+})();
+</script>
+</body>
+</html>

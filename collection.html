@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Collection — Studio Starman</title>
+<meta name="description" content="Studio Starman Collection. Wearable objects that carry a frequency. Collection 01 — Nouvelle Vague. Epiphany I.">
+<meta property="og:title" content="Collection — Studio Starman">
+<meta property="og:description" content="Wearable objects that carry a frequency. Collection 01 — Nouvelle Vague.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/collection">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/silver-faces-club.png">
+<meta property="og:site_name" content="Studio Starman">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Collection — Studio Starman">
+<meta name="twitter:image" content="https://studiostarman.com/images/ourstudio/silver-faces-club.png">
+<link rel="canonical" href="https://studiostarman.com/collection">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+/* ── COLLECTION PAGE ── */
+
+/* ── HERO ── */
+.col-hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+.col-hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(100px,12vw,180px) clamp(24px,6vw,100px) clamp(60px,8vw,100px);
+  position: relative;
+  z-index: 2;
+}
+.col-hero-right {
+  position: relative;
+  overflow: hidden;
+}
+.col-hero-right img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(.3) contrast(1.1);
+  opacity: .7;
+}
+.col-hero-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #020202 0%, transparent 40%);
+  z-index: 1;
+}
+.col-eyebrow {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.3);
+  margin-bottom: 28px;
+}
+.col-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: .95;
+  color: #E8E4DF;
+  margin-bottom: 32px;
+}
+.col-hero-title span { color: #A80000; }
+.col-hero-sub {
+  font: 13px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  max-width: 420px;
+  margin-bottom: 48px;
+}
+.col-tag {
+  display: inline-block;
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.25);
+  border: 1px solid rgba(232,228,223,.12);
+  padding: 10px 16px;
+}
+
+/* ── SECTION BASE ── */
+.col-section {
+  padding: clamp(80px,10vw,120px) clamp(24px,6vw,120px);
+  border-top: 1px solid rgba(232,228,223,.06);
+}
+.col-section-label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.25);
+  margin-bottom: 64px;
+}
+
+/* ── EDITORIAL STATEMENT ── */
+.col-statement { background: #000; }
+.col-statement-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px 120px;
+  max-width: 1100px;
+  align-items: center;
+}
+.col-statement-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.col-statement-text h2 span { color: #A80000; }
+.col-statement-text p {
+  font: 13px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+.col-statement-text p + p { margin-top: 16px; }
+.col-statement-img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.col-statement-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(.2);
+  display: block;
+}
+
+/* ── PRODUCTS ── */
+.col-products { background: #030303; }
+.col-products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.col-products-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1;
+}
+.col-products-title span { color: #A80000; }
+.col-products-count {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.2);
+  letter-spacing: .3em;
+}
+.col-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  max-width: 1200px;
+}
+.col-item {
+  background: #0a0a0a;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+}
+.col-item-media {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  position: relative;
+}
+.col-item-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(.3) contrast(1.05);
+  transition: transform .6s ease, filter .6s ease;
+  display: block;
+}
+.col-item:hover .col-item-media img {
+  transform: scale(1.04);
+  filter: grayscale(0) contrast(1.05);
+}
+.col-item-body {
+  padding: 32px 28px 36px;
+  border: 1px solid rgba(232,228,223,.04);
+  border-top: none;
+}
+.col-item-tag {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.25);
+  margin-bottom: 12px;
+  display: block;
+}
+.col-item-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 8px;
+}
+.col-item-desc {
+  font: 11px/1.7 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+  margin-bottom: 24px;
+}
+.col-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.col-item-price {
+  font: 700 18px/1 'Playfair Display', serif;
+  color: #E8E4DF;
+}
+.col-item-acquire {
+  font: 700 10px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #E8E4DF;
+  border: 1px solid rgba(232,228,223,.15);
+  padding: 10px 18px;
+  text-decoration: none;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.col-item-acquire:hover {
+  background: #A80000;
+  border-color: #A80000;
+  color: #E8E4DF;
+}
+
+/* ── COMING SOON ── */
+.col-coming { background: #000; }
+.col-coming-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 900px;
+  margin-bottom: 48px;
+}
+.col-coming-item {
+  padding: 40px 28px;
+  background: #050505;
+  border: 1px solid rgba(232,228,223,.04);
+  position: relative;
+}
+.col-coming-item::before {
+  content: 'SOON';
+  position: absolute;
+  top: 16px; right: 16px;
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.15);
+  letter-spacing: .3em;
+}
+.col-coming-num {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.2);
+  letter-spacing: .3em;
+  margin-bottom: 16px;
+  display: block;
+}
+.col-coming-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(232,228,223,.4);
+  margin-bottom: 10px;
+}
+.col-coming-desc {
+  font: 11px/1.6 'Space Mono', monospace;
+  color: rgba(232,228,223,.2);
+}
+.col-coming-note {
+  font: 11px/1.7 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  max-width: 600px;
+}
+
+/* ── CAPSULE CTA ── */
+.col-capsule { background: #000; }
+.col-capsule-inner {
+  max-width: 800px;
+}
+.col-capsule-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4.5vw, 3.6rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.col-capsule-inner h2 span { color: #00D4AA; }
+.col-capsule-inner p {
+  font: 13px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  max-width: 560px;
+  margin-bottom: 40px;
+}
+.col-cta {
+  display: inline-block;
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #020202;
+  background: #E8E4DF;
+  padding: 18px 36px;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.col-cta:hover { background: #A80000; color: #E8E4DF; }
+
+/* ── FOOTER ── */
+.col-footer {
+  padding: 48px clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.col-footer p {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  letter-spacing: .2em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .col-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .col-hero-left { padding-top: 140px; }
+  .col-hero-right {
+    height: 50vw;
+    min-height: 240px;
+  }
+  .col-hero-right::after { display: none; }
+  .col-statement-inner { grid-template-columns: 1fr; gap: 40px; }
+  .col-grid { grid-template-columns: 1fr; }
+  .col-coming-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.45"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html" aria-current="page">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="col-hero">
+  <div class="col-hero-left">
+    <p class="col-eyebrow">Collection — Wearable Objects</p>
+    <h1 class="col-hero-title">
+      Objects that<br>
+      carry a<br>
+      <span>frequency.</span>
+    </h1>
+    <p class="col-hero-sub">
+      We design wearable artifacts. Not merchandise — objects with a meaning inside them. Each piece is built from an Epiphany.
+    </p>
+    <span class="col-tag">Collection 01 — Nouvelle Vague — Epiphany I</span>
+  </div>
+  <div class="col-hero-right" aria-hidden="true">
+    <img src="images/ourstudio/pool-party-nv.png" alt="Nouvelle Vague — the night that shouldn't exist">
+  </div>
+</section>
+
+<!-- ── EDITORIAL STATEMENT ── -->
+<section class="col-section col-statement">
+  <p class="col-section-label">The idea behind the objects</p>
+  <div class="col-statement-inner">
+    <div class="col-statement-text">
+      <h2>
+        Clothes are the<br>
+        oldest interface.<br>
+        We design them<br>
+        <span>with intention.</span>
+      </h2>
+      <p>Collection 01 — Nouvelle Vague was born from a single night that wasn't supposed to work. A pool party at 4AM in an underground club, laser light cutting through indoor water, fantasy costumes and no phones.</p>
+      <p>The objects in this collection carry that frequency. Designed for people who move between worlds — the ones who know the difference between a night and an event. Each piece is NFC-tagged: wearable, traceable, alive.</p>
+    </div>
+    <div class="col-statement-img">
+      <img src="images/ourstudio/silver-faces-club.png" alt="Silver faces — Nouvelle Vague">
+    </div>
+  </div>
+</section>
+
+<!-- ── PRODUCTS ── -->
+<section class="col-section col-products">
+  <div class="col-products-header">
+    <h2 class="col-products-title">Collection <span>01</span></h2>
+    <span class="col-products-count">4 objects / Nouvelle Vague / Epiphany I</span>
+  </div>
+  <div class="col-grid">
+
+    <a class="col-item" href="contact.html?item=SUIT+DEPTH-01">
+      <div class="col-item-media">
+        <img src="images/ourstudio/partenope-submerged.png" alt="SUIT / DEPTH-01" loading="lazy">
+      </div>
+      <div class="col-item-body">
+        <span class="col-item-tag">Wearable — Epiphany I</span>
+        <h2 class="col-item-name">SUIT / DEPTH-01</h2>
+        <p class="col-item-desc">The descent suit. Designed for those who go under — in the water, in the night, in themselves. NFC tag embedded. Material: technical silk-blend.</p>
+        <div class="col-item-footer">
+          <span class="col-item-price">€280</span>
+          <span class="col-item-acquire">Acquire</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="col-item" href="contact.html?item=JACKET+SIGNAL">
+      <div class="col-item-media">
+        <img src="images/ourstudio/cityscape-signal.png" alt="JACKET / SIGNAL" loading="lazy">
+      </div>
+      <div class="col-item-body">
+        <span class="col-item-tag">Wearable — Epiphany I</span>
+        <h2 class="col-item-name">JACKET / SIGNAL</h2>
+        <p class="col-item-desc">The surface jacket. For when you move between the underground and the visible world. Reads differently depending on where you are. NFC-tagged.</p>
+        <div class="col-item-footer">
+          <span class="col-item-price">€195</span>
+          <span class="col-item-acquire">Acquire</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="col-item" href="contact.html?item=LAYER+MIRROR">
+      <div class="col-item-media">
+        <img src="images/ourstudio/backstage-mirror.png" alt="LAYER / MIRROR" loading="lazy">
+      </div>
+      <div class="col-item-body">
+        <span class="col-item-tag">Wearable — Epiphany I</span>
+        <h2 class="col-item-name">LAYER / MIRROR</h2>
+        <p class="col-item-desc">The in-between layer. Worn over or under. A piece about transitional states — backstage, after the show, the moment before the moment.</p>
+        <div class="col-item-footer">
+          <span class="col-item-price">€145</span>
+          <span class="col-item-acquire">Acquire</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="col-item" href="contact.html?item=MASK+ARGENTO">
+      <div class="col-item-media">
+        <img src="images/ourstudio/silver-faces-club.png" alt="MASK / ARGENTO" loading="lazy">
+      </div>
+      <div class="col-item-body">
+        <span class="col-item-tag">Wearable — Epiphany I</span>
+        <h2 class="col-item-name">MASK / ARGENTO</h2>
+        <p class="col-item-desc">The face that carries the night. Worn once, or kept. Silver resin. Handmade in Napoli. Each mask is unique — cast from a single face. Yours or someone else's.</p>
+        <div class="col-item-footer">
+          <span class="col-item-price">€90</span>
+          <span class="col-item-acquire">Acquire</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── COMING ── -->
+<section class="col-section col-coming">
+  <p class="col-section-label">Coming — Anno I</p>
+  <div class="col-coming-grid">
+    <div class="col-coming-item">
+      <span class="col-coming-num">02</span>
+      <h3 class="col-coming-name">Collection 02<br>Partenope</h3>
+      <p class="col-coming-desc">The myth of Naples — a woman who didn't win, and built a city from it. April 2026.</p>
+    </div>
+    <div class="col-coming-item">
+      <span class="col-coming-num">—</span>
+      <h3 class="col-coming-name">Brand Capsules</h3>
+      <p class="col-coming-desc">Co-designed with partner brands. Their product, our frequency. Limited editions.</p>
+    </div>
+    <div class="col-coming-item">
+      <span class="col-coming-num">—</span>
+      <h3 class="col-coming-name">The Inner Studio<br>Wearable</h3>
+      <p class="col-coming-desc">Objects designed to the aesthetic of each AI agent. Echo wears Yohji Yamamoto.</p>
+    </div>
+  </div>
+  <p class="col-coming-note">
+    Updates via newsletter. No social announcements — if you know, you know.<br>
+    Subscribe at <a href="mailto:hello@studiostarman.com?subject=Collection newsletter" style="color:rgba(232,228,223,.5);text-decoration:none;">hello@studiostarman.com</a>
+  </p>
+</section>
+
+<!-- ── CAPSULE CTA ── */
+<section class="col-section col-capsule">
+  <div class="col-capsule-inner">
+    <h2>Your brand<br>needs a<br><span>capsule.</span></h2>
+    <p>We design and produce limited fashion capsules for brands that want to become something people wear. Not merch — artifacts. From concept to production to distribution. Tell us your frequency.</p>
+    <a href="contact.html" class="col-cta">Design a capsule with us</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="col-footer">
+  <p>&copy; 2026 Studio Starman</p>
+  <p>Pozzuoli / Napoli / Campania</p>
+  <p>hello@studiostarman.com</p>
+</footer>
+
+<script src="cd-core.js"></script>
+</body>
+</html>

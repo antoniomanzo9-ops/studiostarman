@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Method — Studio Starman</title>
+<meta name="description" content="The Two-Level Communication Method. Every brand speaks on two frequencies. Most only design one. Studio Starman designs both.">
+<meta property="og:title" content="The Method — Studio Starman">
+<meta property="og:description" content="The Two-Level Communication Method. Every brand speaks on two frequencies. Most only design one.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/method">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/silver-faces-club.png">
+<meta property="og:site_name" content="Studio Starman">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://studiostarman.com/method">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+
+body { background: #000; color: #E8E4DF; font-family: 'Space Mono', monospace; }
+
+/* ── HERO — il manifesto ── */
+.m-hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(120px,14vh,200px) clamp(28px,6vw,120px) clamp(60px,8vh,100px);
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+.m-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('images/ourstudio/backstage-mirror.png') center 40% / cover no-repeat;
+  opacity: .22;
+  filter: saturate(.4) contrast(1.2);
+}
+.m-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.85) 100%);
+}
+.m-hero-content { position: relative; z-index: 1; }
+.m-eyebrow {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.3);
+  margin-bottom: 32px;
+}
+.m-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: .9;
+  color: #E8E4DF;
+  max-width: 900px;
+  margin-bottom: 48px;
+}
+.m-hero-title em { color: #A80000; font-style: inherit; }
+.m-hero-deck {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 80px;
+  max-width: 900px;
+}
+.m-hero-deck p {
+  font: 14px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.5);
+}
+.m-hero-deck p + p { border-left: 1px solid rgba(232,228,223,.08); padding-left: 48px; }
+
+/* ── SECTION BASE ── */
+.m-section {
+  padding: clamp(80px,12vw,160px) clamp(28px,6vw,120px);
+  border-top: 1px solid rgba(232,228,223,.04);
+}
+.m-label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.2);
+  margin-bottom: 64px;
+  display: block;
+}
+
+/* ── THE PROBLEM ── */
+.m-problem { background: #000; }
+.m-problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 80px;
+  max-width: 1100px;
+  align-items: start;
+}
+.m-problem-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.05;
+  color: #E8E4DF;
+  position: sticky;
+  top: 120px;
+}
+.m-problem-title em { color: #A80000; font-style: inherit; }
+.m-problem-body {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.m-problem-item {}
+.m-problem-item h3 {
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.35);
+  margin-bottom: 16px;
+}
+.m-problem-item p {
+  font: 13px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.5);
+}
+
+/* ── THE TWO LEVELS — core IP ── */
+.m-two-levels { background: #000; }
+.m-levels-intro {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.05;
+  color: #E8E4DF;
+  max-width: 800px;
+  margin-bottom: 100px;
+}
+.m-levels-intro em { color: #00D4AA; font-style: inherit; }
+.m-levels-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  max-width: 1100px;
+}
+.m-level {
+  padding: clamp(48px,6vw,80px) clamp(36px,4vw,64px);
+  position: relative;
+  overflow: hidden;
+}
+.m-level-1 { background: #E8E4DF; }
+.m-level-2 { background: #050505; border: 1px solid rgba(232,228,223,.06); }
+.m-level-tag {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  display: block;
+}
+.m-level-1 .m-level-tag { color: rgba(2,2,2,.3); }
+.m-level-2 .m-level-tag { color: rgba(232,228,223,.25); }
+.m-level-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 32px;
+}
+.m-level-1 .m-level-name { color: #020202; }
+.m-level-2 .m-level-name { color: #E8E4DF; }
+.m-level-desc {
+  font: 12px/1.9 'Space Mono', monospace;
+  margin-bottom: 40px;
+}
+.m-level-1 .m-level-desc { color: rgba(2,2,2,.55); }
+.m-level-2 .m-level-desc { color: rgba(232,228,223,.4); }
+.m-level-examples {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.m-level-examples li {
+  font: 11px/1 'Space Mono', monospace;
+  padding: 14px 0;
+  border-top: 1px solid;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.m-level-1 .m-level-examples li {
+  color: rgba(2,2,2,.45);
+  border-color: rgba(2,2,2,.08);
+}
+.m-level-2 .m-level-examples li {
+  color: rgba(232,228,223,.35);
+  border-color: rgba(232,228,223,.06);
+}
+.m-level-examples li::before {
+  content: '→';
+  flex-shrink: 0;
+  font-size: 10px;
+  opacity: .4;
+}
+.m-level-note {
+  margin-top: 32px;
+  font: 700 11px/1.6 'Space Mono', monospace;
+}
+.m-level-1 .m-level-note { color: rgba(2,2,2,.5); }
+.m-level-2 .m-level-note { color: rgba(232,228,223,.4); }
+
+/* ── WHERE MOST AGENCIES STOP ── */
+.m-gap { background: #000; }
+.m-gap-inner {
+  max-width: 960px;
+}
+.m-gap-statement {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 6vw, 5.5rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.02;
+  color: #E8E4DF;
+  margin-bottom: 48px;
+}
+.m-gap-statement em { color: #A80000; font-style: inherit; }
+.m-gap-body {
+  font: 13px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  max-width: 680px;
+  columns: 2;
+  column-gap: 64px;
+}
+
+/* ── THE PROCESS ── */
+.m-process { background: #000; }
+.m-process-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.05;
+  max-width: 700px;
+  margin-bottom: 96px;
+}
+.m-process-title em { color: #00D4AA; font-style: inherit; }
+.m-steps {
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.m-step {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 0 56px;
+  padding: clamp(36px,5vw,56px) 0;
+  border-bottom: 1px solid rgba(232,228,223,.05);
+  align-items: start;
+}
+.m-step:last-child { border-bottom: none; }
+.m-step-num {
+  font: 10px/1.6 'Space Mono', monospace;
+  color: rgba(232,228,223,.15);
+  letter-spacing: .3em;
+  padding-top: 4px;
+}
+.m-step-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.15;
+}
+.m-step-agent {
+  display: inline-block;
+  margin-top: 10px;
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.2);
+}
+.m-step-desc {
+  font: 12px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+  padding-top: 4px;
+}
+
+/* ── PROOF — Nouvelle Vague ── */
+.m-proof {
+  position: relative;
+  min-height: 90svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.m-proof-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(.6) contrast(1.15);
+}
+.m-proof-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.4) 60%, transparent 100%);
+}
+.m-proof-content {
+  position: relative;
+  z-index: 1;
+  padding: 80px clamp(28px,6vw,120px);
+  max-width: 640px;
+}
+.m-proof-label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.3);
+  margin-bottom: 32px;
+  display: block;
+}
+.m-proof-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.05;
+  margin-bottom: 28px;
+}
+.m-proof-title em { color: #A80000; font-style: inherit; }
+.m-proof-body {
+  font: 13px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.45);
+  margin-bottom: 48px;
+}
+.m-proof-link {
+  display: inline-block;
+  font: 700 10px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #E8E4DF;
+  border-bottom: 1px solid rgba(232,228,223,.3);
+  padding-bottom: 6px;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.m-proof-link:hover { color: #A80000; border-color: #A80000; }
+
+/* ── VS MARKET ── */
+.m-vs { background: #000; }
+.m-vs-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 64px;
+  max-width: 700px;
+}
+.m-vs-title em { color: rgba(232,228,223,.3); font-style: inherit; }
+.m-vs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3px;
+  max-width: 1200px;
+}
+.m-vs-card {
+  padding: 40px 32px;
+  border: 1px solid rgba(232,228,223,.04);
+}
+.m-vs-card.them { background: #040404; }
+.m-vs-card.us { background: #060606; border-color: rgba(168,0,0,.15); }
+.m-vs-who {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.2);
+  margin-bottom: 20px;
+  display: block;
+}
+.m-vs-card.us .m-vs-who { color: rgba(168,0,0,.6); }
+.m-vs-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(232,228,223,.45);
+  margin-bottom: 16px;
+}
+.m-vs-card.us .m-vs-name { color: #E8E4DF; }
+.m-vs-desc {
+  font: 11px/1.7 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+}
+.m-vs-card.us .m-vs-desc { color: rgba(232,228,223,.45); }
+
+/* ── CTA ── */
+.m-cta {
+  background: #000;
+  padding: clamp(100px,14vw,180px) clamp(28px,6vw,120px);
+  border-top: 1px solid rgba(232,228,223,.04);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.m-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(168,0,0,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.m-cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 6.5rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: .95;
+  margin-bottom: 32px;
+  position: relative;
+}
+.m-cta-title em { color: #A80000; font-style: inherit; }
+.m-cta-sub {
+  font: 13px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+  max-width: 480px;
+  margin: 0 auto 56px;
+  position: relative;
+}
+.m-btn {
+  display: inline-block;
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #020202;
+  background: #E8E4DF;
+  padding: 20px 48px;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+  position: relative;
+}
+.m-btn:hover { background: #A80000; color: #E8E4DF; }
+
+/* ── FOOTER ── */
+.m-footer {
+  padding: 48px clamp(28px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.m-footer p {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.2);
+  letter-spacing: .2em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .m-hero-deck { grid-template-columns: 1fr; gap: 24px; }
+  .m-hero-deck p + p { border-left: none; padding-left: 0; border-top: 1px solid rgba(232,228,223,.08); padding-top: 24px; }
+  .m-problem-grid { grid-template-columns: 1fr; gap: 48px; }
+  .m-problem-title { position: static; }
+  .m-levels-split { grid-template-columns: 1fr; }
+  .m-gap-body { columns: 1; }
+  .m-step { grid-template-columns: 48px 1fr; }
+  .m-step-desc { grid-column: 2; }
+  .m-proof-veil { background: rgba(0,0,0,.82); }
+}
+@media (max-width: 600px) {
+  .m-hero-title { font-size: 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.45"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="m-hero">
+  <div class="m-hero-content">
+    <p class="m-eyebrow">The Method — Studio Starman</p>
+    <h1 class="m-hero-title">
+      Every brand<br>
+      speaks on<br>
+      two frequencies.<br>
+      Most only design <em>one.</em>
+    </h1>
+    <div class="m-hero-deck">
+      <p>The surface level is what your audience reads — the message, the visual, the word. Most agencies stop here. They optimize the surface.</p>
+      <p>The depth level is what they feel without knowing why — the tension in the spacing, the weight of the silence, the shape of the font before the eye has read a single letter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE PROBLEM ── -->
+<section class="m-section m-problem">
+  <span class="m-label">Why most communication fails</span>
+  <div class="m-problem-grid">
+    <h2 class="m-problem-title">
+      The brief was good.<br>
+      The deck was approved.<br>
+      Nobody <em>felt</em><br>
+      anything.
+    </h2>
+    <div class="m-problem-body">
+      <div class="m-problem-item">
+        <h3>The rational trap</h3>
+        <p>Agencies are trained to communicate features, values, USPs. They build rational cases for irrational decisions. But humans don't choose brands rationally — they choose them emotionally and justify the choice with logic after the fact.</p>
+      </div>
+      <div class="m-problem-item">
+        <h3>The surface obsession</h3>
+        <p>Years of performance marketing have conditioned the industry to optimize what's measurable: click-through rate, conversion rate, impressions. What's not measured — emotional resonance, felt identity, unconscious alignment — is systematically ignored.</p>
+      </div>
+      <div class="m-problem-item">
+        <h3>The agency problem</h3>
+        <p>Most studios don't have the cultural intelligence to design depth. You need 23 years reading crowds in the dark before you understand how a room feels before anyone has spoken. You can't learn that in a brief. You have to live it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE TWO LEVELS ── -->
+<section class="m-section m-two-levels">
+  <span class="m-label">The Two-Level Communication Method</span>
+  <p class="m-levels-intro">
+    We design both levels<br>
+    <em>simultaneously.</em><br>
+    Always.
+  </p>
+  <div class="m-levels-split">
+    <div class="m-level m-level-1">
+      <span class="m-level-tag">Level 01 — Surface</span>
+      <h2 class="m-level-name">What they read.</h2>
+      <p class="m-level-desc">The conscious experience. The words, the message, the headline, the narrative. What the audience can repeat to a friend, quote in an email, remember when asked.</p>
+      <ul class="m-level-examples">
+        <li>The headline copy</li>
+        <li>The brand story</li>
+        <li>The product description</li>
+        <li>The call to action</li>
+        <li>The value proposition</li>
+      </ul>
+      <p class="m-level-note">Most studios live here. It's necessary. It's not enough.</p>
+    </div>
+    <div class="m-level m-level-2">
+      <span class="m-level-tag">Level 02 — Depth</span>
+      <h2 class="m-level-name">What they feel.</h2>
+      <p class="m-level-desc">The unconscious experience. The weight of the typeface, the tension in the composition, the emotional frequency of the color before the eye consciously registers it. What the body knows before the mind catches up.</p>
+      <ul class="m-level-examples">
+        <li>Typographic weight and rhythm</li>
+        <li>Negative space as language</li>
+        <li>Color temperature and emotional state</li>
+        <li>Symbolic resonance of form</li>
+        <li>The cultural subtext of every reference</li>
+      </ul>
+      <p class="m-level-note">This is where brand memory lives. This is what makes people share things they can't explain why.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE GAP ── -->
+<section class="m-section m-gap">
+  <span class="m-label">Where the market stops</span>
+  <div class="m-gap-inner">
+    <p class="m-gap-statement">
+      Standard agencies design Level 01.<br>
+      Neuromarketing firms <em>measure</em> Level 02.<br>
+      Nobody designs both.
+    </p>
+    <div class="m-gap-body">
+      <p>Neuromarketing research can tell you that your packaging triggers stress in 40% of viewers. It cannot tell you how to fix it. Measuring is not designing. The gap between insight and execution is where most brand investments are lost.</p>
+      <p>Studio Starman closes that gap. We don't run lab tests — we design from the depth level first, then build the surface to match. The emotional resonance is not an afterthought. It's the brief.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE PROCESS ── -->
+<section class="m-section m-process">
+  <span class="m-label">How we work</span>
+  <h2 class="m-process-title">
+    Four phases.<br>
+    Both levels.<br>
+    <em>Every time.</em>
+  </h2>
+  <div class="m-steps">
+    <div class="m-step">
+      <span class="m-step-num">01</span>
+      <div>
+        <h3 class="m-step-name">Cultural signal reading</h3>
+        <span class="m-step-agent">Sibilla — Strategic Oracle</span>
+      </div>
+      <p class="m-step-desc">Before a single word of copy or pixel of design, we read the cultural landscape. What frequency is your category operating on? What have competitors claimed? What is the audience unconsciously looking for but not finding? Sibilla runs this analysis — 23 years of crowd-reading compressed into a single strategic scan.</p>
+    </div>
+    <div class="m-step">
+      <span class="m-step-num">02</span>
+      <div>
+        <h3 class="m-step-name">Depth architecture</h3>
+        <span class="m-step-agent">Antonio + BIF System</span>
+      </div>
+      <p class="m-step-desc">We build the emotional blueprint first. What should this brand make people feel at 3AM when they can't sleep? What is the symbolic logic of the identity? What cultural references live in the depth layer, invisible to conscious reading but felt immediately? This is the work most studios skip. We start here.</p>
+    </div>
+    <div class="m-step">
+      <span class="m-step-num">03</span>
+      <div>
+        <h3 class="m-step-name">Surface construction</h3>
+        <span class="m-step-agent">Echo + Compiler</span>
+      </div>
+      <p class="m-step-desc">The visible work — copy, visual identity, content, photography. Built on top of the depth architecture, not instead of it. Every word, every typeface choice, every image is a conscious decision made in the context of what it needs to make people feel. Echo directs visual language. The Compiler normalizes output across all formats.</p>
+    </div>
+    <div class="m-step">
+      <span class="m-step-num">04</span>
+      <div>
+        <h3 class="m-step-name">Resonance measurement</h3>
+        <span class="m-step-agent">Honey + BIF</span>
+      </div>
+      <p class="m-step-desc">Honey closes the loop. Our proprietary emotional intelligence system measures how visitors actually resonate with the brand — not just clicks, but the emotional state they're in when they land. If the depth architecture is working, Honey will show it. If it's not, we'll see exactly where the signal breaks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROOF — Nouvelle Vague ── -->
+<section class="m-proof" aria-label="Proof of concept — Nouvelle Vague">
+  <img class="m-proof-bg" src="images/ourstudio/pool-party-nv.png" alt="">
+  <div class="m-proof-veil" aria-hidden="true"></div>
+  <div class="m-proof-content">
+    <span class="m-proof-label">Proof of concept — Epiphany I</span>
+    <h2 class="m-proof-title">
+      We tested the method<br>
+      on ourselves <em>first.</em>
+    </h2>
+    <p class="m-proof-body">
+      Nouvelle Vague was designed as a living demonstration of the Two-Level Communication Method. We didn't advertise it — we designed it to be found. The surface: a nightclub event. The depth: a threshold experience, a ritual, a cultural event that felt inevitable to the right people before they knew what it was. The wrong people couldn't feel it. That was the point.
+    </p>
+    <a href="nouvelle-vague.html" class="m-proof-link">Enter Nouvelle Vague →</a>
+  </div>
+</section>
+
+<!-- ── VS MARKET ── -->
+<section class="m-section m-vs">
+  <span class="m-label">Where we stand</span>
+  <h2 class="m-vs-title">
+    Who else is in this space —<br>
+    <em>and what they can't do.</em>
+  </h2>
+  <div class="m-vs-grid">
+    <div class="m-vs-card them">
+      <span class="m-vs-who">Culture agencies</span>
+      <h3 class="m-vs-name">ATJAR, Boiler Room, culture-adjacent studios</h3>
+      <p class="m-vs-desc">Connect brands to underground culture. Translators. They know the language but they didn't grow up speaking it. No proprietary method. No emotional measurement. No proof.</p>
+    </div>
+    <div class="m-vs-card them">
+      <span class="m-vs-who">Strategy studios</span>
+      <h3 class="m-vs-name">TwentyFirstCenturyBrand, Moving Brands</h3>
+      <p class="m-vs-desc">Rigorous methodology, enterprise clients. Excellent at Level 01. The depth layer is a concept for them, not a practice. No cultural credibility. No living proof of concept.</p>
+    </div>
+    <div class="m-vs-card them">
+      <span class="m-vs-who">Intelligence platforms</span>
+      <h3 class="m-vs-name">WPP Open Intelligence, Brandwatch</h3>
+      <p class="m-vs-desc">Measure emotional response at enterprise scale. Data without design. They tell you the audience is cold. They can't warm it. No creative execution.</p>
+    </div>
+    <div class="m-vs-card us">
+      <span class="m-vs-who">Studio Starman</span>
+      <h3 class="m-vs-name">The only studio that designs both levels and measures both levels.</h3>
+      <p class="m-vs-desc">Cultural practitioner (23yr). Proprietary depth method. In-house execution. Honey for emotional measurement. Nouvelle Vague as living proof. One studio. No middlemen. No translation loss.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="m-cta">
+  <h2 class="m-cta-title">
+    Your brand<br>
+    already speaks<br>
+    on two levels.<br>
+    <em>What does the<br>second one say?</em>
+  </h2>
+  <p class="m-cta-sub">Let's find out — then design it properly.</p>
+  <a href="contact.html" class="m-btn">Start the conversation</a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="m-footer">
+  <p>&copy; 2026 Studio Starman</p>
+  <p>Pozzuoli / Napoli / Campania</p>
+  <p>hello@studiostarman.com</p>
+</footer>
+
+<script src="cd-core.js"></script>
+</body>
+</html>

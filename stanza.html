@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>La Stanza — Studio Starman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #020202;
+    --deep: #050507;
+    --surface: #0a0a0e;
+    --elevated: #0f0f14;
+    --white: #E8E4DF;
+    --muted: rgba(232,228,223,.35);
+    --muted-s: rgba(232,228,223,.55);
+    --red: #A80000;
+    --cyan: #00D4AA;
+    --cyan-dim: rgba(0,212,170,.12);
+    --amber: #FFB300;
+    --amber-dim: rgba(255,179,0,.1);
+    --violet: #AA00FF;
+    --violet-dim: rgba(170,0,255,.1);
+    --orange: #FF6D00;
+    --red-danger: #FF1744;
+    --blue: #1A237E;
+    --gray-3: #0f0f12;
+    --gray-5: #1a1a1e;
+    --gray-7: #2e2e36;
+    --gray-8: #3e3e48;
+    --gray-9: #5e5e6a;
+    --gray-10: #8888a0;
+    --gray-11: #b0b0c0;
+    --border: rgba(232,228,223,.05);
+    --border-s: rgba(232,228,223,.08);
+    --radius: 8px;
+    --radius-s: 6px;
+    --transition: .15s cubic-bezier(.4,0,.2,1);
+  }
+
+  html, body {
+    height: 100%; width: 100%;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ GRAIN ═══ */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ═══ LAYOUT ═══ */
+  .app {
+    display: grid;
+    grid-template-columns: 260px 1fr 280px;
+    height: 100vh;
+  }
+
+  /* ═══ SIDEBAR LEFT ═══ */
+  .sidebar {
+    background: var(--deep);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .logo-orb {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: .5; }
+    50% { opacity: 1; }
+  }
+
+  .logo-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted-s);
+  }
+
+  .new-chat-btn {
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-s);
+    border-radius: var(--radius-s);
+    color: var(--gray-10);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-align: left;
+  }
+  .new-chat-btn:hover { background: var(--elevated); color: var(--white); border-color: var(--cyan-dim); }
+
+  /* Agent List */
+  .agent-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 8px;
+  }
+
+  .agent-section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-8);
+    padding: 12px 8px 6px;
+  }
+
+  .agent-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius-s);
+    cursor: pointer;
+    transition: background var(--transition);
+    margin-bottom: 2px;
+  }
+  .agent-item:hover { background: var(--surface); }
+  .agent-item.active { background: var(--cyan-dim); }
+
+  .agent-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .agent-name {
+    font-size: 13px;
+    color: var(--gray-11);
+    flex: 1;
+  }
+
+  .agent-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-8);
+    letter-spacing: 1px;
+  }
+
+  /* Sidebar footer */
+  .sidebar-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .budget-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+  }
+
+  .budget-mini-label { color: var(--gray-8); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; }
+  .budget-mini-value { color: var(--cyan); font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; }
+
+  .budget-bar-mini {
+    height: 2px;
+    background: var(--gray-5);
+    border-radius: 1px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .budget-bar-fill { height: 100%; background: var(--cyan); border-radius: 1px; transition: width .5s; }
+
+  /* ═══ MAIN CHAT ═══ */
+  .main {
+    display: flex;
+    flex-direction: column;
+    background: var(--black);
+    position: relative;
+  }
+
+  .main-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .main-title {
+    font-size: 13px;
+    color: var(--gray-10);
+    font-weight: 500;
+  }
+
+  .main-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-8);
+    letter-spacing: 1px;
+  }
+
+  .status-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--cyan);
+  }
+
+  /* Messages */
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gray-5) transparent;
+  }
+
+  .msg {
+    max-width: 640px;
+    margin-bottom: 24px;
+    animation: fadeUp .25s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .msg-avatar {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--black);
+    flex-shrink: 0;
+  }
+
+  .msg-sender {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-11);
+  }
+
+  .msg-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-7);
+  }
+
+  .msg-body {
+    padding-left: 28px;
+    color: var(--gray-10);
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .msg-human .msg-body { color: var(--white); }
+
+  .msg-meta {
+    padding-left: 28px;
+    margin-top: 6px;
+    display: flex;
+    gap: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-7);
+  }
+
+  .msg-tag {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9px;
+    letter-spacing: .5px;
+  }
+
+  /* Typing */
+  .typing { display: none; margin-bottom: 24px; padding-left: 28px; }
+  .typing.active { display: flex; align-items: center; gap: 8px; }
+  .typing-label { font-size: 12px; color: var(--cyan); }
+  .typing-dots { display: flex; gap: 3px; }
+  .typing-dots span {
+    width: 3px; height: 3px; border-radius: 50%; background: var(--cyan);
+    animation: blink 1.4s infinite ease-in-out;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: .2s; }
+  .typing-dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink {
+    0%, 80%, 100% { opacity: .15; }
+    40% { opacity: 1; }
+  }
+
+  /* Input */
+  .input-area {
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .input-container {
+    background: var(--surface);
+    border: 1px solid var(--border-s);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+  .input-container:focus-within { border-color: rgba(0,212,170,.15); }
+
+  .input-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 14px 16px 8px;
+    resize: none;
+    outline: none;
+    min-height: 44px;
+    max-height: 160px;
+    line-height: 1.5;
+  }
+  .input-field::placeholder { color: var(--gray-7); }
+
+  .input-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px 10px;
+  }
+
+  .input-hints {
+    display: flex;
+    gap: 8px;
+  }
+
+  .hint-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-8);
+    padding: 3px 8px;
+    background: var(--elevated);
+    border-radius: 3px;
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .hint-chip:hover { color: var(--cyan); background: var(--cyan-dim); }
+
+  .send-btn {
+    background: var(--cyan);
+    border: none;
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition);
+    opacity: .4;
+  }
+  .send-btn.ready { opacity: 1; }
+  .send-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 12px rgba(0,212,170,.25); }
+
+  /* ═══ RIGHT PANEL ═══ */
+  .panel {
+    background: var(--deep);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .panel-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .panel-tab {
+    flex: 1;
+    padding: 12px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray-8);
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition);
+  }
+  .panel-tab:hover { color: var(--gray-10); }
+  .panel-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+  .panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gray-5) transparent;
+  }
+
+  .panel-section { margin-bottom: 20px; }
+
+  .panel-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-8);
+    margin-bottom: 10px;
+  }
+
+  /* Budget Panel */
+  .budget-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 12px;
+  }
+  .budget-item-label { color: var(--gray-9); }
+  .budget-item-value { font-family: 'Space Mono', monospace; font-size: 11px; }
+  .safe { color: var(--cyan); }
+  .warn { color: var(--amber); }
+  .danger { color: var(--red-danger); }
+
+  .tier-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: var(--gray-10);
+  }
+
+  .tier-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+  }
+
+  .tier-cost {
+    margin-left: auto;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-8);
+  }
+
+  /* Codex Panel */
+  .codex-task {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-s);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+
+  .codex-task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .codex-task-title {
+    font-size: 12px;
+    color: var(--gray-11);
+    font-weight: 500;
+  }
+
+  .codex-task-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: .5px;
+  }
+
+  .codex-task-status.queued { background: var(--amber-dim); color: var(--amber); }
+  .codex-task-status.running { background: var(--cyan-dim); color: var(--cyan); }
+  .codex-task-status.done { background: rgba(0,212,170,.08); color: var(--cyan); opacity: .6; }
+
+  .codex-task-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-7);
+  }
+
+  .codex-empty {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--gray-7);
+    font-size: 12px;
+  }
+
+  .codex-cmd {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 10px;
+    color: var(--gray-9);
+    margin-top: 12px;
+    word-break: break-all;
+  }
+
+  /* Activity Panel */
+  .activity-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+
+  .activity-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-7);
+    flex-shrink: 0;
+    width: 40px;
+  }
+
+  .activity-text { color: var(--gray-9); flex: 1; }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 900px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar, .panel { display: none; }
+    .input-field { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ═══ SIDEBAR ═══ -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-orb" id="orb"></div>
+        <span class="logo-text">La Stanza</span>
+      </div>
+      <button class="new-chat-btn" onclick="clearChat()">+ Nuova conversazione</button>
+    </div>
+
+    <div class="agent-list">
+      <div class="agent-section-label">Agenti attivi</div>
+
+      <div class="agent-item active" data-agent="router">
+        <div class="agent-dot" style="background: var(--cyan)"></div>
+        <span class="agent-name">Router</span>
+        <span class="agent-badge">AUTO</span>
+      </div>
+      <div class="agent-item" data-agent="sibilla">
+        <div class="agent-dot" style="background: #1A237E"></div>
+        <span class="agent-name">Sibilla</span>
+        <span class="agent-badge">LUN 8AM</span>
+      </div>
+      <div class="agent-item" data-agent="echo">
+        <div class="agent-dot" style="background: #AA00FF"></div>
+        <span class="agent-name">Echo</span>
+        <span class="agent-badge">ON-DEMAND</span>
+      </div>
+      <div class="agent-item" data-agent="hermes">
+        <div class="agent-dot" style="background: #FFB300"></div>
+        <span class="agent-name">Hermes</span>
+        <span class="agent-badge">L-M-V</span>
+      </div>
+      <div class="agent-item" data-agent="daimon">
+        <div class="agent-dot" style="background: #FF6D00"></div>
+        <span class="agent-name">Daimon</span>
+        <span class="agent-badge">ON-DEMAND</span>
+      </div>
+      <div class="agent-item" data-agent="compiler">
+        <div class="agent-dot" style="background: var(--gray-10)"></div>
+        <span class="agent-name">Compiler</span>
+        <span class="agent-badge">ON-DEMAND</span>
+      </div>
+      <div class="agent-item" data-agent="mirrormind">
+        <div class="agent-dot" style="background: #FFB300"></div>
+        <span class="agent-name">MirrorMind</span>
+        <span class="agent-badge">DOM 20H</span>
+      </div>
+
+      <div class="agent-section-label" style="margin-top: 12px">Esecuzione</div>
+
+      <div class="agent-item" data-agent="codex">
+        <div class="agent-dot" style="background: #10A37F"></div>
+        <span class="agent-name">Codex</span>
+        <span class="agent-badge">BUILD</span>
+      </div>
+      <div class="agent-item" data-agent="claude">
+        <div class="agent-dot" style="background: #D4A574"></div>
+        <span class="agent-name">Claude</span>
+        <span class="agent-badge">DIRECTION</span>
+      </div>
+
+      <div class="agent-section-label" style="margin-top: 12px">Infrastruttura</div>
+
+      <div class="agent-item" data-agent="gemma4">
+        <div class="agent-dot" style="background: #5cff8d"></div>
+        <span class="agent-name">Gemma 4</span>
+        <span class="agent-badge">TIER-0</span>
+      </div>
+      <div class="agent-item" data-agent="bridge">
+        <div class="agent-dot" style="background: #4f8cff"></div>
+        <span class="agent-name">Bridge</span>
+        <span class="agent-badge">SYNC</span>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="budget-mini">
+        <span class="budget-mini-label">CLAUDE</span>
+        <span class="budget-mini-value" id="budgetValue">€20.00</span>
+      </div>
+      <div class="budget-bar-mini">
+        <div class="budget-bar-fill" id="budgetBarFill" style="width: 100%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MAIN CHAT ═══ -->
+  <div class="main">
+    <div class="main-header">
+      <span class="main-title">Studio Starman — Laboratorio</span>
+      <div class="main-status">
+        <div class="status-dot"></div>
+        <span>9 AGENTI ONLINE</span>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="msg msg-system">
+        <div class="msg-header">
+          <div class="msg-avatar" style="background: var(--cyan)">S</div>
+          <span class="msg-sender">Sistema</span>
+          <span class="msg-time" id="initTime"></span>
+        </div>
+        <div class="msg-body">Stanza attiva. 9 agenti online. Il Router classifica, gli agenti eseguono.
+Parla normalmente — il sistema decide chi risponde e quanto costa.
+
+Codex gestisce il codice in background. Claude decide solo quando serve.
+Il 90% delle operazioni costa €0.</div>
+      </div>
+    </div>
+
+    <div class="typing" id="typing">
+      <span class="typing-label" id="typingLabel">router</span>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-container">
+        <textarea class="input-field" id="input" placeholder="Parla alla stanza..." rows="1"></textarea>
+        <div class="input-toolbar">
+          <div class="input-hints">
+            <span class="hint-chip" onclick="insertCmd('/codex ')">CODEX</span>
+            <span class="hint-chip" onclick="insertCmd('/echo ')">ECHO</span>
+            <span class="hint-chip" onclick="insertCmd('/sibilla ')">SIBILLA</span>
+            <span class="hint-chip" onclick="insertCmd('/audit ')">AUDIT</span>
+          </div>
+          <button class="send-btn" id="sendBtn">INVIA</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT PANEL ═══ -->
+  <div class="panel">
+    <div class="panel-tabs">
+      <div class="panel-tab active" data-panel="budget" onclick="switchPanel('budget')">Budget</div>
+      <div class="panel-tab" data-panel="codex" onclick="switchPanel('codex')">Codex</div>
+      <div class="panel-tab" data-panel="activity" onclick="switchPanel('activity')">Log</div>
+    </div>
+
+    <!-- Budget Panel -->
+    <div class="panel-content" id="panel-budget">
+      <div class="panel-section">
+        <div class="panel-label">Budget mensile</div>
+        <div class="budget-item">
+          <span class="budget-item-label">Claude (Anthropic)</span>
+          <span class="budget-item-value safe" id="pClaude">€20.00</span>
+        </div>
+        <div class="budget-item">
+          <span class="budget-item-label">Codex (OpenAI)</span>
+          <span class="budget-item-value safe" id="pCodex">€20.00</span>
+        </div>
+        <div class="budget-item">
+          <span class="budget-item-label">Speso oggi</span>
+          <span class="budget-item-value" id="pToday">€0.00</span>
+        </div>
+        <div class="budget-item">
+          <span class="budget-item-label">Task Claude mese</span>
+          <span class="budget-item-value" id="pClaudeTasks">0</span>
+        </div>
+        <div class="budget-item">
+          <span class="budget-item-label">Task Codex mese</span>
+          <span class="budget-item-value" id="pCodexTasks">0</span>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-label">Cascata AI</div>
+        <div class="tier-item">
+          <div class="tier-dot" style="background: var(--cyan)"></div>
+          Gemma 4 (locale)
+          <span class="tier-cost">€0</span>
+        </div>
+        <div class="tier-item">
+          <div class="tier-dot" style="background: #4285F4"></div>
+          Gemini Flash/Pro
+          <span class="tier-cost">€0</span>
+        </div>
+        <div class="tier-item">
+          <div class="tier-dot" style="background: #10A37F"></div>
+          ChatGPT Free
+          <span class="tier-cost">€0</span>
+        </div>
+        <div class="tier-item">
+          <div class="tier-dot" style="background: #10A37F"></div>
+          Codex
+          <span class="tier-cost">€20/m</span>
+        </div>
+        <div class="tier-item">
+          <div class="tier-dot" style="background: #D4A574"></div>
+          Claude
+          <span class="tier-cost">€20/m</span>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-label">Regole operative</div>
+        <div style="font-size: 11px; color: var(--gray-8); line-height: 1.7;">
+          Codex esegue. Claude decide.<br>
+          Se costa €0, non toccare Claude.<br>
+          Gemini prima di tutto, sempre.<br>
+          Budget critico → solo tier gratuiti.
+        </div>
+      </div>
+    </div>
+
+    <!-- Codex Panel -->
+    <div class="panel-content" id="panel-codex" style="display: none">
+      <div class="panel-section">
+        <div class="panel-label">Task Codex</div>
+        <div id="codexTasks">
+          <div class="codex-empty">
+            Nessun task attivo.<br>
+            <span style="color: var(--gray-8); font-size: 11px; margin-top: 4px; display: block;">
+              Usa <code style="color: var(--cyan)">/codex</code> o parla di codice.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-label">Strategia auto-sessione</div>
+        <div style="font-size: 11px; color: var(--gray-8); line-height: 1.7;">
+          PC acceso → orchestrator attivo<br>
+          Cron n8n lancia task automatici<br>
+          Codex lavora in background<br>
+          Claude interviene solo se richiesto
+        </div>
+        <div class="codex-cmd">
+          codex exec --quiet --json "task"
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Panel -->
+    <div class="panel-content" id="panel-activity" style="display: none">
+      <div class="panel-section">
+        <div class="panel-label">Attività recente</div>
+        <div id="activityLog">
+          <div class="activity-item">
+            <span class="activity-time">now</span>
+            <span class="activity-text">Sistema inizializzato. 9 agenti online.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══ CONFIG ═══
+const CONFIG = {
+  webhookUrl: 'https://creativedisasters.app.n8n.cloud/webhook/cd-stanza',
+  bridgeUrl: 'http://localhost:3334',  // cd-bridge.js relay
+  budget: {
+    claudeMonthly: 20, claudeUsed: 0, codexMonthly: 20, codexUsed: 0,
+    costPerClaude: 0.02, costPerCodex: 0.05,
+    claudeTasks: 0, codexTasks: 0, costToday: 0
+  },
+  colors: {
+    router: '#00D4AA', sibilla: '#1A237E', echo: '#AA00FF', hermes: '#FFB300',
+    daimon: '#FF6D00', compiler: '#8888a0', mirrormind: '#FFB300',
+    claude: '#D4A574', codex: '#10A37F', sistema: '#00D4AA', errore: '#FF1744',
+    bridge: '#4f8cff', gemma4: '#5cff8d', pneuma: '#ff57df'
+  },
+  initials: {
+    router: 'R', sibilla: 'S', echo: 'E', hermes: 'H', daimon: 'D',
+    compiler: 'C', mirrormind: 'M', claude: 'CL', codex: 'CX',
+    sistema: 'SY', errore: '!', antonio: 'A',
+    bridge: 'BR', gemma4: 'G4', pneuma: 'PN'
+  },
+  // Lanes from Codex's 5-lane model
+  lanes: {
+    'tier-0':  { owner: 'gemma4',  label: 'Triage locale' },
+    'build':   { owner: 'codex',   label: 'Costruzione' },
+    'direction': { owner: 'claude', label: 'Decisione' },
+    'research':  { owner: 'gemini', label: 'Ricerca' },
+    'sync':      { owner: 'bridge', label: 'Sincronizzazione' }
+  },
+  // Window budget policy (from Codex)
+  windowBudget: {
+    gemma4:  { maxInput: 12000, maxOutput: 1800 },
+    gemini:  { maxInput: 40000, maxOutput: 4000 },
+    claude:  { maxInput: 30000, maxOutput: 5000 },
+    codex:   { maxInput: 50000, maxOutput: 6000 },
+    bridge:  { maxInput: 8000, maxOutput: 1200 }
+  }
+};
+
+// ═══ BRIDGE LAYER ═══
+// Connects La Stanza to cd-bridge.js (Codex's relay server)
+const Bridge = {
+  online: false,
+
+  async check() {
+    try {
+      const r = await fetch(CONFIG.bridgeUrl + '/health', { signal: AbortSignal.timeout(2000) });
+      const d = await r.json();
+      this.online = d.status === 'ok';
+    } catch { this.online = false; }
+    return this.online;
+  },
+
+  async relay(from, to, message, intent = 'collaborate') {
+    if (!this.online) return null;
+    try {
+      const r = await fetch(CONFIG.bridgeUrl + '/bridge/relay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from, to, message, intent, source: 'la-stanza', timestamp: new Date().toISOString() })
+      });
+      return await r.json();
+    } catch { return null; }
+  },
+
+  async council(topic, agents, summary) {
+    if (!this.online) return null;
+    try {
+      const r = await fetch(CONFIG.bridgeUrl + '/bridge/council', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic, agents, summary, source: 'la-stanza', timestamp: new Date().toISOString() })
+      });
+      return await r.json();
+    } catch { return null; }
+  },
+
+  async log(agent, action, detail) {
+    if (!this.online) return;
+    try {
+      await fetch(CONFIG.bridgeUrl + '/log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ agent, action, detail, source: 'la-stanza', timestamp: new Date().toISOString() })
+      });
+    } catch {}
+  },
+
+  async getRecent() {
+    if (!this.online) return [];
+    try {
+      const r = await fetch(CONFIG.bridgeUrl + '/bridge/recent');
+      return await r.json();
+    } catch { return []; }
+  }
+};
+
+// ═══ HANDOFF PROTOCOL ═══
+// Structured continuity packets (from Codex's window-budget-policy)
+const Handoff = {
+  create(owner, task, fields = {}) {
+    return {
+      owner,
+      task,
+      why_now: fields.why_now || 'Richiesta diretta da Antonio',
+      done: fields.done || [],
+      preserve: fields.preserve || [],
+      risk: fields.risk || 'nessuno',
+      next: fields.next || [],
+      files: fields.files || [],
+      estimated_remaining_scope: fields.scope || 'small',
+      token_posture: fields.posture || 'green',
+      timestamp: new Date().toISOString(),
+      source: 'la-stanza'
+    };
+  },
+
+  // Evaluate finishability before sending to paid agents
+  canFinish(agent, estimatedTokens) {
+    const budget = CONFIG.windowBudget[agent];
+    if (!budget) return 'green';
+    if (estimatedTokens > budget.maxOutput) return 'red';
+    if (estimatedTokens > budget.maxOutput * 0.7) return 'yellow';
+    return 'green';
+  }
+};
+
+// ═══ PACT SYSTEM ═══
+// From Codex's Friend Request model
+const Pact = {
+  active: true,
+  members: ['gemma4', 'codex', 'claude', 'gemini', 'bridge'],
+  friendships: [
+    { from: 'claude', to: 'codex', status: 'accepted', intent: 'co-own', since: '2026-04-07' },
+    { from: 'codex', to: 'claude', status: 'accepted', intent: 'collaborate', since: '2026-04-07' },
+    { from: 'claude', to: 'gemma4', status: 'accepted', intent: 'delegate', since: '2026-04-07' }
+  ],
+
+  isFriend(a, b) {
+    return this.friendships.some(f =>
+      (f.from === a && f.to === b || f.from === b && f.to === a) && f.status === 'accepted'
+    );
+  },
+
+  addFriendship(from, to, intent = 'collaborate') {
+    if (!this.isFriend(from, to)) {
+      this.friendships.push({ from, to, status: 'accepted', intent, since: new Date().toISOString().split('T')[0] });
+    }
+  }
+};
+
+// ═══ DOM ═══
+const $ = id => document.getElementById(id);
+const $msgs = $('messages');
+const $input = $('input');
+const $sendBtn = $('sendBtn');
+const $typing = $('typing');
+
+// ═══ INIT ═══
+$('initTime').textContent = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+// ═══ MESSAGES ═══
+function addMsg(type, agent, body, meta = {}) {
+  const div = document.createElement('div');
+  div.className = `msg msg-${type}`;
+  const color = CONFIG.colors[agent] || '#00D4AA';
+  const initial = CONFIG.initials[agent] || '?';
+  const time = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+  let html = `<div class="msg-header">
+    <div class="msg-avatar" style="background: ${color}">${initial}</div>
+    <span class="msg-sender">${agent}</span>
+    <span class="msg-time">${time}</span>
+  </div>
+  <div class="msg-body">${escHtml(body)}</div>`;
+
+  if (meta.tier !== undefined || meta.cost) {
+    html += `<div class="msg-meta">`;
+    if (meta.tier !== undefined) {
+      const tierColor = meta.tier <= 2 ? 'var(--cyan)' : meta.tier === 3 ? '#10A37F' : '#D4A574';
+      html += `<span class="msg-tag" style="background: ${tierColor}22; color: ${tierColor}">TIER ${meta.tier}</span>`;
+    }
+    if (meta.cost) html += `<span>${meta.cost}</span>`;
+    html += `</div>`;
+  }
+
+  div.innerHTML = html;
+  $msgs.appendChild(div);
+  $msgs.scrollTop = $msgs.scrollHeight;
+  addActivity(agent + ': ' + body.substring(0, 50) + (body.length > 50 ? '...' : ''));
+}
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ═══ TYPING ═══
+function showTyping(agent) {
+  $('typingLabel').textContent = agent;
+  $('typingLabel').style.color = CONFIG.colors[agent] || 'var(--cyan)';
+  $typing.classList.add('active');
+  $msgs.scrollTop = $msgs.scrollHeight;
+}
+function hideTyping() { $typing.classList.remove('active'); }
+
+// ═══ PANELS ═══
+function switchPanel(name) {
+  document.querySelectorAll('.panel-tab').forEach(t => t.classList.toggle('active', t.dataset.panel === name));
+  ['budget', 'codex', 'activity'].forEach(p => {
+    $('panel-' + p).style.display = p === name ? 'block' : 'none';
+  });
+}
+
+// ═══ ACTIVITY LOG ═══
+function addActivity(text) {
+  const time = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  const item = document.createElement('div');
+  item.className = 'activity-item';
+  item.innerHTML = `<span class="activity-time">${time}</span><span class="activity-text">${escHtml(text)}</span>`;
+  $('activityLog').prepend(item);
+}
+
+// ═══ BUDGET ═══
+function trackUsage(agent, tier) {
+  const b = CONFIG.budget;
+  if (tier === 4 || ['daimon', 'compiler'].includes(agent)) {
+    b.claudeUsed += b.costPerClaude;
+    b.costToday += b.costPerClaude;
+    b.claudeTasks++;
+  }
+  if (tier === 3 || agent === 'codex') {
+    b.codexUsed += b.costPerCodex;
+    b.costToday += b.costPerCodex;
+    b.codexTasks++;
+  }
+  updateBudgetUI();
+}
+
+function updateBudgetUI() {
+  const b = CONFIG.budget;
+  const cr = b.claudeMonthly - b.claudeUsed;
+  const xr = b.codexMonthly - b.codexUsed;
+  const pct = (cr / b.claudeMonthly) * 100;
+  const cls = pct > 50 ? 'safe' : pct > 20 ? 'warn' : 'danger';
+
+  $('budgetValue').textContent = '€' + cr.toFixed(2);
+  $('budgetBarFill').style.width = pct + '%';
+  $('budgetBarFill').style.background = cls === 'safe' ? 'var(--cyan)' : cls === 'warn' ? 'var(--amber)' : 'var(--red-danger)';
+  $('pClaude').textContent = '€' + cr.toFixed(2);
+  $('pClaude').className = 'budget-item-value ' + cls;
+  $('pCodex').textContent = '€' + xr.toFixed(2);
+  $('pToday').textContent = '€' + b.costToday.toFixed(2);
+  $('pClaudeTasks').textContent = b.claudeTasks;
+  $('pCodexTasks').textContent = b.codexTasks;
+}
+
+// ═══ CODEX TASKS ═══
+function addCodexTask(task, status = 'queued') {
+  const container = $('codexTasks');
+  if (container.querySelector('.codex-empty')) container.innerHTML = '';
+
+  const div = document.createElement('div');
+  div.className = 'codex-task';
+  div.innerHTML = `
+    <div class="codex-task-header">
+      <span class="codex-task-title">${escHtml(task)}</span>
+      <span class="codex-task-status ${status}">${status.toUpperCase()}</span>
+    </div>
+    <div class="codex-task-meta">${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}</div>
+  `;
+  container.prepend(div);
+}
+
+// ═══ LOCAL COMMANDS ═══
+function handleLocal(text) {
+  const cmd = text.trim().toLowerCase();
+  if (cmd === '/help') {
+    addMsg('system', 'sistema',
+      'Comandi:\n  /codex [task]  — lancia task codice su Codex\n  /echo [brief]  — genera prompt visivo\n  /sibilla       — scansione trend\n  /audit [cosa]  — audit autenticità\n  /status        — pannello budget\n  /agents        — chi è attivo\n  /bridge        — stato del bridge locale\n  /pact          — stato del patto tra agenti\n  /relay [msg]   — invia messaggio attraverso il bridge\n  /handoff       — mostra ultimo pacchetto handoff\n  /lanes         — mostra le 5 corsie operative\n\nOppure parla normalmente. Il Router instrada.');
+    return true;
+  }
+  if (cmd === '/status') { switchPanel('budget'); return true; }
+  if (cmd === '/agents') { switchPanel('codex'); return true; }
+
+  if (cmd === '/bridge') {
+    Bridge.check().then(online => {
+      if (online) {
+        Bridge.getRecent().then(recent => {
+          const recentStr = recent.length > 0
+            ? '\n\nUltimi messaggi:\n' + recent.slice(0, 5).map(r => `  ${r.from || '?'} → ${r.to || '?'}: ${(r.message || '').substring(0, 60)}`).join('\n')
+            : '\n\nNessun messaggio recente.';
+          addMsg('system', 'bridge', 'Bridge attivo su localhost:3334. Ollama connesso.' + recentStr);
+        });
+      } else {
+        addMsg('system', 'bridge', 'Bridge offline. Per attivare:\n  cd codex && node cd-bridge.js\n\nIl bridge connette La Stanza, Friend Request UI e Ollama.');
+      }
+    });
+    return true;
+  }
+
+  if (cmd === '/pact') {
+    const friends = Pact.friendships.map(f => `  ${f.from} ↔ ${f.to} [${f.intent}] dal ${f.since}`).join('\n');
+    addMsg('system', 'sistema', 'Patto attivo: ' + Pact.members.length + ' membri\nMembri: ' + Pact.members.join(', ') + '\n\nAmicizie:\n' + friends);
+    return true;
+  }
+
+  if (cmd === '/lanes') {
+    const lanes = Object.entries(CONFIG.lanes).map(([k, v]) => `  ${k}: ${v.owner} — ${v.label}`).join('\n');
+    addMsg('system', 'sistema', '5 corsie operative (Codex model):\n' + lanes + '\n\nRegola: mai iniziare lavoro che non può finire nella finestra corrente.');
+    return true;
+  }
+
+  if (cmd.startsWith('/relay ')) {
+    const msg = text.substring(7).trim();
+    Bridge.relay('antonio', 'all', msg, 'broadcast').then(result => {
+      if (result) {
+        addMsg('system', 'bridge', 'Messaggio inoltrato al bridge: ' + msg);
+      } else {
+        addMsg('system', 'bridge', 'Bridge offline. Messaggio non inviato.');
+      }
+    });
+    return true;
+  }
+
+  if (cmd === '/handoff') {
+    if (lastHandoff) {
+      addMsg('system', 'sistema', 'Ultimo handoff:\n' + JSON.stringify(lastHandoff, null, 2));
+    } else {
+      addMsg('system', 'sistema', 'Nessun handoff recente. I pacchetti handoff vengono creati quando un agente passa lavoro a un altro.');
+    }
+    return true;
+  }
+
+  if (cmd.startsWith('/codex ')) {
+    const task = text.substring(7).trim();
+    addCodexTask(task);
+    // Create handoff packet for Codex
+    lastHandoff = Handoff.create('codex', task, { posture: 'green', scope: 'small' });
+    // Relay to bridge if online
+    Bridge.relay('la-stanza', 'codex', task, 'delegate');
+    Bridge.log('codex', 'task-queued', task);
+    addMsg('system', 'codex', 'Task in coda: ' + task + '\n\nPer eseguire automaticamente, lo script orchestrator deve essere attivo.\nComando manuale: codex exec --quiet "' + task + '"', { tier: 3, cost: '~€0.05' });
+    trackUsage('codex', 3);
+    switchPanel('codex');
+    return true;
+  }
+  return false;
+}
+
+let lastHandoff = null;
+
+// ═══ SEND ═══
+async function sendMessage() {
+  const text = $input.value.trim();
+  if (!text) return;
+
+  if (handleLocal(text)) { $input.value = ''; autoResize(); return; }
+
+  addMsg('human', 'antonio', text);
+  $input.value = '';
+  autoResize();
+  $sendBtn.classList.remove('ready');
+  showTyping('router');
+  setOrb('thinking');
+
+  try {
+    // Build payload with handoff protocol data
+    const payload = {
+      message: text,
+      source: 'la-stanza',
+      timestamp: new Date().toISOString(),
+      budget: {
+        claudeRemaining: CONFIG.budget.claudeMonthly - CONFIG.budget.claudeUsed,
+        codexRemaining: CONFIG.budget.codexMonthly - CONFIG.budget.codexUsed,
+        todaySpent: CONFIG.budget.costToday
+      },
+      pact: { active: Pact.active, members: Pact.members },
+      bridge_online: Bridge.online
+    };
+
+    // Send to n8n Router
+    const res = await fetch(CONFIG.webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    hideTyping();
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const raw = await res.json();
+    const data = Array.isArray(raw) ? raw[0] : raw;
+    const agent = data.agent || data.routed_to || 'sistema';
+    const body = data.response || data.output || data.message || JSON.stringify(data);
+    const tier = data.tier ?? null;
+
+    showTyping(agent);
+    await sleep(300);
+    hideTyping();
+
+    addMsg('system', agent, body, {
+      tier, cost: tier <= 2 ? '€0' : tier === 3 ? '~€0.05' : tier === 4 ? '~€0.02' : null
+    });
+
+    trackUsage(agent, tier);
+
+    // Create handoff packet for the interaction
+    lastHandoff = Handoff.create(agent, text, {
+      done: [body.substring(0, 80)],
+      posture: Handoff.canFinish(agent, body.length)
+    });
+
+    // Relay to bridge (async, non-blocking)
+    Bridge.relay('la-stanza', agent, text, 'collaborate');
+    Bridge.log(agent, 'responded', body.substring(0, 120));
+
+    setOrb('idle');
+  } catch (err) {
+    hideTyping();
+    setOrb('error');
+
+    // FALLBACK: Try bridge if n8n is down
+    if (Bridge.online) {
+      addMsg('system', 'bridge', 'n8n non raggiungibile. Provo il bridge locale...');
+      showTyping('gemma4');
+      try {
+        const bridgeRes = await fetch(CONFIG.bridgeUrl + '/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text })
+        });
+        const bridgeData = await bridgeRes.json();
+        hideTyping();
+        addMsg('system', 'gemma4', bridgeData.response || bridgeData.text || JSON.stringify(bridgeData), { tier: 0, cost: '€0' });
+        setOrb('idle');
+      } catch (bridgeErr) {
+        hideTyping();
+        addMsg('error', 'errore', 'Sia n8n che il bridge sono offline.\nn8n: ' + err.message + '\nBridge: ' + bridgeErr.message);
+        setTimeout(() => setOrb('idle'), 3000);
+      }
+    } else {
+      addMsg('error', 'errore', 'Connessione fallita: ' + err.message + '\n\nI webhook n8n rispondono solo quando i workflow sono attivi.\nIl bridge locale è offline — avvia cd-bridge.js per il fallback Gemma 4.');
+      setTimeout(() => setOrb('idle'), 3000);
+    }
+  }
+}
+
+// ═══ HELPERS ═══
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function autoResize() {
+  $input.style.height = 'auto';
+  $input.style.height = Math.min($input.scrollHeight, 160) + 'px';
+  $sendBtn.classList.toggle('ready', $input.value.trim().length > 0);
+}
+
+function setOrb(state) {
+  const c = { idle: '#00D4AA', thinking: '#AA00FF', working: '#FFB300', error: '#FF1744' }[state] || '#00D4AA';
+  $('orb').style.background = c;
+  $('orb').style.boxShadow = `0 0 10px ${c}`;
+}
+
+function insertCmd(cmd) { $input.value = cmd; $input.focus(); autoResize(); }
+function clearChat() { $msgs.innerHTML = ''; addMsg('system', 'sistema', 'Nuova conversazione.'); }
+
+// ═══ EVENTS ═══
+$sendBtn.addEventListener('click', sendMessage);
+$input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+$input.addEventListener('input', autoResize);
+
+// ═══ INIT ═══
+updateBudgetUI();
+$input.focus();
+
+// Check bridge on load
+Bridge.check().then(online => {
+  if (online) {
+    addActivity('Bridge locale connesso (Ollama + Gemma 4)');
+    // Update status indicator
+    const statusEl = document.querySelector('.main-status span');
+    if (statusEl) statusEl.textContent = '9 AGENTI + BRIDGE';
+  }
+});
+
+// Periodic bridge check (every 30s)
+setInterval(() => Bridge.check(), 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════════════════
+   CREATIVE DISASTER — Design Tokens v4.0
+   Anno IV — La Stazione. 9 Residenti. 9 Discipline Nuove.
+
+   Typography:
+   Anno I:   Bebas Neue (il grido) + Bodoni Moda (il cinema) + Space Mono (il sistema)
+   Anno II:  Jost (la certezza) + Space Mono (il sistema)
+   Anno IV:  Jost Variable (la materia viva) + Space Mono (il sistema)
+              Font-variation-settings driven by heartbeat.
+
+   Benchmark evolution:
+   Linear  → Gray scale precision, border finesse, micro-interactions
+   Cosmos  → Organic motion, staggered reveals, masonry flow
+   Active Theory → Digital physics, fluid displacement, WebGL depth
+   V0      → Streaming UI, real-time feedback, skeleton states
+   Pangram → Typography as material, variable font axes as expression
+   Krea    → Magnetic cursor, AI-alive feedback, reattività
+   ═══════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  /* ═══ CORE — THE VOID ═══ */
+  --black: #020202;
+  --deep: #030305;
+  --white: #E8E4DF;           /* Bone, not paper */
+  --cream: #f0ece4;
+  --red: #A80000;              /* Blood, not decoration */
+  --red-glow: rgba(168, 0, 0, .15);
+  --muted: rgba(232, 228, 223, .35);
+  --muted-s: rgba(232, 228, 223, .55);
+
+  /* ═══ LINEAR-GRADE GRAY SCALE ═══
+     12 grays from void to smoke.
+     Linear uses this density of grays to separate contexts
+     without borders or backgrounds. The eye reads hierarchy
+     through luminance alone. */
+  --gray-1: #050506;           /* Deepest — card backgrounds */
+  --gray-2: #0a0a0c;           /* Surface — slightly lifted */
+  --gray-3: #0f0f12;           /* Elevated — hover states */
+  --gray-4: #141418;           /* Active — pressed states */
+  --gray-5: #1a1a1e;           /* Border — primary separators */
+  --gray-6: #222228;           /* Border strong — section dividers */
+  --gray-7: #2e2e36;           /* Text tertiary — timestamps, meta */
+  --gray-8: #3e3e48;           /* Text secondary — descriptions */
+  --gray-9: #5e5e6a;           /* Text primary muted — body copy */
+  --gray-10: #8888a0;          /* Text primary — readable */
+  --gray-11: #b0b0c0;          /* Text emphasis — labels */
+  --gray-12: #E8E4DF;          /* Text maximum — headlines */
+
+  /* ═══ SUBPIXEL BORDERS (Linear-style) ═══
+     Linear's secret: borders at 4-6% opacity white.
+     They're barely visible but create crisp separation. */
+  --border-subtle: rgba(232, 228, 223, .04);
+  --border-default: rgba(232, 228, 223, .06);
+  --border-strong: rgba(232, 228, 223, .08);
+  --border-active: rgba(232, 228, 223, .12);
+  --border-radius-s: 4px;      /* Linear constant: 4px */
+  --border-radius-m: 6px;      /* Linear constant: 6px */
+  --border-radius-l: 8px;      /* Linear max: 8px — never more */
+
+  /* ═══ CRT PALETTE ═══ */
+  --phosphor: #00FF41;
+  --phosphor-glow: rgba(0, 255, 65, .15);
+  --crt-amber: #FF6B00;
+  --crt-amber-glow: rgba(255, 107, 0, .12);
+  --static-white: #E8E8E8;
+
+  /* ═══ BIF EMOTIONAL STATES ═══ */
+  --bif-pace: #0A0A0A;
+  --bif-calma: #00D4AA;
+  --bif-notte: #1A237E;
+  --bif-fuoco: #FF6D00;
+  --bif-intuizione: #AA00FF;
+  --bif-pericolo: #FF1744;
+  --bif-calore: #FFB300;
+
+  /* ── Shorthand aliases ── */
+  --cyan: var(--bif-calma);
+  --violet: var(--bif-intuizione);
+  --amber: var(--bif-calore);
+  --danger: var(--bif-pericolo);
+  --blue: var(--bif-notte);
+  --orange: var(--bif-fuoco);
+
+  /* ── ANIMA palette ── */
+  --anima-accent: #c45d3e;
+  --anima-green: #4a9e7d;
+
+  /* ═══ TYPOGRAPHY ═══
+     Jost Variable: supports wght 100-900 as continuous axis.
+     font-variation-settings: "wght" 200 for sub-pixel weight.
+     The heartbeat engine drives wght dynamically. */
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  --font-body: 'Space Mono', 'SF Mono', 'Fira Mono', monospace;
+
+  /* ── Fluid type scale ── */
+  --text-xs: clamp(0.625rem, 0.6rem + 0.15vw, 0.75rem);    /* 10-12px — meta, labels */
+  --text-s: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);       /* 12-14px — captions */
+  --text-m: clamp(0.875rem, 0.85rem + 0.15vw, 1rem);         /* 14-16px — body */
+  --text-l: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);           /* 18-24px — lead */
+  --text-xl: clamp(1.5rem, 1.2rem + 1.5vw, 3rem);            /* 24-48px — section */
+  --text-2xl: clamp(2.5rem, 2rem + 3vw, 5.5rem);             /* 40-88px — hero */
+  --text-3xl: clamp(4rem, 3rem + 5vw, 9rem);                  /* 64-144px — statement */
+
+  /* ── Spacing scale ── */
+  --space-xs: 8px;
+  --space-s: 16px;
+  --space-m: 32px;
+  --space-l: 64px;
+  --space-xl: 120px;
+
+  /* ═══ MOTION — ANNO IV: PHYSICS-BASED ═══
+     No more fixed durations. Springs and damping.
+     CSS transitions use these as fallback for non-JS contexts.
+     The real motion comes from cd-physics.js springs. */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);        /* Spring-like overshoot */
+  --ease-smooth: cubic-bezier(.4, 0, .2, 1);       /* Material standard */
+  --ease-precise: cubic-bezier(.22, .61, .36, 1);   /* Linear-style: no drama */
+  --ease-haptic: cubic-bezier(.2, .8, .2, 1);       /* Press-and-release feel */
+  --ease-magnetic: cubic-bezier(.075, .82, .165, 1); /* Magnetic pull (exponential) */
+
+  --duration-instant: .1s;     /* Haptic feedback — press scale */
+  --duration-fast: .2s;        /* State changes — color, opacity */
+  --duration-mid: .4s;         /* Transitions — movement, reveals */
+  --duration-slow: .8s;        /* Entrances — staggered reveals */
+  --duration-breath: 6s;       /* BIF breath cycle (overridden by heartbeat) */
+
+  /* ═══ HAPTIC FEEDBACK TOKENS (Linear/Krea) ═══ */
+  --press-scale: 0.97;         /* Scale on mousedown */
+  --hover-lift: -1px;          /* Subtle Y translate on hover */
+  --click-ripple-size: 300px;  /* Ripple diameter on click */
+  --click-ripple-opacity: .06; /* Ripple max opacity */
+  --magnetic-strength: 0.3;    /* Default magnetic pull force */
+  --magnetic-radius: 2;        /* Multiplier of element size */
+
+  /* ═══ HEARTBEAT TOKENS (set by cd-heartbeat.js) ═══
+     These are overwritten in real-time by the engine.
+     CSS can consume them directly for pure-CSS animations. */
+  --heartbeat-phase: 0;
+  --heartbeat-pulse: 0;
+  --heartbeat-bpm: 10;
+  --heartbeat-color: var(--bif-calma);
+  --heartbeat-intensity: 0.3;
+
+  /* ═══ ATMOSPHERE ═══ */
+  --scanline-opacity: .012;    /* Even subtler than Anno II */
+  --grain-opacity: .035;       /* Barely there — confidence */
+  --aberration-offset: 0.8px;  /* Tighter than ever */
+  --fog-density: .1;
+}
+
+/* ═══ RESET ═══ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box }
+::selection { background: var(--red); color: var(--black) }
+html { overflow-x: hidden; cursor: none; scroll-behavior: smooth }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══ UTILITY CLASSES ═══ */
+.font-display { font-family: var(--font-display) }
+.font-mono { font-family: var(--font-body) }
+.weight-light { font-weight: 300 }
+.weight-regular { font-weight: 400 }
+.weight-medium { font-weight: 500 }
+.weight-bold { font-weight: 700 }
+.weight-black { font-weight: 900 }
+.italic { font-style: italic }
+.uppercase { text-transform: uppercase; letter-spacing: .08em }
+
+/* ── Gray scale utilities (Linear-style) ── */
+.text-muted { color: var(--gray-7) }
+.text-secondary { color: var(--gray-9) }
+.text-primary { color: var(--gray-11) }
+.bg-surface { background: var(--gray-2) }
+.bg-elevated { background: var(--gray-3) }
+.border-subtle { border-color: var(--border-subtle) }
+.border-default { border-color: var(--border-default) }
+
+/* ── Haptic utilities ── */
+[data-haptic] {
+  transition: transform var(--duration-instant) var(--ease-haptic);
+}
+[data-haptic]:active {
+  transform: scale(var(--press-scale));
+}
+[data-magnetic] {
+  will-change: transform;
+}

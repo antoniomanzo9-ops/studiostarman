@@ -1,0 +1,288 @@
+/* ═══════════════════════════════════════════════════════
+   CREATIVE DISASTER — Shared Components
+   Cursor, grain, navigation, BIF orb, footer, transitions.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── CD DISC CURSOR ── */
+/* The cursor is a CD — conic gradient disc with BIF emotional state colors.
+   Rotation speed tied to mouse velocity. Expands on hover.
+   Sound on click (handled by cd-core.js).
+   This is the brand in motion. */
+.cur {
+  position: fixed;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width .4s var(--ease-out), height .4s var(--ease-out), box-shadow .15s;
+  /* cd-core.js applies the conic-gradient and rotation */
+}
+.cur-ring {
+  position: fixed;
+  width: 48px; height: 48px;
+  border: 1px solid rgba(168, 0, 0, .12);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  opacity: .3;
+  transition: width .6s var(--ease-out), height .6s var(--ease-out), opacity .4s;
+}
+
+/* BIF pages — ring shifts to cyan */
+[data-cursor="cyan"] .cur-ring { border-color: rgba(0, 212, 170, .12) }
+
+/* ── GRAIN OVERLAY — the skin of the system ── */
+.grain {
+  position: fixed; inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: var(--grain-opacity, .08);
+}
+.grain svg { width: 100%; height: 100% }
+
+/* ── SCANLINES — CRT decay, always present ── */
+.scanlines {
+  position: fixed; inset: 0;
+  z-index: 9001;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, var(--scanline-opacity, .025)) 2px,
+    rgba(0, 0, 0, var(--scanline-opacity, .025)) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* ── CHROMATIC ABERRATION — on display text ── */
+.chr-ab {
+  text-shadow:
+    calc(var(--aberration-offset, 1.5px) * -1) 0 rgba(255, 23, 68, .12),
+    var(--aberration-offset, 1.5px) 0 rgba(0, 255, 65, .1);
+}
+
+/* ── PHOSPHOR GLOW — the machine speaks ── */
+.phosphor {
+  color: var(--phosphor, #00FF41);
+  text-shadow: 0 0 8px var(--phosphor-glow, rgba(0, 255, 65, .3));
+}
+.phosphor-bg {
+  background: var(--phosphor);
+  box-shadow: 0 0 20px var(--phosphor-glow);
+}
+
+/* ── GLITCH — the interface trembles ── */
+@keyframes glitch {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0) }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 1px) }
+  40% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px) }
+  60% { clip-path: inset(40% 0 30% 0); transform: translate(-1px, 2px) }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(1px, -2px) }
+}
+.glitch-hover:hover {
+  animation: glitch .15s ease-in-out;
+}
+
+/* ── VHS FLICKER — subtle horizontal noise ── */
+@keyframes vhsFlicker {
+  0%, 100% { opacity: 1 }
+  92% { opacity: 1 }
+  93% { opacity: .8 }
+  94% { opacity: 1 }
+  96% { opacity: .9 }
+  97% { opacity: 1 }
+}
+
+/* ── AMBIENT LINE ── */
+.amb-line {
+  position: fixed;
+  left: 50%; top: 0;
+  width: 1px; height: 100vh;
+  z-index: 100;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, var(--red) 30%, var(--red) 70%, transparent 100%);
+  opacity: .03;
+}
+
+/* ── NAVIGATION — minimal, invisible, Dark Matter logic ── */
+/* The nav doesn't compete with the space. It floats. */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 8000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px clamp(28px,5vw,80px);
+  mix-blend-mode: difference;
+  /* no background — nav is part of the space, not above it */
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: .12em;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: clamp(20px,3vw,40px) }
+.nav a {
+  font-size: 9px;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.55);
+  text-decoration: none;
+  transition: color .3s ease;
+}
+.nav a:hover,
+.nav a[aria-current="page"] { color: #E8E4DF; }
+.nav-back {
+  font-size: 9px;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.45);
+  text-decoration: none;
+  transition: color .3s;
+}
+.nav-back:hover { color: var(--white) }
+
+/* ── BIF ORB — Time-aware, breathing, alive ── */
+/* BIF knows what hour it is. The orb breathes at a BPM
+   that matches the emotional state. Color shifts with
+   time of day. cd-core.js handles the intelligence. */
+.bif-global {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--bif-calma);
+  z-index: 8500;
+  pointer-events: none;
+  animation: bifGlobalBreathe var(--duration-breath) ease-in-out infinite;
+  transition: background-color 4s ease, box-shadow 4s ease, animation-duration 4s ease;
+  box-shadow: 0 0 20px rgba(0, 212, 170, .2);
+}
+.bif-global::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: .1;
+  animation: bifGlobalBreathe var(--duration-breath) ease-in-out infinite;
+  animation-delay: .5s;
+}
+.bif-global::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: .04;
+  animation: bifGlobalBreathe var(--duration-breath) ease-in-out infinite;
+  animation-delay: 1s;
+}
+@keyframes bifGlobalBreathe {
+  0%, 100% { transform: scale(1); opacity: .7 }
+  50% { transform: scale(1.15); opacity: 1 }
+}
+
+/* ── PAGE TRANSITIONS ── */
+.page-enter {
+  animation: pageIn .8s var(--ease-out) forwards;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(20px) }
+  to { opacity: 1; transform: translateY(0) }
+}
+
+.page-curtain {
+  position: fixed; inset: 0;
+  background: var(--black);
+  z-index: 9500;
+  pointer-events: none;
+  animation: curtainUp .6s var(--ease-out) forwards;
+}
+@keyframes curtainUp {
+  from { transform: scaleY(1); transform-origin: top }
+  to { transform: scaleY(0); transform-origin: top }
+}
+
+/* ── FOOTER ── */
+.cd-footer {
+  padding: 80px 40px 40px;
+  border-top: 1px solid rgba(232, 228, 223, .04);
+  background: var(--black);
+}
+.cd-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+}
+.cd-footer h3 {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: .15em;
+  margin-bottom: 20px;
+}
+.cd-footer a {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .1em;
+  margin-bottom: 10px;
+  transition: color var(--duration-fast);
+}
+.cd-footer a:hover { color: var(--white) }
+.cd-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(232, 228, 223, .04);
+  padding-top: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.cd-footer-bottom p {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .1em;
+}
+.cd-footer-bottom a {
+  display: inline;
+  margin: 0;
+}
+
+/* ── SHARED LABEL STYLE ── */
+.cd-label {
+  font-size: 10px;
+  letter-spacing: .6em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cd-label--red { color: var(--red) }
+.cd-label--cyan { color: var(--cyan) }
+
+/* ── SHARED KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px) }
+  to { opacity: 1; transform: translateY(0) }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav { padding: 20px 24px }
+  .nav-links { gap: 16px }
+  .nav a { font-size: 8px; letter-spacing: .25em }
+  .cd-footer-grid { grid-template-columns: 1fr; gap: 32px }
+  .cd-footer { padding: 60px 24px 32px }
+  .bif-global { bottom: 16px; right: 16px; width: 12px; height: 12px }
+}

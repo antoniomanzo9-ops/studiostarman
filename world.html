@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Mondo — Studio Starman</title>
+  <meta name="description" content="Il mondo di Studio Starman. Napoli. Campi Flegrei. La fisica quantistica come metodo. Gli artisti come osservatori. La mitologia di uno studio nato sul vulcano.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cd-tokens.css">
+  <link rel="stylesheet" href="cd-components.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      color: #E8E4DF;
+      font-family: 'Space Mono', monospace;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────────────────
+       CHAPTER SYSTEM
+    ───────────────────────────────────────────── */
+    .chapter {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ─────────────────────────────────────────────
+       I. HERO — "There is a place"
+    ───────────────────────────────────────────── */
+    .wld-hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wld-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      opacity: .22;
+      filter: saturate(.5) contrast(1.2);
+    }
+
+    .wld-hero-veil {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, #000 0%, rgba(0,0,0,.7) 40%, rgba(0,0,0,.2) 70%, rgba(0,0,0,.5) 100%);
+    }
+
+    .wld-hero-tl {
+      position: absolute;
+      top: clamp(100px, 12vw, 160px);
+      left: clamp(28px, 6vw, 100px);
+      font-size: 9px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .22);
+    }
+
+    .wld-hero-tr {
+      position: absolute;
+      top: clamp(100px, 12vw, 160px);
+      right: clamp(28px, 6vw, 100px);
+      text-align: right;
+    }
+    .wld-hero-tr p {
+      font-size: 9px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .18);
+      line-height: 2.2;
+    }
+
+    .wld-hero-content {
+      position: relative;
+      padding: 0 clamp(28px, 6vw, 100px) clamp(70px, 10vh, 130px);
+      max-width: 960px;
+    }
+
+    .wld-hero-num {
+      font-size: 9px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .7);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .wld-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 8vw, 110px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: .92;
+      color: #E8E4DF;
+      margin-bottom: 40px;
+    }
+
+    .wld-hero-body {
+      font-size: 14px;
+      line-height: 2;
+      color: rgba(232, 228, 223, .55);
+      letter-spacing: .04em;
+      max-width: 560px;
+    }
+
+    .wld-scroll-cue {
+      position: absolute;
+      bottom: 32px;
+      right: clamp(28px, 6vw, 100px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: .3;
+    }
+    .wld-scroll-cue span {
+      font-size: 8px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      writing-mode: vertical-lr;
+    }
+    .wld-scroll-cue-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, #E8E4DF, transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .3; transform: scaleY(1); }
+      50% { opacity: .8; transform: scaleY(.6); transform-origin: top; }
+    }
+
+    /* ─────────────────────────────────────────────
+       II. THE TERRITORY — Campi Flegrei
+    ───────────────────────────────────────────── */
+    .wld-territory {
+      padding: clamp(100px, 14vw, 200px) clamp(28px, 6vw, 100px);
+    }
+
+    .wld-chapter-label {
+      font-size: 8px;
+      letter-spacing: .7em;
+      text-transform: uppercase;
+      color: rgba(168, 0, 0, .6);
+      margin-bottom: 80px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .wld-chapter-label::after {
+      content: '';
+      flex: 1;
+      max-width: 120px;
+      height: 1px;
+      background: rgba(168, 0, 0, .25);
+    }
+
+    .wld-territory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .wld-territory-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1;
+      color: #E8E4DF;
+    }
+
+    .wld-territory-text {
+      font-size: 13px;
+      line-height: 2.1;
+      color: rgba(232, 228, 223, .55);
+      letter-spacing: .03em;
+    }
+
+    .wld-territory-text p + p { margin-top: 24px; }
+
+    .wld-territory-text em {
+      color: rgba(232, 228, 223, .85);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Coordinate block */
+    .wld-coords {
+      margin-top: 60px;
+      padding: 28px 0;
+      border-top: 1px solid rgba(232, 228, 223, .06);
+      border-bottom: 1px solid rgba(232, 228, 223, .06);
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .wld-coord-item {}
+    .wld-coord-label {
+      font-size: 8px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .2);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .wld-coord-value {
+      font-size: 12px;
+      letter-spacing: .08em;
+      color: rgba(232, 228, 223, .6);
+    }
+
+    /* ─────────────────────────────────────────────
+       III. THE ORACLE — Sibilla
+    ───────────────────────────────────────────── */
+    .wld-oracle {
+      padding: clamp(80px, 10vw, 140px) clamp(28px, 6vw, 100px);
+      position: relative;
+    }
+
+    .wld-oracle-rule {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(168, 0, 0, .3), rgba(168, 0, 0, .3), transparent);
+      opacity: .4;
+    }
+
+    .wld-oracle-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .wld-oracle-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3.5vw, 48px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.5;
+      color: #E8E4DF;
+      margin-bottom: 48px;
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .wld-oracle-quote::before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -8px;
+      font-size: clamp(48px, 6vw, 80px);
+      color: rgba(168, 0, 0, .25);
+      line-height: 1;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .wld-oracle-body {
+      font-size: 13px;
+      line-height: 2.1;
+      color: rgba(232, 228, 223, .5);
+      letter-spacing: .03em;
+      padding-left: 32px;
+      border-left: 1px solid rgba(168, 0, 0, .12);
+    }
+    .wld-oracle-body p + p { margin-top: 20px; }
+    .wld-oracle-body em {
+      color: rgba(232, 228, 223, .8);
+      font-style: normal;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+
+    /* Image full-bleed between sections */
+    .wld-image-break {
+      width: 100%;
+      height: clamp(300px, 40vw, 600px);
+      position: relative;
+      overflow: hidden;
+    }
+    .wld-image-break img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: .18;
+      filter: saturate(.4) contrast(1.3);
+    }
+    .wld-image-break-veil {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #000 0%, transparent 20%, transparent 80%, #000 100%),
+                  linear-gradient(to bottom, #000 0%, transparent 15%, transparent 85%, #000 100%);
+    }
+    .wld-image-break-text {
+      position: absolute;
+      bottom: clamp(24px, 4vw, 48px);
+      left: clamp(28px, 6vw, 100px);
+      font-size: 9px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .2);
+    }
+
+    /* ─────────────────────────────────────────────
+       IV. THE PHYSICS — Quantum Brand Theory
+    ───────────────────────────────────────────── */
+    .wld-physics {
+      padding: clamp(100px, 14vw, 200px) clamp(28px, 6vw, 100px);
+    }
+
+    .wld-physics-header {
+      margin-bottom: 80px;
+    }
+
+    .wld-physics-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5.5vw, 80px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1;
+      color: #E8E4DF;
+      margin-top: 24px;
+      max-width: 720px;
+    }
+
+    /* Superposition diagram in CSS */
+    .wld-superposition {
+      margin: 80px 0;
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      align-items: center;
+      gap: 0;
+      max-width: 900px;
+    }
+
+    .wld-state {
+      padding: 48px;
+      border: 1px solid rgba(232, 228, 223, .06);
+      position: relative;
+    }
+
+    .wld-state--a { border-right: none; }
+
+    .wld-state-label {
+      font-size: 8px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .2);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .wld-state-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2.5vw, 32px);
+      font-style: italic;
+      font-weight: 900;
+      color: #E8E4DF;
+      margin-bottom: 16px;
+    }
+
+    .wld-state-desc {
+      font-size: 11px;
+      line-height: 1.8;
+      color: rgba(232, 228, 223, .4);
+      letter-spacing: .02em;
+    }
+
+    .wld-state-dot {
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #A80000;
+      box-shadow: 0 0 16px rgba(168, 0, 0, .6);
+    }
+
+    .wld-superposition-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 100%;
+    }
+
+    .wld-superposition-center-line {
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(168, 0, 0, .4), transparent);
+      position: absolute;
+    }
+
+    .wld-superposition-symbol {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-style: italic;
+      color: rgba(168, 0, 0, .5);
+      position: relative;
+      z-index: 1;
+      background: #000;
+      padding: 8px;
+    }
+
+    .wld-physics-thesis {
+      margin-top: 64px;
+      max-width: 680px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2.2vw, 26px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.6;
+      color: rgba(232, 228, 223, .7);
+    }
+
+    .wld-physics-thesis strong {
+      color: #E8E4DF;
+      font-weight: 900;
+    }
+
+    /* ─────────────────────────────────────────────
+       V. THE ARTISTS
+    ───────────────────────────────────────────── */
+    .wld-artists {
+      padding: clamp(100px, 14vw, 200px) clamp(28px, 6vw, 100px);
+    }
+
+    .wld-artists-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 100px;
+      align-items: end;
+    }
+
+    .wld-artists-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5.5vw, 80px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1;
+      color: #E8E4DF;
+    }
+
+    .wld-artists-lead {
+      font-size: 13px;
+      line-height: 2.1;
+      color: rgba(232, 228, 223, .5);
+      letter-spacing: .03em;
+    }
+    .wld-artists-lead em {
+      color: rgba(232, 228, 223, .85);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Club image */
+    .wld-artists-img-wrap {
+      width: 100%;
+      height: clamp(280px, 36vw, 520px);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 80px;
+    }
+    .wld-artists-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: .3;
+      filter: saturate(.5) contrast(1.3);
+    }
+    .wld-artists-img-veil {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, #000 0%, transparent 20%, transparent 80%, #000 100%);
+    }
+    .wld-artists-img-caption {
+      position: absolute;
+      bottom: 28px;
+      right: 28px;
+      font-size: 8px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .18);
+    }
+
+    /* The 5 Rebellions */
+    .wld-rebellions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(232, 228, 223, .04);
+      border: 1px solid rgba(232, 228, 223, .04);
+    }
+
+    .wld-rebellion {
+      background: #000;
+      padding: 48px 40px;
+      position: relative;
+      transition: background .4s ease;
+    }
+
+    .wld-rebellion:hover { background: rgba(232, 228, 223, .018); }
+
+    .wld-rebellion-num {
+      font-size: 9px;
+      letter-spacing: .5em;
+      color: rgba(168, 0, 0, .5);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .wld-rebellion-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-style: italic;
+      font-weight: 900;
+      color: #E8E4DF;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .wld-rebellion-body {
+      font-size: 11px;
+      line-height: 1.85;
+      color: rgba(232, 228, 223, .38);
+      letter-spacing: .02em;
+    }
+
+    /* wide item spans both columns */
+    .wld-rebellion--wide {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .wld-rebellion--wide .wld-rebellion-body { max-width: 500px; }
+
+    /* ─────────────────────────────────────────────
+       VI. THE CHRONOLOGY
+    ───────────────────────────────────────────── */
+    .wld-chronology {
+      padding: clamp(100px, 14vw, 200px) clamp(28px, 6vw, 100px);
+      border-top: 1px solid rgba(232, 228, 223, .04);
+    }
+
+    .wld-chronology-header {
+      margin-bottom: 80px;
+    }
+
+    .wld-chronology-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1;
+      color: #E8E4DF;
+      margin-top: 24px;
+      max-width: 640px;
+    }
+
+    /* Timeline */
+    .wld-timeline { position: relative; }
+
+    .wld-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(232, 228, 223, .08), rgba(232, 228, 223, .04), rgba(232, 228, 223, .08));
+    }
+
+    .wld-event {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 48px;
+      padding: 48px 0;
+      border-bottom: 1px solid rgba(232, 228, 223, .04);
+      position: relative;
+    }
+
+    .wld-event::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 60px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(168, 0, 0, .5);
+      box-shadow: 0 0 10px rgba(168, 0, 0, .4);
+    }
+
+    .wld-event-time {
+      padding-left: 24px;
+    }
+
+    .wld-event-date {
+      font-size: 10px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .25);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .wld-event-source {
+      font-size: 9px;
+      letter-spacing: .25em;
+      color: rgba(168, 0, 0, .4);
+      text-transform: uppercase;
+    }
+
+    .wld-event-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 900;
+      font-style: italic;
+      color: #E8E4DF;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .wld-event-body {
+      font-size: 12px;
+      line-height: 1.9;
+      color: rgba(232, 228, 223, .45);
+      letter-spacing: .02em;
+    }
+
+    .wld-event-response {
+      margin-top: 20px;
+      padding: 16px 20px;
+      border-left: 2px solid rgba(168, 0, 0, .25);
+      font-size: 11px;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      color: rgba(232, 228, 223, .6);
+      line-height: 1.7;
+    }
+
+    /* ─────────────────────────────────────────────
+       VII. THE INVITATION
+    ───────────────────────────────────────────── */
+    .wld-invitation {
+      position: relative;
+      min-height: 80svh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .wld-invitation-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: .2;
+      filter: saturate(.4) contrast(1.3);
+    }
+
+    .wld-invitation-veil {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #000 0%, rgba(0,0,0,.6) 50%, rgba(0,0,0,.2) 100%);
+    }
+
+    .wld-invitation-content {
+      position: relative;
+      padding: clamp(60px, 8vw, 120px) clamp(28px, 6vw, 100px);
+      max-width: 700px;
+    }
+
+    .wld-invitation-label {
+      font-size: 9px;
+      letter-spacing: .6em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .25);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .wld-invitation-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 90px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: .95;
+      color: #E8E4DF;
+      margin-bottom: 32px;
+    }
+
+    .wld-invitation-body {
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(232, 228, 223, .45);
+      letter-spacing: .04em;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+
+    .wld-invitation-cta {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .6);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232, 228, 223, .2);
+      padding-bottom: 4px;
+      transition: color .3s, border-color .3s;
+    }
+    .wld-invitation-cta:hover {
+      color: #E8E4DF;
+      border-color: rgba(232, 228, 223, .6);
+    }
+
+    /* ─────────────────────────────────────────────
+       UTILITIES
+    ───────────────────────────────────────────── */
+    .wld-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(232, 228, 223, .06), transparent);
+      margin: 0 clamp(28px, 6vw, 100px);
+    }
+
+    /* ─────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .wld-territory-grid { grid-template-columns: 1fr; gap: 48px; }
+      .wld-physics-title { max-width: 100%; }
+      .wld-superposition { grid-template-columns: 1fr; }
+      .wld-state--a { border-right: 1px solid rgba(232, 228, 223, .06); border-bottom: none; }
+      .wld-state-dot { display: none; }
+      .wld-superposition-center { display: none; }
+      .wld-artists-header { grid-template-columns: 1fr; gap: 40px; }
+      .wld-rebellions { grid-template-columns: 1fr; }
+      .wld-rebellion--wide { grid-template-columns: 1fr; }
+      .wld-event { grid-template-columns: 1fr; gap: 16px; }
+      .wld-event::before { display: none; }
+      .wld-timeline::before { display: none; }
+      .wld-event-time { padding-left: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .wld-hero-tr { display: none; }
+      .wld-oracle-quote { padding-left: 0; }
+      .wld-oracle-quote::before { display: none; }
+      .wld-oracle-body { padding-left: 0; border-left: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cur" id="cursor"></div>
+  <div class="cur-ring" id="cursor-ring"></div>
+
+  <div class="grain" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <filter id="grain-f">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain-f)" opacity="1"/>
+    </svg>
+  </div>
+
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="amb-line" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Navigazione principale">
+    <a href="index.html" class="nav-brand">Studio Starman</a>
+    <div class="nav-links">
+      <a href="studio.html">Studio</a>
+      <a href="nouvelle-vague.html">Nouvelle Vague</a>
+      <a href="collection.html">Collection</a>
+      <a href="honey.html">Honey</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-curtain" aria-hidden="true"></div>
+
+  <!-- ────────────────────────────────────
+    I. HERO
+  ──────────────────────────────────── -->
+  <section class="wld-hero chapter" aria-label="Il Mondo — Hero">
+    <img
+      class="wld-hero-img"
+      src="images/ourstudio/partenope-submerged.png"
+      alt="Partenope sommersa — Campi Flegrei"
+    >
+    <div class="wld-hero-veil" aria-hidden="true"></div>
+
+    <div class="wld-hero-tl" aria-hidden="true">Il Mondo</div>
+    <div class="wld-hero-tr" aria-hidden="true">
+      <p>Campi Flegrei</p>
+      <p>Anno I</p>
+    </div>
+
+    <div class="wld-hero-content">
+      <span class="wld-hero-num">Studio Starman — Genesi</span>
+      <h1 class="wld-hero-title">C'è un luogo ai confini<br>del mondo sotterraneo<br>dove la terra respira.</h1>
+      <p class="wld-hero-body">
+        Questo luogo esiste. Si chiama Campi Flegrei.<br>
+        Studio Starman è nato qui.<br>
+        Non per caso.
+      </p>
+    </div>
+
+    <div class="wld-scroll-cue" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="wld-scroll-cue-line"></div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────
+    II. THE TERRITORY
+  ──────────────────────────────────── -->
+  <section class="wld-territory chapter" aria-label="Il Territorio">
+    <p class="wld-chapter-label">I — Il Territorio</p>
+    <div class="wld-territory-grid">
+      <div>
+        <h2 class="wld-territory-title">Campi<br>Flegrei.<br>I campi<br>ardono.</h2>
+        <div class="wld-coords">
+          <div class="wld-coord-item">
+            <span class="wld-coord-label">Coordinate</span>
+            <span class="wld-coord-value">40°49′N 14°08′E</span>
+          </div>
+          <div class="wld-coord-item">
+            <span class="wld-coord-label">Formazione</span>
+            <span class="wld-coord-value">Caldera Flegrea, 39.000 a.C.</span>
+          </div>
+          <div class="wld-coord-item">
+            <span class="wld-coord-label">Stato</span>
+            <span class="wld-coord-value">Bradisismo attivo — 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="wld-territory-text">
+        <p>
+          I Greci non colonizzarono Cuma per caso. Scelsero questo suolo esatto — vulcanico, instabile, sul bordo dell'Ade — perché capirono che la verità viene dal basso. La prima colonia in Italia continentale fu fondata a pochi passi dall'ingresso dell'oltretomba.
+        </p>
+        <p>
+          Il <em>bradisismo</em>: il suolo si alza e si abbassa. La terra respira. Non è una metafora — è geologia. Sotto Pozzuoli, le rocce si muovono con ritmo biologico. Chi cresce qui impara che <em>il terreno solido è un'illusione conveniente</em>.
+        </p>
+        <p>
+          Antonio Lazzaro è cresciuto qui. Su suolo vulcanico. A pochi minuti dall'Antro della Sibilla, dal Lago d'Averno, dalla Solfatara. Il luogo dove i confini tra mondi non sono stabili — flettono, respirano, potrebbero aprirsi in qualsiasi momento.
+        </p>
+        <p>
+          Questa non è biografia. È <em>epistemologia</em>. Il modo in cui si pensa il reale dipende dal suolo su cui si impara a stare in piedi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wld-divider" aria-hidden="true"></div>
+
+  <!-- ────────────────────────────────────
+    III. THE ORACLE
+  ──────────────────────────────────── -->
+  <section class="wld-oracle chapter" aria-label="La Sibilla">
+    <div class="wld-oracle-rule" aria-hidden="true"></div>
+
+    <p class="wld-chapter-label">II — L'Oracolo</p>
+
+    <div class="wld-oracle-inner">
+      <blockquote class="wld-oracle-quote">
+        Sibilla non prevedeva il futuro. Leggeva il rumore presente prima che diventasse segnale.
+      </blockquote>
+      <div class="wld-oracle-body">
+        <p>
+          La Sibilla di Cuma sedeva alla soglia del mondo sotterraneo. Il Lago d'Averno — il suo nome significa "senza uccelli." Gli uccelli non volavano sopra perché le esalazioni vulcaniche li uccidevano. L'ingresso all'Ade. Lei viveva lì.
+        </p>
+        <p>
+          Parlava in enigmi, scriveva su foglie che il vento disperdeva. Virgilio mandò Enea da lei prima di ogni altra cosa. <em>Perché chi vuole costruire qualcosa di vero deve prima scendere</em>.
+        </p>
+        <p>
+          Il nostro agente Sibilla porta questo nome perché fa la stessa cosa: legge il rumore culturale prima che diventi tendenza mainstream. I suoi segnali sono foglie scritte — disperse ogni settimana, raccolte da chi sa leggere.
+        </p>
+        <p>
+          Studio Starman è l'erede moderno di questo metodo. Non prevediamo. <em>Leggiamo il presente con un ritardo di diciotto mesi rispetto al mercato</em>. Questo è il vantaggio.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE BREAK: cityscape -->
+  <div class="wld-image-break" aria-hidden="true">
+    <img src="images/ourstudio/cityscape-signal.png" alt="">
+    <div class="wld-image-break-veil"></div>
+    <span class="wld-image-break-text">Napoli — segnali nell'aria</span>
+  </div>
+
+  <!-- ────────────────────────────────────
+    IV. THE PHYSICS
+  ──────────────────────────────────── -->
+  <section class="wld-physics chapter" aria-label="La Fisica — Teoria Quantistica del Brand">
+    <div class="wld-physics-header">
+      <p class="wld-chapter-label">III — La Fisica</p>
+      <h2 class="wld-physics-title">Ogni brand esiste<br>in sovrapposizione<br>finché osservato.</h2>
+    </div>
+
+    <!-- Superposition diagram -->
+    <div class="wld-superposition" role="img" aria-label="Diagramma della sovrapposizione quantistica applicata al brand">
+      <div class="wld-state wld-state--a">
+        <span class="wld-state-label">Livello 01</span>
+        <div class="wld-state-name">Quello che leggono.</div>
+        <p class="wld-state-desc">
+          Claim, prodotto, logo, messaggio. La superficie. Quello che il brand sceglie di mostrare. Quello che tutti i competitor progettano.
+        </p>
+        <div class="wld-state-dot" aria-hidden="true"></div>
+      </div>
+      <div class="wld-superposition-center" aria-hidden="true">
+        <div class="wld-superposition-center-line"></div>
+        <span class="wld-superposition-symbol">⊕</span>
+      </div>
+      <div class="wld-state">
+        <span class="wld-state-label">Livello 02</span>
+        <div class="wld-state-name">Quello che sentono.</div>
+        <p class="wld-state-desc">
+          Risonanza, memoria, sensazione corporea. Il campo elettromagnetico emotivo del brand. Quello che rimane quando il claim è dimenticato.
+        </p>
+      </div>
+    </div>
+
+    <p class="wld-physics-thesis">
+      La maggior parte dei brand collassa immediatamente — scelgono una sola frequenza, una sola faccia, un solo stato. <strong>Studio Starman non collassa.</strong> Opera su entrambe le frequenze simultaneamente. Quando il pubblico lo osserva davvero, collassa nella propria verità. Questo è il perché funziona.
+    </p>
+  </section>
+
+  <div class="wld-divider" aria-hidden="true"></div>
+
+  <!-- ────────────────────────────────────
+    V. THE ARTISTS
+  ──────────────────────────────────── -->
+  <section class="wld-artists chapter" aria-label="Gli Artisti">
+    <p class="wld-chapter-label">IV — Gli Artisti</p>
+
+    <div class="wld-artists-header">
+      <h2 class="wld-artists-title">Non vengono<br>per essere<br>visti.<br>Vengono<br>a vedere.</h2>
+      <div>
+        <p class="wld-artists-lead">
+          Gli artisti che gravitano attorno a Studio Starman non sono influencer. Non sono content creator. Non sono figure pubbliche in cerca di visibilità.
+        </p>
+        <p class="wld-artists-lead" style="margin-top: 20px;">
+          Sono <em>Osservatori</em> — persone il cui sguardo è abbastanza potente da cambiare ciò che osservano. Nella fisica quantistica, questo si chiama effetto osservatore. Nella cultura, si chiama <em>gusto</em>.
+        </p>
+        <p class="wld-artists-lead" style="margin-top: 20px;">
+          Nouvelle Vague non ha ropes rosse. Ha frequenze. Entri se parli la lingua. La lingua non si impara. Si riconosce.
+        </p>
+      </div>
+    </div>
+
+    <!-- Club image -->
+    <div class="wld-artists-img-wrap">
+      <img
+        class="wld-artists-img"
+        src="images/ourstudio/silver-faces-club.png"
+        alt="Faces at Nouvelle Vague"
+      >
+      <div class="wld-artists-img-veil" aria-hidden="true"></div>
+      <span class="wld-artists-img-caption">Nouvelle Vague — Napoli, 2026</span>
+    </div>
+
+    <!-- The 5 Rebellions -->
+    <div class="wld-rebellions" role="list" aria-label="Le cinque ribellioni degli artisti">
+
+      <article class="wld-rebellion" role="listitem">
+        <span class="wld-rebellion-num">Ribellione 01</span>
+        <h3 class="wld-rebellion-title">In un mondo che chiede performance,<br>scelgono presenza.</h3>
+        <p class="wld-rebellion-body">
+          Il 2026 è l'anno del performative everything. Ogni emozione deve essere contenuto. Ogni momento deve essere condivisibile. Loro si sono ritirati dalla performance. Appaiono interi, o non appaiono.
+        </p>
+      </article>
+
+      <article class="wld-rebellion" role="listitem">
+        <span class="wld-rebellion-num">Ribellione 02</span>
+        <h3 class="wld-rebellion-title">In un mondo dove tutti hanno una piattaforma,<br>hanno scelto il silenzio.</h3>
+        <p class="wld-rebellion-body">
+          Non come tattica. Come postura. Il silenzio non è assenza di voce — è rifiuto del rumore. Quando parlano, il peso specifico di ogni parola è moltiplicato dall'attesa.
+        </p>
+      </article>
+
+      <article class="wld-rebellion" role="listitem">
+        <span class="wld-rebellion-num">Ribellione 03</span>
+        <h3 class="wld-rebellion-title">In un mondo dove tutto è contenuto,<br>proteggono l'esperienza.</h3>
+        <p class="wld-rebellion-body">
+          Nouvelle Vague è uno dei pochi spazi al mondo dove i telefoni rimangono in tasca. Non per regola — per rispetto condiviso. L'esperienza non si documenta. Si vive.
+        </p>
+      </article>
+
+      <article class="wld-rebellion" role="listitem">
+        <span class="wld-rebellion-num">Ribellione 04</span>
+        <h3 class="wld-rebellion-title">In un mondo di follower,<br>accumulano testimoni.</h3>
+        <p class="wld-rebellion-body">
+          Un follower guarda. Un testimone partecipa. La distinzione è la differenza tra audience e comunità. Boiler Room lo ha capito. Studio Starman lo ha fatto prima. Nouvelle Vague è la prova.
+        </p>
+      </article>
+
+      <article class="wld-rebellion wld-rebellion--wide" role="listitem">
+        <div>
+          <span class="wld-rebellion-num">Ribellione 05</span>
+          <h3 class="wld-rebellion-title">In un mondo di reach,<br>coltivano profondità.</h3>
+        </div>
+        <p class="wld-rebellion-body">
+          La metrica che li guida non è quante persone li raggiungono — è quanto profondo arriva ciò che fanno. Un'opera che tocca cento persone fino all'osso vale più di un viral che sfiora un milione. Questo è il principio di Studio Starman. Questo è perché il metodo funziona.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────
+    VI. THE CHRONOLOGY
+  ──────────────────────────────────── -->
+  <section class="wld-chronology chapter" aria-label="La Cronologia — Oggi">
+    <div class="wld-chronology-header">
+      <p class="wld-chapter-label">V — La Cronologia</p>
+      <h2 class="wld-chronology-title">Il mondo che gli artisti stanno protestando.</h2>
+    </div>
+
+    <div class="wld-timeline">
+
+      <article class="wld-event">
+        <div class="wld-event-time">
+          <span class="wld-event-date">2025 — 2026</span>
+          <span class="wld-event-source">EU AI Act</span>
+        </div>
+        <div>
+          <h3 class="wld-event-title">"Ogni output AI deve essere dichiarato. La creatività non è un'eccezione."</h3>
+          <p class="wld-event-body">
+            L'AI Act europeo è entrato in vigore. Le prime sanzioni colpiscono studi creativi che presentano output AI come lavoro umano. L'autenticità non è più un valore soft — è un requisito legale. Gli artisti che hanno sempre firmato il loro lavoro sono improvvisamente avvantaggiati.
+          </p>
+          <blockquote class="wld-event-response">
+            Studio Starman ha sempre reso visibile l'AI. L'artista firma. La macchina amplifica. Non lo abbiamo scritto in risposta alla legge — è nel nostro DNA dal primo giorno.
+          </blockquote>
+        </div>
+      </article>
+
+      <article class="wld-event">
+        <div class="wld-event-time">
+          <span class="wld-event-date">2025</span>
+          <span class="wld-event-source">Creator Economy</span>
+        </div>
+        <div>
+          <h3 class="wld-event-title">"Le piattaforme cambiano algoritmo. 70% dei creator professionali perde il 40% del reddito."</h3>
+          <p class="wld-event-body">
+            TikTok, Instagram, YouTube: tre aggiornamenti algoritmici in dodici mesi. I creator costruiti su reach e audience collassano. Chi aveva costruito community — non audience — sopravvive. Boiler Room. Nouvelle Vague. Studio Starman.
+          </p>
+          <blockquote class="wld-event-response">
+            Honey legge la risonanza emotiva in tempo reale. Non conta i follower — misura la profondità del contatto. Questo è il motivo per cui esiste.
+          </blockquote>
+        </div>
+      </article>
+
+      <article class="wld-event">
+        <div class="wld-event-time">
+          <span class="wld-event-date">2026</span>
+          <span class="wld-event-source">Attention Economy</span>
+        </div>
+        <div>
+          <h3 class="wld-event-title">"Dumbphone movement raggiunge mainstream. Le vendite di telefoni senza internet crescono del 300%."</h3>
+          <p class="wld-event-body">
+            La generazione Z inizia a comprare telefoni stupidi. La legislazione scolastica in 14 paesi europei vieta i telefoni in classe. Il movimento è globale, trasversale, urgente. L'attenzione è il bene più scarso del mondo. Chi ha protetto lo spazio fisico — come Nouvelle Vague — era già nel futuro.
+          </p>
+          <blockquote class="wld-event-response">
+            L'esperienza senza documentazione non è vintage. È avanzata. Siamo stati avanzati dal 2019.
+          </blockquote>
+        </div>
+      </article>
+
+      <article class="wld-event">
+        <div class="wld-event-time">
+          <span class="wld-event-date">2026</span>
+          <span class="wld-event-source">Brand Trust</span>
+        </div>
+        <div>
+          <h3 class="wld-event-title">"Edelman Trust Barometer: fiducia nei brand AI ai minimi storici. Metodologia esplicita diventa vantaggio competitivo primario."</h3>
+          <p class="wld-event-body">
+            Troppi "AI studio" senza metodo reale. Il mercato inizia a chiedere: come? perché? con quale garanzia? La differenziazione non è più "usiamo AI" — è "ecco come la usiamo e perché." Chi non ha un metodo visibile, perde.
+          </p>
+          <blockquote class="wld-event-response">
+            Il Two-Level Communication Method non è marketing. È la risposta alla domanda "come" — resa pubblica, insegnabile, dimostrabile. method.html esiste per questo.
+          </blockquote>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────
+    VII. THE INVITATION
+  ──────────────────────────────────── -->
+  <section class="wld-invitation chapter" aria-label="L'Invito">
+    <img
+      class="wld-invitation-img"
+      src="images/ourstudio/pool-party-nv.png"
+      alt="Nouvelle Vague — l'invito"
+    >
+    <div class="wld-invitation-veil" aria-hidden="true"></div>
+    <div class="wld-invitation-content">
+      <span class="wld-invitation-label">VII — L'Invito</span>
+      <h2 class="wld-invitation-title">Nouvelle<br>Vague.<br>Su invito.</h2>
+      <p class="wld-invitation-body">
+        Non c'è una lista. C'è una frequenza. Se la senti, sei già dentro. Se stai cercando la porta, probabilmente non è questa.
+      </p>
+      <a href="nouvelle-vague.html" class="wld-invitation-cta">Entra nel mondo →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cd-footer">
+    <div class="cd-footer-grid">
+      <div>
+        <h3>Studio Starman</h3>
+        <a href="studio.html">Lo Studio</a>
+        <a href="world.html" aria-current="page">Il Mondo</a>
+        <a href="method.html">Il Metodo</a>
+        <a href="signals.html">Signal Feed</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h3>Ecosistema</h3>
+        <a href="nouvelle-vague.html">Nouvelle Vague</a>
+        <a href="honey.html">Honey</a>
+        <a href="collection.html">Collection</a>
+        <a href="bif.html">BIF</a>
+      </div>
+      <div>
+        <h3>Il Territorio</h3>
+        <a href="#">Campi Flegrei — Napoli</a>
+        <a href="signals.html">Sibilla Signal Feed</a>
+        <a href="mailto:hello@studiostarman.com">hello@studiostarman.com</a>
+      </div>
+    </div>
+    <div class="cd-footer-bottom">
+      <p>© 2026 Studio Starman. Decision Infrastructure Design.</p>
+      <p>Il suolo è instabile. <a href="nouvelle-vague.html">È sempre stato così.</a></p>
+    </div>
+  </footer>
+
+  <div class="bif-global" id="bif-orb" aria-hidden="true"></div>
+  <script src="cd-core.js"></script>
+</body>
+</html>

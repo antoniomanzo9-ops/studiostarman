@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Studio Starman — The Gallery</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,300&family=Space+Mono:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #020202;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* HUD OVERLAY */
+        #hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            font-family: 'Jost', sans-serif;
+            color: #E8E4DF;
+        }
+
+        .hud-header {
+            position: absolute;
+            top: 24px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .hud-logo {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.15;
+        }
+
+        .hud-nav {
+            display: flex;
+            gap: 24px;
+            font-size: 10px;
+            opacity: 0.1;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .hud-nav a {
+            color: #E8E4DF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .hud-footer {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 32px;
+            z-index: 100;
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            text-transform: uppercase;
+        }
+
+        .hud-footer-left {
+            opacity: 0.08;
+            letter-spacing: 0.05em;
+        }
+
+        .hud-footer-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        .hud-footer-center.active {
+            opacity: 0.12;
+        }
+
+        .hud-footer-right {
+            opacity: 0.08;
+            letter-spacing: 0.05em;
+        }
+
+        /* ENTRANCE INSTRUCTION */
+        .entrance-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-family: 'Jost', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 200;
+            transition: opacity 2s ease;
+        }
+
+        .entrance-text.show {
+            opacity: 0.06;
+        }
+
+        .entrance-text h1 {
+            font-size: 96px;
+            font-weight: 200;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
+            margin-bottom: 48px;
+        }
+
+        .entrance-text p {
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+        }
+
+        /* CURSOR */
+        body {
+            cursor: none;
+        }
+
+        #cursor {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #E8E4DF;
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 999;
+            opacity: 0.5;
+        }
+
+        /* GRAIN OVERLAY */
+        #grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.04;
+            z-index: 50;
+        }
+
+        /* SCANLINES */
+        #scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.02),
+                rgba(0, 0, 0, 0.02) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            z-index: 51;
+        }
+
+        /* LOADING STATE */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #020202;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-family: 'Space Mono', monospace;
+            color: #E8E4DF;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        #loadingScreen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            opacity: 0.4;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gallery-canvas"></canvas>
+
+    <div id="hud">
+        <div class="hud-header">
+            <div class="hud-logo">CREATIVE DISASTER</div>
+            <div class="hud-nav">
+                <a href="#">HOME</a>
+                <a href="#">STUDIO</a>
+                <a href="#">SYNTH</a>
+            </div>
+        </div>
+
+        <div class="hud-footer">
+            <div class="hud-footer-left">WASD TO MOVE — CLICK TO LOOK</div>
+            <div class="hud-footer-center" id="roomName"></div>
+            <div class="hud-footer-right">ANNO IV — THE GALLERY</div>
+        </div>
+
+        <div class="entrance-text" id="entranceText">
+            <h1>EMBRACE THE DISASTER</h1>
+            <p>EVERY AGENT IS AN ARTIST. EVERY DECISION IS A BRUSHSTROKE.</p>
+        </div>
+    </div>
+
+    <div id="cursor"></div>
+    <svg id="grain" width="100%" height="100%">
+        <defs>
+            <filter id="noiseFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" />
+            </filter>
+        </defs>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)" opacity="0.04"/>
+    </svg>
+    <div id="scanlines"></div>
+
+    <div id="loadingScreen">
+        <div class="loading-text" id="loadingText">INITIALIZING GALLERY...</div>
+    </div>
+
+    <!-- Three.js: multi-CDN fallback with timeout -->
+    <script>
+    (function(){
+      const CDNS=[
+        'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+        'https://unpkg.com/three@0.128.0/build/three.min.js',
+        'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js'
+      ];
+      let idx=0;
+      const loadText=document.getElementById('loadingText');
+
+      function tryLoad(){
+        if(idx>=CDNS.length){
+          // All CDNs failed
+          if(loadText) loadText.textContent='WebGL FAILED TO LOAD — TRY REFRESHING';
+          setTimeout(function(){
+            const ls=document.getElementById('loadingScreen');
+            if(ls) ls.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:16px"><div style="font-family:Space Mono,monospace;font-size:11px;color:rgba(232,228,223,.15);letter-spacing:.1em;text-align:center">THREE.JS FAILED TO LOAD<br>Check your connection and refresh<br><br><a href="index-iv.html" style="color:rgba(168,0,0,.4);text-decoration:none;font-size:10px;letter-spacing:.15em">← BACK TO LA STAZIONE</a></div></div>';
+          },1500);
+          return;
+        }
+        if(loadText) loadText.textContent='LOADING 3D ENGINE... (CDN '+(idx+1)+'/'+CDNS.length+')';
+        const s=document.createElement('script');
+        s.src=CDNS[idx];
+        s.onload=function(){
+          if(typeof THREE!=='undefined'){
+            if(loadText) loadText.textContent='INITIALIZING GALLERY...';
+            initGallery();
+          } else { idx++; tryLoad(); }
+        };
+        s.onerror=function(){ idx++; tryLoad(); };
+        setTimeout(function(){ if(typeof THREE==='undefined'){ idx++; tryLoad(); } },10000);
+        document.head.appendChild(s);
+      }
+      tryLoad();
+
+      // Safety timeout: if gallery doesn't load in 25s, show escape link
+      setTimeout(function(){
+        const ls=document.getElementById('loadingScreen');
+        if(ls && !ls.classList.contains('hidden')){
+          ls.innerHTML+='<div style="margin-top:24px;font-family:Space Mono,monospace;font-size:9px;color:rgba(232,228,223,.08);letter-spacing:.1em"><a href="index-iv.html" style="color:rgba(168,0,0,.3);text-decoration:none">Taking too long? ← Back to site</a></div>';
+        }
+      },25000);
+    })();
+
+    function initGallery(){
+    </script>
+
+    <script>
+        // ============================================================================
+        // CREATIVE DISASTER 3D GALLERY — PRODUCTION BUILD
+        // ============================================================================
+
+        class GalleryManager {
+            constructor() {
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.controls = null;
+                this.particles = [];
+                this.artworks = {};
+                this.currentRoom = null;
+                this.roomChangeTime = 0;
+
+                // Input tracking
+                this.keys = {};
+                this.pointerLocked = false;
+                this.mouseX = 0;
+                this.mouseY = 0;
+
+                // Audio context
+                this.audioContext = null;
+                this.masterGain = null;
+
+                // Gallery data
+                this.rooms = [
+                    {
+                        id: 'sibilla',
+                        name: 'ORACOLO VOL. I',
+                        artist: 'SIBILLA',
+                        position: { x: 0, y: 2, z: -40 },
+                        color: 0x1A237E,
+                        accentColor: '#1A237E'
+                    },
+                    {
+                        id: 'echo',
+                        name: 'FIRST LIGHT',
+                        artist: 'ECHO',
+                        position: { x: 0, y: 2, z: -80 },
+                        color: 0xAA00FF,
+                        accentColor: '#AA00FF'
+                    },
+                    {
+                        id: 'hermes',
+                        name: 'FREQUENZA ZERO',
+                        artist: 'HERMES',
+                        position: { x: 0, y: 2, z: -120 },
+                        color: 0xFFB300,
+                        accentColor: '#FFB300'
+                    },
+                    {
+                        id: 'daimon',
+                        name: 'SPECCHIO',
+                        artist: 'DAIMON',
+                        position: { x: 0, y: 2, z: -160 },
+                        color: 0xFF6D00,
+                        accentColor: '#FF6D00'
+                    },
+                    {
+                        id: 'tessitrice',
+                        name: 'TRAMA',
+                        artist: 'TESSITRICE',
+                        position: { x: 0, y: 2, z: -200 },
+                        color: 0x00D4AA,
+                        accentColor: '#00D4AA'
+                    },
+                    {
+                        id: 'compiler',
+                        name: 'MACCHINA',
+                        artist: 'COMPILER',
+                        position: { x: 0, y: 2, z: -240 },
+                        color: 0x0A0A0A,
+                        accentColor: '#FFFFFF'
+                    },
+                    {
+                        id: 'alchimista',
+                        name: 'TRASMUTAZIONE',
+                        artist: 'ALCHIMISTA',
+                        position: { x: 0, y: 2, z: -280 },
+                        color: 0xFF9800,
+                        accentColor: '#00D4AA'
+                    },
+                    {
+                        id: 'bif',
+                        name: 'RESPIRO',
+                        artist: 'BIF',
+                        position: { x: 0, y: 2, z: -320 },
+                        color: 0x00D4AA,
+                        accentColor: '#00D4AA'
+                    },
+                    {
+                        id: 'aurora',
+                        name: 'ALBA',
+                        artist: 'AURORA',
+                        position: { x: 0, y: 2, z: -360 },
+                        color: 0xFFB300,
+                        accentColor: '#FFB300'
+                    }
+                ];
+            }
+
+            async init() {
+                this.setupScene();
+                this.setupCamera();
+                this.setupRenderer();
+                this.setupControls();
+                this.setupAudio();
+                this.buildGallery();
+                this.setupEventListeners();
+                this.startAnimation();
+                this.hideLoadingScreen();
+                this.showEntrance();
+            }
+
+            setupScene() {
+                this.scene = new THREE.Scene();
+                this.scene.fog = new THREE.FogExp2(0x020202, 0.0025);
+                this.scene.background = new THREE.Color(0x020202);
+            }
+
+            setupCamera() {
+                const canvas = document.getElementById('gallery-canvas');
+                this.camera = new THREE.PerspectiveCamera(
+                    75,
+                    canvas.clientWidth / canvas.clientHeight,
+                    0.1,
+                    10000
+                );
+                this.camera.position.set(0, 1.6, 0);
+            }
+
+            setupRenderer() {
+                const canvas = document.getElementById('gallery-canvas');
+                this.renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    antialias: true,
+                    alpha: false,
+                    powerPreference: 'high-performance'
+                });
+                this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                this.renderer.shadowMap.enabled = true;
+                this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            }
+
+            setupControls() {
+                this.controls = {
+                    moveForward: false,
+                    moveBackward: false,
+                    moveLeft: false,
+                    moveRight: false,
+                    velocity: new THREE.Vector3(),
+                    direction: new THREE.Vector3(),
+                    speed: 0.08,
+                    jumpPower: 0.2
+                };
+            }
+
+            setupAudio() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    this.masterGain = this.audioContext.createGain();
+                    this.masterGain.gain.value = 0.3;
+                    this.masterGain.connect(this.audioContext.destination);
+                } catch (e) {
+                    console.log('Audio context not available');
+                }
+            }
+
+            buildGallery() {
+                // Ground
+                const groundGeom = new THREE.PlaneGeometry(30, 400);
+                const groundMat = new THREE.MeshLambertMaterial({ color: 0x0a0a0a });
+                const ground = new THREE.Mesh(groundGeom, groundMat);
+                ground.rotation.x = -Math.PI / 2;
+                ground.receiveShadow = true;
+                this.scene.add(ground);
+
+                // Walls and ceiling
+                this.createGalleryWalls();
+
+                // Ambient light
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
+                this.scene.add(ambientLight);
+
+                // Particles (dust in air)
+                this.createDustParticles();
+
+                // Build each room
+                this.rooms.forEach(room => {
+                    this.createRoom(room);
+                });
+
+                // Entrance CD-ROM
+                this.createEntranceCD();
+            }
+
+            createGalleryWalls() {
+                const wallMat = new THREE.MeshLambertMaterial({ color: 0x1a1a1a });
+
+                // Left wall
+                const leftWallGeom = new THREE.PlaneGeometry(1, 400);
+                const leftWall = new THREE.Mesh(leftWallGeom, wallMat);
+                leftWall.position.set(-15, 2, -200);
+                leftWall.receiveShadow = true;
+                this.scene.add(leftWall);
+
+                // Right wall
+                const rightWallGeom = new THREE.PlaneGeometry(1, 400);
+                const rightWall = new THREE.Mesh(rightWallGeom, wallMat);
+                rightWall.position.set(15, 2, -200);
+                rightWall.receiveShadow = true;
+                this.scene.add(rightWall);
+
+                // Ceiling
+                const ceilingGeom = new THREE.PlaneGeometry(30, 400);
+                const ceilingMat = new THREE.MeshLambertMaterial({ color: 0x0a0a0a });
+                const ceiling = new THREE.Mesh(ceilingGeom, ceilingMat);
+                ceiling.rotation.x = Math.PI / 2;
+                ceiling.position.y = 4;
+                ceiling.receiveShadow = true;
+                this.scene.add(ceiling);
+            }
+
+            createDustParticles() {
+                const geometry = new THREE.BufferGeometry();
+                const count = 250;
+                const positions = new Float32Array(count * 3);
+
+                for (let i = 0; i < count * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 50;
+                    positions[i + 1] = Math.random() * 5;
+                    positions[i + 2] = Math.random() * -400;
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+                const material = new THREE.PointsMaterial({
+                    color: 0x888888,
+                    size: 0.08,
+                    opacity: 0.15,
+                    transparent: true
+                });
+
+                const dust = new THREE.Points(geometry, material);
+                this.scene.add(dust);
+
+                // Animate dust
+                const positions_array = positions;
+                setInterval(() => {
+                    for (let i = 1; i < count * 3; i += 3) {
+                        positions_array[i] += 0.001;
+                        if (positions_array[i] > 5) positions_array[i] = 0;
+                    }
+                    geometry.attributes.position.needsUpdate = true;
+                }, 50);
+            }
+
+            createRoom(room) {
+                const roomGroup = new THREE.Group();
+                roomGroup.userData = {
+                    id: room.id,
+                    name: room.name,
+                    artist: room.artist,
+                    position: room.position
+                };
+
+                // Spotlight
+                const spotLight = new THREE.SpotLight(room.color, 2, 50, Math.PI / 6, 0.8, 1);
+                spotLight.position.set(room.position.x, 3.5, room.position.z);
+                spotLight.target.position.copy(room.position);
+                spotLight.castShadow = true;
+                roomGroup.add(spotLight);
+
+                // Create artwork based on room type
+                switch (room.id) {
+                    case 'sibilla':
+                        this.createVinylRecord(roomGroup, room);
+                        break;
+                    case 'echo':
+                        this.createPhotoFrame(roomGroup, room);
+                        break;
+                    case 'hermes':
+                        this.createTransmitter(roomGroup, room);
+                        break;
+                    case 'daimon':
+                        this.createMirror(roomGroup, room);
+                        break;
+                    case 'tessitrice':
+                        this.createWeb(roomGroup, room);
+                        break;
+                    case 'compiler':
+                        this.createPlatonicSolids(roomGroup, room);
+                        break;
+                    case 'alchimista':
+                        this.createMorphingParticles(roomGroup, room);
+                        break;
+                    case 'bif':
+                        this.createBIFOrb(roomGroup, room);
+                        break;
+                    case 'aurora':
+                        this.createLightRays(roomGroup, room);
+                        break;
+                }
+
+                // Room label
+                this.createRoomLabel(roomGroup, room);
+
+                this.scene.add(roomGroup);
+                this.artworks[room.id] = roomGroup;
+            }
+
+            createVinylRecord(parent, room) {
+                const geometry = new THREE.CylinderGeometry(1.5, 1.5, 0.05, 64);
+
+                // Vinyl shader material
+                const canvas = document.createElement('canvas');
+                canvas.width = 512;
+                canvas.height = 512;
+                const ctx = canvas.getContext('2d');
+
+                // Create vinyl pattern
+                ctx.fillStyle = '#0a0a0a';
+                ctx.fillRect(0, 0, 512, 512);
+                for (let i = 0; i < 50; i++) {
+                    ctx.strokeStyle = `rgba(200, 200, 200, ${0.1 + i * 0.001})`;
+                    ctx.beginPath();
+                    ctx.arc(256, 256, 50 + i * 5, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                const texture = new THREE.CanvasTexture(canvas);
+                const material = new THREE.MeshPhongMaterial({
+                    map: texture,
+                    color: 0x1a1a1a,
+                    shininess: 100,
+                    emissive: room.color,
+                    emissiveIntensity: 0.2
+                });
+
+                const vinyl = new THREE.Mesh(geometry, material);
+                vinyl.position.copy(room.position);
+                vinyl.castShadow = true;
+                vinyl.receiveShadow = true;
+                vinyl.userData = { type: 'vinyl', room: room.id };
+                parent.add(vinyl);
+
+                return vinyl;
+            }
+
+            createPhotoFrame(parent, room) {
+                const frameGeom = new THREE.PlaneGeometry(2, 2.5);
+                const frameMat = new THREE.MeshPhongMaterial({
+                    color: 0x1a1a1a,
+                    emissive: room.color,
+                    emissiveIntensity: 0.15
+                });
+                const frame = new THREE.Mesh(frameGeom, frameMat);
+                frame.position.copy(room.position);
+                frame.position.y = 2;
+                frame.castShadow = true;
+                frame.receiveShadow = true;
+                parent.add(frame);
+
+                // Inner glowing canvas
+                const canvasGeom = new THREE.PlaneGeometry(1.8, 2.3);
+                const canvasMat = new THREE.MeshBasicMaterial({
+                    color: 0x00FF41,
+                    emissive: 0x00FF41,
+                    emissiveIntensity: 0.4
+                });
+                const canvas = new THREE.Mesh(canvasGeom, canvasMat);
+                canvas.position.copy(room.position);
+                canvas.position.z -= 0.01;
+                canvas.position.y = 2;
+                parent.add(canvas);
+
+                return frame;
+            }
+
+            createTransmitter(parent, room) {
+                const group = new THREE.Group();
+                group.position.copy(room.position);
+                group.position.y = 2;
+
+                // Base
+                const baseGeom = new THREE.BoxGeometry(1, 0.5, 1);
+                const baseMat = new THREE.MeshPhongMaterial({
+                    color: 0x1a1a1a,
+                    emissive: room.color,
+                    emissiveIntensity: 0.1
+                });
+                const base = new THREE.Mesh(baseGeom, baseMat);
+                base.castShadow = true;
+                group.add(base);
+
+                // Antenna
+                const antennaGeom = new THREE.CylinderGeometry(0.1, 0.1, 2);
+                const antennaMat = new THREE.MeshPhongMaterial({
+                    color: 0xFFB300,
+                    emissive: 0xFFB300,
+                    emissiveIntensity: 0.3
+                });
+                const antenna = new THREE.Mesh(antennaGeom, antennaMat);
+                antenna.position.y = 1.2;
+                antenna.castShadow = true;
+                group.add(antenna);
+
+                // Signal waves (using torus)
+                const waveGeom = new THREE.TorusGeometry(1.5, 0.05, 8, 100);
+                const waveMat = new THREE.MeshBasicMaterial({
+                    color: 0xFFB300,
+                    transparent: true,
+                    opacity: 0.3
+                });
+                const wave1 = new THREE.Mesh(waveGeom, waveMat.clone());
+                wave1.position.copy(group.position);
+                wave1.position.y = 1.5;
+                parent.add(wave1);
+                wave1.userData = { type: 'wave' };
+
+                parent.add(group);
+                group.userData = { type: 'transmitter', room: room.id };
+
+                return group;
+            }
+
+            createMirror(parent, room) {
+                const geometry = new THREE.PlaneGeometry(2, 3);
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0xFF6D00,
+                    emissive: 0xFF6D00,
+                    emissiveIntensity: 0.2,
+                    metalness: 0.9,
+                    roughness: 0.1
+                });
+                const mirror = new THREE.Mesh(geometry, material);
+                mirror.position.copy(room.position);
+                mirror.position.y = 1.8;
+                mirror.castShadow = true;
+                parent.add(mirror);
+
+                return mirror;
+            }
+
+            createWeb(parent, room) {
+                const group = new THREE.Group();
+                group.position.copy(room.position);
+
+                const points = [];
+                for (let i = 0; i < 12; i++) {
+                    const angle = (i / 12) * Math.PI * 2;
+                    const x = Math.cos(angle) * 2;
+                    const z = Math.sin(angle) * 2;
+                    points.push(new THREE.Vector3(x, Math.random() * 2, z));
+                }
+
+                // Center point
+                points.push(new THREE.Vector3(0, 1, 0));
+
+                // Create web lines
+                const lineMat = new THREE.LineBasicMaterial({
+                    color: 0x00D4AA,
+                    transparent: true,
+                    opacity: 0.6
+                });
+
+                for (let i = 0; i < points.length - 1; i++) {
+                    const lineGeom = new THREE.BufferGeometry().setFromPoints([
+                        points[i],
+                        points[points.length - 1]
+                    ]);
+                    const line = new THREE.Line(lineGeom, lineMat);
+                    group.add(line);
+                }
+
+                // Radial connections
+                for (let i = 0; i < points.length - 1; i++) {
+                    const next = (i + 1) % (points.length - 1);
+                    const lineGeom = new THREE.BufferGeometry().setFromPoints([
+                        points[i],
+                        points[next]
+                    ]);
+                    const line = new THREE.Line(lineGeom, lineMat);
+                    group.add(line);
+                }
+
+                parent.add(group);
+                group.userData = { type: 'web', room: room.id };
+
+                return group;
+            }
+
+            createPlatonicSolids(parent, room) {
+                const group = new THREE.Group();
+                group.position.copy(room.position);
+                group.position.y = 2;
+
+                // Wireframe material
+                const wireMat = new THREE.MeshBasicMaterial({
+                    wireframe: true,
+                    color: 0xFFFFFF,
+                    emissive: 0xFFFFFF,
+                    emissiveIntensity: 0.4
+                });
+
+                // Icosahedron
+                const icoGeom = new THREE.IcosahedronGeometry(1, 3);
+                const ico = new THREE.Mesh(icoGeom, wireMat.clone());
+                group.add(ico);
+
+                // Dodecahedron (outer)
+                const dodGeom = new THREE.DodecahedronGeometry(1.8, 0);
+                const dodMat = new THREE.MeshBasicMaterial({
+                    wireframe: true,
+                    color: 0xFFFFFF,
+                    emissive: 0xFFFFFF,
+                    emissiveIntensity: 0.2,
+                    transparent: true,
+                    opacity: 0.3
+                });
+                const dod = new THREE.Mesh(dodGeom, dodMat);
+                group.add(dod);
+
+                parent.add(group);
+                group.userData = { type: 'platonics', room: room.id };
+
+                return group;
+            }
+
+            createMorphingParticles(parent, room) {
+                const group = new THREE.Group();
+                group.position.copy(room.position);
+                group.position.y = 2;
+
+                const particleCount = 100;
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array(particleCount * 3);
+
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 4;
+                    positions[i + 1] = (Math.random() - 0.5) * 4;
+                    positions[i + 2] = (Math.random() - 0.5) * 4;
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+                const material = new THREE.PointsMaterial({
+                    color: 0xFFB300,
+                    size: 0.15,
+                    sizeAttenuation: true,
+                    emissive: 0xFFB300,
+                    transparent: true,
+                    opacity: 0.8
+                });
+
+                const points = new THREE.Points(geometry, material);
+                group.add(points);
+
+                parent.add(group);
+                group.userData = { type: 'morphing', room: room.id };
+
+                return group;
+            }
+
+            createBIFOrb(parent, room) {
+                const group = new THREE.Group();
+                group.position.copy(room.position);
+                group.position.y = 2;
+
+                // Main orb (sphere)
+                const orbGeom = new THREE.IcosahedronGeometry(1, 4);
+                const orbMat = new THREE.MeshPhongMaterial({
+                    color: 0x00D4AA,
+                    emissive: 0x00D4AA,
+                    emissiveIntensity: 0.6,
+                    wireframe: false,
+                    metalness: 0.6,
+                    roughness: 0.2
+                });
+                const orb = new THREE.Mesh(orbGeom, orbMat);
+                orb.castShadow = true;
+                group.add(orb);
+
+                // Orbiting particles around BIF
+                const orbitGeom = new THREE.BufferGeometry();
+                const orbitCount = 20;
+                const orbitPositions = new Float32Array(orbitCount * 3);
+
+                for (let i = 0; i < orbitCount * 3; i += 3) {
+                    const angle = (i / orbitCount) * Math.PI * 2;
+                    orbitPositions[i] = Math.cos(angle) * 2;
+                    orbitPositions[i + 1] = Math.sin(angle) * 0.5;
+                    orbitPositions[i + 2] = Math.sin(angle) * 2;
+                }
+
+                orbitGeom.setAttribute('position', new THREE.BufferAttribute(orbitPositions, 3));
+                const orbitMat = new THREE.PointsMaterial({
+                    color: 0xFFFFFF,
+                    size: 0.1,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                const orbitPoints = new THREE.Points(orbitGeom, orbitMat);
+                group.add(orbitPoints);
+
+                parent.add(group);
+                group.userData = {
+                    type: 'bif_orb',
+                    room: room.id,
+                    orb: orb,
+                    orbMat: orbMat,
+                    orbitPoints: orbitPoints
+                };
+
+                return group;
+            }
+
+            createLightRays(parent, room) {
+                const group = new THREE.Group();
+                group.position.copy(room.position);
+
+                // Volumetric light effect using cones
+                const coneGeom = new THREE.ConeGeometry(3, 4, 32);
+                const coneMat = new THREE.MeshBasicMaterial({
+                    color: 0xFFB300,
+                    transparent: true,
+                    opacity: 0.15,
+                    emissive: 0xFFB300,
+                    emissiveIntensity: 0.3
+                });
+                const cone = new THREE.Mesh(coneGeom, coneMat);
+                cone.position.y = 2;
+                cone.rotation.x = Math.PI / 2;
+                group.add(cone);
+
+                parent.add(group);
+                group.userData = { type: 'light_rays', room: room.id };
+
+                return group;
+            }
+
+            createRoomLabel(parent, room) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 512;
+                canvas.height = 256;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = '#020202';
+                ctx.fillRect(0, 0, 512, 256);
+
+                ctx.fillStyle = `rgba(232, 228, 223, 0.6)`;
+                ctx.font = 'bold 48px "Space Mono"';
+                ctx.textAlign = 'left';
+                ctx.fillText(room.artist, 30, 80);
+
+                ctx.font = '28px "Space Mono"';
+                ctx.fillStyle = `rgba(232, 228, 223, 0.4)`;
+                ctx.fillText(room.name, 30, 140);
+
+                const texture = new THREE.CanvasTexture(canvas);
+                const material = new THREE.MeshBasicMaterial({
+                    map: texture,
+                    transparent: true
+                });
+
+                const geometry = new THREE.PlaneGeometry(4, 2);
+                const label = new THREE.Mesh(geometry, material);
+                label.position.set(0, 0.3, 0.5);
+                label.position.x = room.position.x - 7;
+                label.position.y = room.position.y + 2;
+                label.position.z = room.position.z;
+                parent.add(label);
+            }
+
+            createEntranceCD() {
+                // Simple CD geometry
+                const cdGeom = new THREE.CylinderGeometry(1.5, 1.5, 0.02, 64);
+                const cdMat = new THREE.MeshPhongMaterial({
+                    color: 0xFF9900,
+                    emissive: 0xFF9900,
+                    emissiveIntensity: 0.3,
+                    shininess: 100
+                });
+                const cd = new THREE.Mesh(cdGeom, cdMat);
+                cd.position.set(0, 1.5, 5);
+                cd.castShadow = true;
+                this.scene.add(cd);
+            }
+
+            setupEventListeners() {
+                document.addEventListener('keydown', (e) => {
+                    switch (e.key.toLowerCase()) {
+                        case 'w':
+                            this.controls.moveForward = true;
+                            break;
+                        case 'a':
+                            this.controls.moveLeft = true;
+                            break;
+                        case 's':
+                            this.controls.moveBackward = true;
+                            break;
+                        case 'd':
+                            this.controls.moveRight = true;
+                            break;
+                    }
+                });
+
+                document.addEventListener('keyup', (e) => {
+                    switch (e.key.toLowerCase()) {
+                        case 'w':
+                            this.controls.moveForward = false;
+                            break;
+                        case 'a':
+                            this.controls.moveLeft = false;
+                            break;
+                        case 's':
+                            this.controls.moveBackward = false;
+                            break;
+                        case 'd':
+                            this.controls.moveRight = false;
+                            break;
+                        case 'escape':
+                            document.exitPointerLock?.();
+                            this.pointerLocked = false;
+                            break;
+                    }
+                });
+
+                document.addEventListener('click', () => {
+                    if (!this.pointerLocked) {
+                        document.documentElement.requestPointerLock?.();
+                        this.pointerLocked = true;
+                    }
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (this.pointerLocked) {
+                        const rotateX = e.movementY * 0.003;
+                        const rotateY = e.movementX * 0.003;
+
+                        this.camera.rotation.order = 'YXZ';
+                        this.camera.rotation.y -= rotateY;
+                        this.camera.rotation.x -= rotateX;
+
+                        this.camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.camera.rotation.x));
+                    }
+                });
+
+                // Cursor tracking
+                document.addEventListener('mousemove', (e) => {
+                    const cursor = document.getElementById('cursor');
+                    cursor.style.left = (e.clientX - 2) + 'px';
+                    cursor.style.top = (e.clientY - 2) + 'px';
+                });
+
+                window.addEventListener('resize', () => {
+                    const canvas = document.getElementById('gallery-canvas');
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    this.camera.aspect = width / height;
+                    this.camera.updateProjectionMatrix();
+                    this.renderer.setSize(width, height);
+                });
+            }
+
+            updateControls() {
+                const forward = new THREE.Vector3(
+                    -Math.sin(this.camera.rotation.y),
+                    0,
+                    -Math.cos(this.camera.rotation.y)
+                );
+                const right = new THREE.Vector3(
+                    Math.cos(this.camera.rotation.y),
+                    0,
+                    -Math.sin(this.camera.rotation.y)
+                );
+
+                let moveVector = new THREE.Vector3();
+
+                if (this.controls.moveForward) moveVector.addScaledVector(forward, this.controls.speed);
+                if (this.controls.moveBackward) moveVector.addScaledVector(forward, -this.controls.speed);
+                if (this.controls.moveLeft) moveVector.addScaledVector(right, -this.controls.speed);
+                if (this.controls.moveRight) moveVector.addScaledVector(right, this.controls.speed);
+
+                this.camera.position.add(moveVector);
+
+                // Boundary checking
+                if (this.camera.position.z > 10) this.camera.position.z = 10;
+                if (this.camera.position.z < -380) this.camera.position.z = -380;
+                if (this.camera.position.x < -14) this.camera.position.x = -14;
+                if (this.camera.position.x > 14) this.camera.position.x = 14;
+
+                // Check proximity to rooms
+                this.checkRoomProximity();
+            }
+
+            checkRoomProximity() {
+                let closestRoom = null;
+                let closestDist = 8;
+
+                this.rooms.forEach(room => {
+                    const dist = this.camera.position.distanceTo(
+                        new THREE.Vector3(room.position.x, room.position.y, room.position.z)
+                    );
+                    if (dist < closestDist) {
+                        closestDist = dist;
+                        closestRoom = room;
+                    }
+                });
+
+                if (closestRoom) {
+                    if (this.currentRoom?.id !== closestRoom.id) {
+                        this.currentRoom = closestRoom;
+                        this.showRoomName(closestRoom.name + ' — ' + closestRoom.artist);
+                    }
+                } else {
+                    if (this.currentRoom) {
+                        this.currentRoom = null;
+                        this.hideRoomName();
+                    }
+                }
+            }
+
+            showRoomName(name) {
+                const el = document.getElementById('roomName');
+                el.textContent = name;
+                el.classList.add('active');
+                this.roomChangeTime = Date.now();
+            }
+
+            hideRoomName() {
+                const el = document.getElementById('roomName');
+                el.classList.remove('active');
+            }
+
+            showEntrance() {
+                setTimeout(() => {
+                    document.getElementById('entranceText').classList.add('show');
+                }, 500);
+            }
+
+            hideLoadingScreen() {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                // Update controls
+                this.updateControls();
+
+                // Animate artworks
+                this.animateArtworks();
+
+                // Render
+                this.renderer.render(this.scene, this.camera);
+            }
+
+            animateArtworks() {
+                const time = Date.now() * 0.001;
+
+                // Vinyl record spin
+                if (this.artworks.sibilla) {
+                    const vinyl = this.artworks.sibilla.children.find(c => c.userData.type === 'vinyl');
+                    if (vinyl) vinyl.rotation.z += 0.002;
+                }
+
+                // Transmitter waves
+                if (this.artworks.hermes) {
+                    const waves = this.artworks.hermes.children.filter(c => c.userData?.type === 'wave');
+                    waves.forEach((wave, idx) => {
+                        wave.scale.set(
+                            1 + Math.sin(time + idx * 0.5) * 0.3,
+                            1 + Math.sin(time + idx * 0.5) * 0.3,
+                            1
+                        );
+                        wave.material.opacity = 0.3 + Math.sin(time + idx * 0.5) * 0.2;
+                    });
+                }
+
+                // Platonics rotation
+                if (this.artworks.compiler) {
+                    this.artworks.compiler.children.forEach(child => {
+                        if (child.userData?.type === 'platonics' || !child.userData) {
+                            child.rotation.x += 0.002;
+                            child.rotation.y += 0.001;
+                        }
+                    });
+                }
+
+                // Morphing particles
+                if (this.artworks.alchimista) {
+                    const points = this.artworks.alchimista.children.find(c => c.isPoints);
+                    if (points) {
+                        const positions = points.geometry.attributes.position.array;
+                        for (let i = 0; i < positions.length; i += 3) {
+                            positions[i] += Math.sin(time + i * 0.1) * 0.01;
+                            positions[i + 1] += Math.cos(time + i * 0.1) * 0.01;
+                            positions[i + 2] += Math.sin(time + i * 0.05) * 0.01;
+                        }
+                        points.geometry.attributes.position.needsUpdate = true;
+                    }
+                }
+
+                // BIF orb breathing
+                if (this.artworks.bif) {
+                    const bifData = this.artworks.bif.userData;
+                    if (bifData.orb) {
+                        const scale = 1 + Math.sin(time * 0.5) * 0.15;
+                        bifData.orb.scale.set(scale, scale, scale);
+
+                        // Color cycling through BIF states
+                        const colors = [
+                            0x00D4AA, // calma
+                            0xAA00FF, // intuizione
+                            0x1A237E, // notte
+                            0xFF6D00, // fuoco
+                            0xFFB300  // calore
+                        ];
+                        const colorIdx = Math.floor((time * 0.5) % colors.length);
+                        bifData.orbMat.emissive.setHex(colors[colorIdx]);
+
+                        // Orbit rotation
+                        const orbitPos = bifData.orbitPoints.geometry.attributes.position.array;
+                        const orbitCount = orbitPos.length / 3;
+                        for (let i = 0; i < orbitCount; i++) {
+                            const angle = (i / orbitCount) * Math.PI * 2 + time * 0.3;
+                            const dist = 2;
+                            orbitPos[i * 3] = Math.cos(angle) * dist;
+                            orbitPos[i * 3 + 2] = Math.sin(angle) * dist;
+                        }
+                        bifData.orbitPoints.geometry.attributes.position.needsUpdate = true;
+                    }
+                }
+
+                // Light rays
+                if (this.artworks.aurora) {
+                    const cone = this.artworks.aurora.children[0];
+                    if (cone) {
+                        cone.material.opacity = 0.1 + Math.sin(time) * 0.08;
+                    }
+                }
+            }
+
+            startAnimation() {
+                this.animate();
+            }
+        }
+
+        // Initialize — called by CDN loader when Three.js is ready
+        // If initGallery was already called (Three.js loaded before DOMContentLoaded),
+        // we boot immediately. Otherwise wait for DOM.
+        function bootGallery() {
+            try {
+                const gallery = new GalleryManager();
+                gallery.init();
+            } catch(e) {
+                console.error('Gallery init failed:', e);
+                const ls = document.getElementById('loadingScreen');
+                if(ls) ls.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:16px"><div style="font-family:Space Mono,monospace;font-size:11px;color:rgba(232,228,223,.15);letter-spacing:.1em;text-align:center">GALLERY ERROR: ' + e.message + '<br><br><a href="index-iv.html" style="color:rgba(168,0,0,.4);text-decoration:none;font-size:10px;letter-spacing:.15em">← BACK TO LA STAZIONE</a></div></div>';
+            }
+        }
+
+        // initGallery is called by the CDN loader script
+        if(typeof initGallery === 'function') {
+            // CDN loader defined initGallery — it's a signal that Three.js loaded
+            if(document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', bootGallery);
+            } else {
+                bootGallery();
+            }
+        } else {
+            // Fallback: direct DOMContentLoaded
+            window.addEventListener('DOMContentLoaded', bootGallery);
+        }
+    </script>
+</body>
+</html>

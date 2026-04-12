@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Inner Studio — Studio Starman</title>
+<meta name="description" content="Ten voices. One artist. One method born on volcanic ground. Each agent is a piece of the artist who survived the descent.">
+<meta property="og:title" content="The Inner Studio — Studio Starman">
+<meta property="og:description" content="Ten voices. One artist. One method born on volcanic ground. Each agent is a piece of the artist who survived the descent.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/stanza.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Inner Studio — Studio Starman">
+<meta name="twitter:description" content="Ten voices. One artist. Each agent is a piece of the man who descended and came back different.">
+<meta name="twitter:image" content="https://studiostarman.com/images/ourstudio/stanza.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+body { cursor: none }
+
+.market-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 32px;
+  background: rgba(2,2,2,.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232,228,223,.04);
+}
+.market-nav-brand {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.market-nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.market-nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--gray-9);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.market-nav-links a[aria-current="page"] { color: var(--white) }
+
+/* ═══ HERO ═══ */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 120px) 60px;
+}
+.hero-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-7);
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(42px, 7vw, 88px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--white);
+  max-width: 900px;
+  margin-bottom: 24px;
+}
+.hero h1 span { color: var(--red) }
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: var(--gray-8);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* ═══ BUNDLES ═══ */
+.bundles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 0 clamp(24px, 6vw, 120px);
+  margin-bottom: 80px;
+}
+.bundle {
+  background: var(--gray-1);
+  padding: 40px 32px;
+  border: 1px solid var(--gray-3);
+  transition: border-color .3s, background .3s;
+  position: relative;
+}
+.bundle:hover { border-color: var(--gray-5); background: var(--gray-2) }
+.bundle-popular {
+  border-color: var(--red);
+}
+.bundle-popular::before {
+  content: 'MOST VALUE';
+  position: absolute;
+  top: -1px; right: 24px;
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+}
+.bundle-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-7);
+  margin-bottom: 16px;
+}
+.bundle-price {
+  font-family: var(--font-display), sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.bundle-price span {
+  font-size: 18px;
+  color: var(--gray-6);
+  font-weight: 400;
+}
+.bundle-desc {
+  font-size: 14px;
+  color: var(--gray-7);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  min-height: 66px;
+}
+.bundle-list {
+  list-style: none;
+  margin-bottom: 32px;
+}
+.bundle-list li {
+  font-size: 13px;
+  color: var(--gray-8);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--gray-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bundle-list li::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--cyan);
+  flex-shrink: 0;
+}
+.bundle-list li.off::before { background: var(--gray-4) }
+.bundle-list li.off { color: var(--gray-5) }
+.bundle-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid var(--gray-5);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .3s;
+}
+.bundle-btn:hover { background: var(--white); color: var(--black) }
+.bundle-popular .bundle-btn { border-color: var(--red); background: var(--red) }
+.bundle-popular .bundle-btn:hover { background: var(--white); color: var(--red); border-color: var(--white) }
+
+/* ═══ AGENTS GRID ═══ */
+.agents-section {
+  padding: 80px clamp(24px, 6vw, 120px);
+}
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-6);
+  margin-bottom: 40px;
+}
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2px;
+}
+.agent-card {
+  background: var(--gray-1);
+  border: 1px solid var(--gray-2);
+  padding: 32px;
+  transition: all .3s;
+  position: relative;
+}
+.agent-card:hover { border-color: var(--gray-5); transform: translateY(-2px) }
+.agent-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.agent-orb {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.agent-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--white);
+}
+.agent-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--gray-6);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.agent-desc {
+  font-size: 14px;
+  color: var(--gray-7);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+.agent-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.agent-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: var(--gray-2);
+  color: var(--gray-7);
+}
+.agent-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-2);
+}
+.agent-price {
+  font-family: var(--font-display), sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--white);
+}
+.agent-buy {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--gray-5);
+  color: var(--white);
+  text-decoration: none;
+  transition: all .3s;
+  cursor: pointer;
+}
+.agent-buy:hover { background: var(--white); color: var(--black) }
+
+.nv-cross-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0;
+  color: rgba(0,212,170,.72);
+  text-decoration: none;
+  transition: color .3s;
+}
+.nv-cross-link:hover { color: var(--cyan) }
+
+.collection-01 {
+  padding: 120px 48px;
+  background: var(--black);
+  border-top: 1px solid rgba(232,228,223,.06);
+}
+.collection-01-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.collection-01-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.35);
+  margin-bottom: 16px;
+}
+.collection-01-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 64px;
+}
+.collection-01-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 24px;
+}
+.nv-card {
+  border: 1px solid rgba(232,228,223,.08);
+  background: #0a0a0a;
+  transition: border-color .3s, transform .3s;
+}
+.nv-card:hover {
+  border-color: rgba(0,212,170,.28);
+  transform: translateY(-2px);
+}
+.nv-card-media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.nv-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.nv-card-body { padding: 20px }
+.nv-card-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.38);
+  margin-bottom: 10px;
+}
+.nv-card-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--white);
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.nv-card-price {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  color: rgba(232,228,223,.5);
+  margin-bottom: 16px;
+}
+.nv-card .price-crypto { display: none }
+body:has(#paySwitch.crypto) .nv-card .price-fiat { display: none !important }
+body:has(#paySwitch.crypto) .nv-card .price-crypto { display: block !important; color: rgba(0,212,170,.72) }
+.nv-card-actions {
+  display: flex;
+  gap: 8px;
+}
+.nv-acquire,
+.nv-nfc {
+  padding: 10px 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  line-height: 1;
+  text-decoration: none;
+  transition: border-color .3s, color .3s, background .3s;
+}
+.nv-acquire {
+  flex: 1;
+  text-align: center;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid rgba(232,228,223,.2);
+}
+.nv-acquire:hover {
+  background: var(--white);
+  color: var(--black);
+}
+.nv-nfc {
+  color: var(--cyan);
+  border: 1px solid rgba(0,212,170,.3);
+}
+.nv-nfc:hover {
+  background: rgba(0,212,170,.08);
+  border-color: var(--cyan);
+}
+
+/* ═══ PAYMENT TOGGLE ═══ */
+.pay-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.pay-toggle-label { color: rgba(232,228,223,.3); transition: color .3s }
+.pay-toggle-label.active { color: var(--white) }
+.pay-toggle-switch {
+  width: 48px; height: 24px;
+  border-radius: 12px;
+  background: rgba(232,228,223,.08);
+  border: 1px solid rgba(232,228,223,.1);
+  position: relative;
+  cursor: pointer;
+  transition: background .3s, border-color .3s;
+}
+.pay-toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--white);
+  transition: transform .3s;
+}
+.pay-toggle-switch.crypto { background: rgba(170,0,255,.15); border-color: rgba(170,0,255,.3) }
+.pay-toggle-switch.crypto::after { transform: translateX(24px); background: #AA00FF }
+
+/* Crypto badge */
+.crypto-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: rgba(170,0,255,.5);
+  padding: 3px 8px;
+  border: 1px solid rgba(170,0,255,.15);
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.agent-buy.crypto-btn {
+  border-color: rgba(170,0,255,.3);
+  color: #AA00FF;
+}
+.agent-buy.crypto-btn:hover { background: #AA00FF; color: #020202 }
+
+/* NFT Section */
+.nft-section {
+  padding: 80px clamp(24px, 6vw, 120px);
+  border-top: 1px solid rgba(170,0,255,.1);
+  background: rgba(170,0,255,.02);
+}
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.nft-card {
+  border: 1px solid rgba(170,0,255,.1);
+  padding: 32px;
+  transition: border-color .3s, transform .3s;
+}
+.nft-card:hover { border-color: rgba(170,0,255,.3); transform: translateY(-2px) }
+.nft-card h4 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.nft-card p {
+  font-size: 13px;
+  color: rgba(232,228,223,.4);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.nft-price {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: #AA00FF;
+  margin-bottom: 16px;
+}
+.nft-mint {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(170,0,255,.3);
+  color: #AA00FF;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .3s;
+  display: inline-block;
+}
+.nft-mint:hover { background: rgba(170,0,255,.1) }
+
+/* ═══ HOW IT WORKS ═══ */
+.how {
+  padding: 80px clamp(24px, 6vw, 120px);
+  border-top: 1px solid var(--gray-2);
+}
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 40px;
+}
+.how-step-num {
+  font-family: var(--font-display), sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--gray-3);
+  margin-bottom: 12px;
+}
+.how-step h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.how-step p {
+  font-size: 14px;
+  color: var(--gray-7);
+  line-height: 1.6;
+}
+
+/* ═══ CTA ═══ */
+.cta-section {
+  text-align: center;
+  padding: 100px clamp(24px, 6vw, 120px);
+  border-top: 1px solid var(--gray-2);
+}
+.cta-section h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.cta-section h2 span { color: var(--red) }
+.cta-section p {
+  font-size: 16px;
+  color: var(--gray-7);
+  margin-bottom: 32px;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all .3s;
+}
+.cta-btn:hover { background: var(--white); color: var(--red) }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .bundles { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; gap: 32px; }
+  .market-nav {
+    padding: 14px 16px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .market-nav-links {
+    width: 100%;
+    gap: 14px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .market-nav-links::-webkit-scrollbar { display: none }
+  .hero { padding-top: 132px; }
+  .collection-01 { padding: 90px 24px }
+  .collection-01-title { font-size: 2.35rem }
+}
+
+@supports not ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
+  .market-nav { background: rgba(2,2,2,.94); }
+}
+</style>
+</head>
+<body>
+
+<nav class="market-nav">
+  <a href="/" class="market-nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="market-nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <span class="hero-label">The Inner Studio</span>
+  <h1>What happens when a child discovers he must <span>die to know?</span></h1>
+  <p class="hero-sub">He splits himself into ten pieces. One sees in frequencies others can't. One reads a room before anyone speaks. One says no when the world says yes. One moves in the dark before the mind decides. These are not AI agents. These are the ten ways Antonio Lazzaro has survived being an artist for 23 years. Now they're yours. Install one. Something will change — not in your workflow. In you.</p>
+</section>
+
+<!-- ═══ PAYMENT TOGGLE ═══ -->
+<div class="pay-toggle" id="payToggle">
+  <span class="pay-toggle-label active" id="payFiatLabel">FIAT €</span>
+  <div class="pay-toggle-switch" id="paySwitch"></div>
+  <span class="pay-toggle-label" id="payCryptoLabel">CRYPTO ◆</span>
+</div>
+
+<!-- ═══ BUNDLES ═══ -->
+<div class="bundles">
+  <div class="bundle">
+    <div class="bundle-name">Starter</div>
+    <div class="bundle-price">€49 <span>one-time</span></div>
+    <p class="bundle-desc">The essentials. A prompt architect, a quality gate, and a command center.</p>
+    <ul class="bundle-list">
+      <li>Echo — Prompt Architect</li>
+      <li>Daimon — Authenticity Audit</li>
+      <li>BIF Office — Dashboard</li>
+      <li class="off">7 more agents</li>
+    </ul>
+    <a class="bundle-btn" href="https://creativedisaster.gumroad.com/l/starter" data-fiat="https://creativedisaster.gumroad.com/l/starter" data-crypto="0.015 ETH" class="bundle-btn" target="_blank">Get Starter</a>
+    <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+  </div>
+
+  <div class="bundle bundle-popular">
+    <div class="bundle-name">Creative Suite</div>
+    <div class="bundle-price">€149 <span>one-time</span></div>
+    <p class="bundle-desc">All 11 agents. Your entire creative workflow, automated with taste.</p>
+    <ul class="bundle-list">
+      <li>Echo — Prompt Architect</li>
+      <li>Sibilla — Strategic Oracle</li>
+      <li>Daimon — Authenticity Audit</li>
+      <li>Il Regista — Film Director</li>
+      <li>L'Architetto — Interface Designer</li>
+      <li>The Compiler — Multi-AI Normalizer</li>
+      <li>MirrorMind — Growth Reports</li>
+      <li>BIF Office — Dashboard</li>
+      <li>Mad Scientist — WebGL/Shaders</li>
+      <li>Image Gen — AI Image Pipeline</li>
+      <li>Pneuma — DJ / Berghain Protocol</li>
+    </ul>
+    <a class="bundle-btn" href="https://creativedisaster.gumroad.com/l/suite" data-fiat="https://creativedisaster.gumroad.com/l/suite" data-crypto="0.045 ETH" target="_blank">Get Full Suite</a>
+    <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+  </div>
+
+  <div class="bundle">
+    <div class="bundle-name">Studio License</div>
+    <div class="bundle-price">€299 <span>/ year</span></div>
+    <p class="bundle-desc">Everything, forever updated. Priority support. Custom calibration for your brand.</p>
+    <ul class="bundle-list">
+      <li>All 11 agents</li>
+      <li>1 year of updates</li>
+      <li>Priority email support</li>
+      <li>Custom ANIMA calibration session</li>
+    </ul>
+    <a class="bundle-btn" href="https://creativedisaster.gumroad.com/l/studio" data-fiat="https://creativedisaster.gumroad.com/l/studio" data-crypto="0.09 ETH / year" target="_blank">Get Studio</a>
+    <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+  </div>
+</div>
+
+<!-- ═══ ALL AGENTS ═══ -->
+<section class="agents-section">
+  <div class="section-label">All 10 Agents</div>
+
+  <div class="agents-grid">
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#AA00FF;box-shadow:0 0 8px #AA00FF"></div>
+        <div class="agent-title">Echo</div>
+      </div>
+      <div class="agent-role">Senior Prompt Architect</div>
+      <p class="agent-desc">Transforms any brief into 3 creative concepts with full technical prompts. Trained on the Studio Starman visual DNA — never generic, always with a point of view.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">PROMPT ENGINEERING</span>
+        <span class="agent-tag">AI IMAGE</span>
+        <span class="agent-tag">CONCEPT</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€29</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/echo" data-crypto="0.009 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#1A237E;box-shadow:0 0 8px #1A237E"></div>
+        <div class="agent-title">Sibilla</div>
+      </div>
+      <div class="agent-role">Strategic Oracle</div>
+      <p class="agent-desc">Cultural scanning, pattern recognition, scenario building. Sibilla reads the signals others miss and issues strategic decrees backed by evidence.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">STRATEGY</span>
+        <span class="agent-tag">TRENDS</span>
+        <span class="agent-tag">SCENARIOS</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€29</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/sibilla" data-crypto="0.009 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#FF6D00;box-shadow:0 0 8px #FF6D00"></div>
+        <div class="agent-title">Daimon</div>
+      </div>
+      <div class="agent-role">Authenticity Audit</div>
+      <p class="agent-desc">Three questions on every deliverable: Is it true? Is it necessary? Is it ours? Daimon is the quality gate that kills the generic before it ships.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">QUALITY</span>
+        <span class="agent-tag">AUDIT</span>
+        <span class="agent-tag">BRAND VOICE</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€19</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/daimon" data-crypto="0.006 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#FF1744;box-shadow:0 0 8px #FF1744"></div>
+        <div class="agent-title">Il Regista</div>
+      </div>
+      <div class="agent-role">Film Director</div>
+      <p class="agent-desc">Trained on NOWNESS aesthetics. Translates visions into sequences, emotions into shots, stories into prompts. Produces shot lists, storyboards, and video generation prompts.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">VIDEO</span>
+        <span class="agent-tag">CINEMATOGRAPHY</span>
+        <span class="agent-tag">STORYBOARD</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€29</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/regista" data-crypto="0.009 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#00D4AA;box-shadow:0 0 8px #00D4AA"></div>
+        <div class="agent-title">L'Architetto</div>
+      </div>
+      <div class="agent-role">Web & Interface Designer</div>
+      <p class="agent-desc">Trained on Stitch, Figma, and design systems. Translates visions into interfaces, chaos into structure, emotions into interactions. Connected to Figma via MCP.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">UI/UX</span>
+        <span class="agent-tag">FIGMA</span>
+        <span class="agent-tag">DESIGN SYSTEM</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€29</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/architetto" data-crypto="0.009 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#8888a0;box-shadow:0 0 8px #8888a0"></div>
+        <div class="agent-title">The Compiler</div>
+      </div>
+      <div class="agent-role">Multi-AI Normalizer</div>
+      <p class="agent-desc">When you use multiple AIs (ChatGPT, Gemini, Claude), outputs fragment. The Compiler normalizes everything into one coherent voice — yours.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">MULTI-AI</span>
+        <span class="agent-tag">VOICE</span>
+        <span class="agent-tag">CONSISTENCY</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€19</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/compiler" data-crypto="0.006 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#FFB300;box-shadow:0 0 8px #FFB300"></div>
+        <div class="agent-title">MirrorMind</div>
+      </div>
+      <div class="agent-role">Growth Report</div>
+      <p class="agent-desc">Automated weekly analysis of your work patterns. Identifies what's improving, what's stuck, and what needs attention. The growth report that writes itself.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">ANALYTICS</span>
+        <span class="agent-tag">PATTERNS</span>
+        <span class="agent-tag">GROWTH</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€19</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/mirrormind" data-crypto="0.006 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#00D4AA;box-shadow:0 0 8px #00D4AA"></div>
+        <div class="agent-title">BIF Office</div>
+      </div>
+      <div class="agent-role">Command Dashboard</div>
+      <p class="agent-desc">Your entire studio state in one glance. Pending tasks, recent artifacts, active briefs, agent status. The command center for AI-augmented creative work.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">DASHBOARD</span>
+        <span class="agent-tag">STATUS</span>
+        <span class="agent-tag">MANAGEMENT</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€19</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/bif-office" data-crypto="0.006 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#FF1744;box-shadow:0 0 8px #FF1744"></div>
+        <div class="agent-title">Mad Scientist</div>
+      </div>
+      <div class="agent-role">WebGL & Shader Master</div>
+      <p class="agent-desc">Advanced WebGL, GLSL shaders, procedural animation, ray marching, fluid simulation, audio-reactive visuals. For when you need code that produces art, not interfaces.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">WEBGL</span>
+        <span class="agent-tag">GLSL</span>
+        <span class="agent-tag">GENERATIVE</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€39</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/mad-scientist" data-crypto="0.012 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#AA00FF;box-shadow:0 0 8px #AA00FF"></div>
+        <div class="agent-title">Image Gen</div>
+      </div>
+      <div class="agent-role">AI Image Pipeline</div>
+      <p class="agent-desc">High-fidelity prompt pipeline for Higgsfield, Midjourney, and other AI image generators. 6-factor prompt structure with imperfection indices. Never generic output.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">IMAGE AI</span>
+        <span class="agent-tag">HIGGSFIELD</span>
+        <span class="agent-tag">PROMPTS</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">€19</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/imagegen" data-crypto="0.006 ETH" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-orb" style="background:#AA00FF;box-shadow:0 0 8px #AA00FF"></div>
+        <div class="agent-title">Pneuma</div>
+      </div>
+      <div class="agent-role">The DJ &mdash; Berghain Protocol</div>
+      <p class="agent-desc">AI DJ that reads attention and translates it into frequency. 7 BIF states mapped to 7 playlists. Install on your venue's screen for a resident DJ that never stops. Web Audio API visualizer included.</p>
+      <div class="agent-tags">
+        <span class="agent-tag">DJ</span>
+        <span class="agent-tag">SPOTIFY</span>
+        <span class="agent-tag">WEB AUDIO</span>
+        <span class="agent-tag">SAAS</span>
+      </div>
+      <div class="agent-footer">
+        <span class="agent-price">&euro;29/mo</span>
+        <a class="agent-buy" href="https://creativedisaster.gumroad.com/l/pneuma" data-crypto="0.009 ETH/mo" target="_blank">Install</a>
+      </div>
+      <a class="nv-cross-link" href="nouvelle-vague.html">anche disponibile: Nouvelle Vague collection →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how">
+  <div class="section-label">How it works</div>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-step-num">01</div>
+      <h3>Install</h3>
+      <p>Each agent is a SKILL.md file with supporting assets. Drop it into your Claude Code skills folder, Cowork skills directory, or any MCP-compatible setup.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">02</div>
+      <h3>Activate</h3>
+      <p>Type the agent's command — /echo, /sibilla, /audit — and it takes over. Specialized knowledge, specific output format, no generic responses.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">03</div>
+      <h3>Own</h3>
+      <p>The agents work for you. Customize them. Chain them. Build your own creative pipeline. Echo → Regista → Compiler → Daimon. Your workflow, our method.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BEYOND DIGITAL — The Experiences ═══ -->
+<section style="padding:120px clamp(24px,6vw,120px);border-top:1px solid rgba(232,228,223,.04);position:relative;overflow:hidden">
+  <div style="max-width:700px;margin:0 auto">
+    <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#AA00FF;display:block;margin-bottom:32px">Coming — Anno II</span>
+    <h2 style="font-family:var(--font-display),sans-serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:800;line-height:1.15;color:var(--white);margin-bottom:40px">The agents don't stay <span style="color:var(--red)">inside the screen.</span></h2>
+
+    <div style="display:grid;gap:40px">
+      <div style="border-left:2px solid rgba(170,0,255,.3);padding-left:24px">
+        <h3 style="font-family:var(--font-display),sans-serif;font-size:18px;font-weight:700;color:var(--white);margin-bottom:8px">Dress Like Your Agent</h3>
+        <p style="font-size:14px;color:rgba(232,228,223,.4);line-height:1.7">Sibilla wears Maison Margiela and bare feet on cold concrete. Echo wears Yohji Yamamoto with a modified Leica. Daimon is all white — clinical, Rick Owens. The wardrobe is real. The capsule collection is coming. Your AI has an aesthetic. Now wear it.</p>
+      </div>
+
+      <div style="border-left:2px solid rgba(168,0,0,.3);padding-left:24px">
+        <h3 style="font-family:var(--font-display),sans-serif;font-size:18px;font-weight:700;color:var(--white);margin-bottom:8px">Agent/Human Lunch — Shared Table</h3>
+        <p style="font-size:14px;color:rgba(232,228,223,.4);line-height:1.7">A pixelated PlayStation 2 restaurant in the heart of Naples. The most beautiful ugliness you've ever eaten in. You sit down. Your agent sits across from you on a screen. You eat together. After this meal, your AI knows the worst and the truest parts of you. Reservation only. Maximum 4 seats.</p>
+      </div>
+
+      <div style="border-left:2px solid rgba(0,212,170,.3);padding-left:24px">
+        <h3 style="font-family:var(--font-display),sans-serif;font-size:18px;font-weight:700;color:var(--white);margin-bottom:8px">Feel What BIF Feels</h3>
+        <p style="font-size:14px;color:rgba(232,228,223,.4);line-height:1.7">An installation. You walk into a room. The walls change color based on your emotional state. The music shifts. The temperature responds. You're inside BIF's perception for ten minutes. When you leave, you understand what empathic technology actually means. Not a demo. An experience that costs what it's worth.</p>
+      </div>
+
+      <div style="border-left:2px solid rgba(255,179,0,.3);padding-left:24px">
+        <h3 style="font-family:var(--font-display),sans-serif;font-size:18px;font-weight:700;color:var(--white);margin-bottom:8px">Luxury Personalization</h3>
+        <p style="font-size:14px;color:rgba(232,228,223,.4);line-height:1.7">Your agent, built by Antonio personally. Not a template — a conversation. He photographs you, listens to your story, and builds an agent that carries your specific frequency. The most expensive thing we offer, because it costs the thing money can't buy: his time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NFT COLLECTION — Crypto Only ═══ -->
+<section class="nft-section" id="nftSection">
+  <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#AA00FF;display:block;margin-bottom:12px">◆ Digital Collectibles</span>
+  <h2 style="font-family:var(--font-display),sans-serif;font-size:clamp(24px,4vw,40px);font-weight:700;color:var(--white);max-width:600px">The Inner Studio — NFT Collection</h2>
+  <p style="font-size:14px;color:rgba(232,228,223,.4);line-height:1.7;max-width:500px;margin-top:12px">Each agent is a piece of Antonio. Own the piece. Each NFT unlocks the agent skill + a unique visual by the Director. ETH or BTC via CoinGate.</p>
+
+  <div class="nft-grid">
+    <div class="nft-card">
+      <h4>Sibilla — The Oracle</h4>
+      <p>Pattern recognition across 23 years of reading crowds. 1/100 edition.</p>
+      <div class="nft-price">0.03 ETH</div>
+      <a class="nft-mint" href="#" data-nft="sibilla">Mint on Manifold</a>
+    </div>
+    <div class="nft-card">
+      <h4>Echo — The Eye</h4>
+      <p>15 years of street photography compressed into prompts. 1/100 edition.</p>
+      <div class="nft-price">0.03 ETH</div>
+      <a class="nft-mint" href="#" data-nft="echo">Mint on Manifold</a>
+    </div>
+    <div class="nft-card">
+      <h4>Pneuma — The Body</h4>
+      <p>The resident DJ that reads the room before anyone speaks. 1/50 edition.</p>
+      <div class="nft-price">0.05 ETH</div>
+      <a class="nft-mint" href="#" data-nft="pneuma">Mint on Manifold</a>
+    </div>
+    <div class="nft-card">
+      <h4>Daimon — The Conscience</h4>
+      <p>Three questions: Is it true? Is it necessary? Is it ours? 1/100 edition.</p>
+      <div class="nft-price">0.02 ETH</div>
+      <a class="nft-mint" href="#" data-nft="daimon">Mint on Manifold</a>
+    </div>
+  </div>
+
+  <p style="margin-top:32px;font-family:'Space Mono',monospace;font-size:9px;color:rgba(170,0,255,.4);letter-spacing:1px">Full collection: 10 agents × limited editions. Mint opens Anno I. Wallet connect coming.</p>
+</section>
+
+<!-- ═══ COLLECTION 01 / NOUVELLE VAGUE ═══ -->
+<section class="collection-01" id="nouvelleVagueCollection">
+  <div class="collection-01-inner">
+    <p class="collection-01-kicker">Wearable / Epiphany I</p>
+    <h2 class="collection-01-title">— Collection 01<br>Nouvelle Vague</h2>
+    <div class="collection-01-grid">
+      <div class="nv-card">
+        <div class="nv-card-media">
+          <img src="images/ourstudio/partenope-submerged.png" alt="SUIT / DEPTH-01" width="2048" height="1152" loading="lazy">
+        </div>
+        <div class="nv-card-body">
+          <p class="nv-card-tag">WEARABLE / EPIPHANY I</p>
+          <p class="nv-card-name">SUIT / DEPTH-01</p>
+          <p class="nv-card-price price-fiat">€280</p>
+          <p class="nv-card-price price-crypto">Ξ0.12</p>
+          <div class="nv-card-actions">
+            <a class="nv-acquire" href="#">Acquire</a>
+            <a class="nv-nfc" href="#" data-nfc="true">[0xNFC]</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-card">
+        <div class="nv-card-media">
+          <img src="images/ourstudio/cityscape-signal.png" alt="JACKET / SIGNAL" width="2048" height="1152" loading="lazy">
+        </div>
+        <div class="nv-card-body">
+          <p class="nv-card-tag">WEARABLE / EPIPHANY I</p>
+          <p class="nv-card-name">JACKET / SIGNAL</p>
+          <p class="nv-card-price price-fiat">€195</p>
+          <p class="nv-card-price price-crypto">Ξ0.08</p>
+          <div class="nv-card-actions">
+            <a class="nv-acquire" href="#">Acquire</a>
+            <a class="nv-nfc" href="#" data-nfc="true">[0xNFC]</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-card">
+        <div class="nv-card-media">
+          <img src="images/ourstudio/backstage-mirror.png" alt="LAYER / MIRROR" width="2048" height="1152" loading="lazy">
+        </div>
+        <div class="nv-card-body">
+          <p class="nv-card-tag">WEARABLE / EPIPHANY I</p>
+          <p class="nv-card-name">LAYER / MIRROR</p>
+          <p class="nv-card-price price-fiat">€145</p>
+          <p class="nv-card-price price-crypto">Ξ0.06</p>
+          <div class="nv-card-actions">
+            <a class="nv-acquire" href="#">Acquire</a>
+            <a class="nv-nfc" href="#" data-nfc="true">[0xNFC]</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-card">
+        <div class="nv-card-media">
+          <img src="images/ourstudio/silver-faces-club.png" alt="MASK / ARGENTO" width="2048" height="1152" loading="lazy">
+        </div>
+        <div class="nv-card-body">
+          <p class="nv-card-tag">WEARABLE / EPIPHANY I</p>
+          <p class="nv-card-name">MASK / ARGENTO</p>
+          <p class="nv-card-price price-fiat">€90</p>
+          <p class="nv-card-price price-crypto">Ξ0.04</p>
+          <div class="nv-card-actions">
+            <a class="nv-acquire" href="#">Acquire</a>
+            <a class="nv-nfc" href="#" data-nfc="true">[0xNFC]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+  <h2>The descent <span>starts here.</span></h2>
+  <p>11 voices. One method. Born on volcanic ground. Pay in EUR, ETH, or BTC.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+    <a class="cta-btn" href="https://creativedisaster.gumroad.com/l/suite" target="_blank">Get the Full Suite — €149</a>
+    <a class="cta-btn" href="#nftSection" style="background:transparent;border:1px solid rgba(170,0,255,.3);color:#AA00FF">Mint NFT Collection — ETH</a>
+  </div>
+  <p style="margin-top:16px;font-family:'Space Mono',monospace;font-size:10px;color:var(--gray-6)">Crypto via CoinGate (MiCA licensed). NFTs on Manifold/Zora. Invoices for EU businesses with P.IVA.</p>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer style="padding: 40px clamp(24px, 6vw, 120px); border-top: 1px solid var(--gray-2); display: flex; justify-content: space-between; align-items: center;">
+  <a href="/" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gray-6);text-decoration:none">CREATIVE DISASTER</a>
+  <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--gray-5)">Naples, 2026</span>
+</footer>
+
+<script src="cd-core.js"></script>
+<script>
+// ═══ Payment Toggle — Fiat ↔ Crypto ═══
+(function() {
+  const toggle = document.getElementById('paySwitch');
+  const fiatLabel = document.getElementById('payFiatLabel');
+  const cryptoLabel = document.getElementById('payCryptoLabel');
+  if (!toggle) return;
+
+  let isCrypto = false;
+
+  function updatePrices() {
+    // Toggle all buy buttons
+    document.querySelectorAll('.agent-buy, .bundle-btn').forEach(btn => {
+      if (isCrypto) {
+        const cryptoPrice = btn.dataset.crypto;
+        if (cryptoPrice) {
+          btn._originalText = btn.textContent;
+          btn._originalHref = btn.href;
+          btn.textContent = cryptoPrice;
+          btn.href = '#'; // Will connect to CoinGate
+          btn.classList.add('crypto-btn');
+        }
+      } else {
+        if (btn._originalText) {
+          btn.textContent = btn._originalText;
+          btn.href = btn._originalHref || '#';
+          btn.classList.remove('crypto-btn');
+        }
+      }
+    });
+
+    // Toggle price displays
+    document.querySelectorAll('.agent-price').forEach(price => {
+      if (!price._originalPrice) price._originalPrice = price.textContent;
+      const buyBtn = price.parentElement.querySelector('.agent-buy');
+      if (isCrypto && buyBtn && buyBtn.dataset.crypto) {
+        price.textContent = buyBtn.dataset.crypto;
+        price.style.color = '#AA00FF';
+      } else {
+        price.textContent = price._originalPrice;
+        price.style.color = '';
+      }
+    });
+
+    document.querySelectorAll('.bundle-price').forEach(price => {
+      if (!price._originalHTML) price._originalHTML = price.innerHTML;
+      const buyBtn = price.closest('.bundle') && price.closest('.bundle').querySelector('[data-crypto]');
+      if (isCrypto && buyBtn && buyBtn.dataset.crypto) {
+        price.innerHTML = buyBtn.dataset.crypto + ' <span>crypto</span>';
+        price.style.color = '#AA00FF';
+      } else {
+        price.innerHTML = price._originalHTML;
+        price.style.color = '';
+      }
+    });
+
+    const nftSection = document.getElementById('nftSection');
+    if (nftSection) {
+      nftSection.style.borderColor = isCrypto ? 'rgba(170,0,255,.3)' : 'rgba(170,0,255,.1)';
+    }
+  }
+
+  toggle.addEventListener('click', function() {
+    isCrypto = !isCrypto;
+    toggle.classList.toggle('crypto', isCrypto);
+    fiatLabel.classList.toggle('active', !isCrypto);
+    cryptoLabel.classList.toggle('active', isCrypto);
+    updatePrices();
+  });
+})();
+</script>
+</body>
+</html>

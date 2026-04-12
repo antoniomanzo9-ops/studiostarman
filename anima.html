@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ANIMA — Give Your Website a Soul That Machines Can Feel</title>
+<meta name="description" content="The first emotional protocol for agentic commerce. Make your website readable by AI agents. Increase autonomous purchases. Built on neuroscience.">
+
+<!-- Schema.org for Agent Discovery -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ANIMA Protocol",
+  "applicationCategory": "BusinessApplication",
+  "description": "Emotional infrastructure layer that makes websites agent-readable and increases autonomous AI purchases through neuroscience-backed trust signals.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "0",
+    "highPrice": "499",
+    "priceCurrency": "EUR"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Studio Starmans",
+    "url": "https://studiostarman.com"
+  }
+}
+</script>
+
+<link rel="stylesheet" href="cd-tokens.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ══════════════════════════════════════════
+   SYSTEM
+   ══════════════════════════════════════════ */
+:root {
+  --black: #0a0a0a;
+  --deep: #050505;
+  --white: #f0ece4;
+  --cream: #e8e4dc;
+  --muted: rgba(240, 236, 228, 0.4);
+  --accent: #c45d3e;
+  --accent-glow: rgba(196, 93, 62, 0.3);
+  --accent-soft: rgba(196, 93, 62, 0.08);
+  --green: #4a9e7d;
+  --green-glow: rgba(74, 158, 125, 0.2);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Space Mono', monospace;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--accent); color: var(--black); }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ══════════════════════════════════════════
+   GRAIN
+   ══════════════════════════════════════════ */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ── CRT / Visual DNA — scanlines + aberration ── */
+.scanlines-a{position:fixed;inset:0;z-index:8999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.02) 2px,rgba(0,0,0,.02) 4px);mix-blend-mode:multiply}
+.scroll-prog{position:fixed;left:0;top:0;width:2px;height:0%;background:var(--accent);z-index:9100;transition:height .1s;box-shadow:0 0 6px var(--accent-glow)}
+
+/* ══════════════════════════════════════════
+   NAV
+   ══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(10, 10, 10, 0.6);
+  border-bottom: 1px solid rgba(240, 236, 228, 0.05);
+  transition: all 0.4s ease;
+}
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
+.nav-brand span { color: var(--accent); font-style: italic; }
+.nav-links {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--white) !important;
+  padding: 10px 24px;
+  border: 1px solid rgba(240, 236, 228, 0.2);
+  border-radius: 100px;
+  transition: all 0.3s ease !important;
+}
+.nav-cta:hover {
+  background: var(--white) !important;
+  color: var(--black) !important;
+  border-color: var(--white) !important;
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 16px 24px; }
+  .nav-links { gap: 20px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+}
+
+/* ══════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 32px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0;
+  animation: orb-fade 3s ease forwards;
+}
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  top: 10%; left: 20%;
+  animation-delay: 0.5s;
+}
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  bottom: 20%; right: 15%;
+  animation-delay: 1s;
+}
+.hero-orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(240, 236, 228, 0.03) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 0.2s;
+}
+
+@keyframes orb-fade {
+  to { opacity: 1; }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 1px solid rgba(240, 236, 228, 0.1);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade-up 1s ease 0.3s forwards;
+}
+.hero-badge .pulse {
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--green-glow); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 8px transparent; }
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 900px;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fade-up 1.2s ease 0.6s forwards;
+  text-shadow: -1px 0 rgba(196,93,62,.1), 1px 0 rgba(74,158,125,.08);
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+  text-shadow: -1.5px 0 rgba(196,93,62,.15), 1.5px 0 rgba(74,158,125,.1);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--muted);
+  max-width: 580px;
+  margin: 32px auto 0;
+  line-height: 1.8;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fade-up 1s ease 1s forwards;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  margin-top: 48px;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fade-up 1s ease 1.3s forwards;
+}
+
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 36px;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(240, 236, 228, 0.15);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 36px;
+  background: transparent;
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(240, 236, 228, 0.15);
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-ghost:hover {
+  border-color: rgba(240, 236, 228, 0.4);
+  background: rgba(240, 236, 228, 0.05);
+}
+
+/* ══════════════════════════════════════════
+   SOCIAL PROOF BAR
+   ══════════════════════════════════════════ */
+.proof-bar {
+  padding: 60px 48px;
+  text-align: center;
+  border-top: 1px solid rgba(240, 236, 228, 0.05);
+  border-bottom: 1px solid rgba(240, 236, 228, 0.05);
+}
+.proof-bar p {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.proof-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+.proof-logos span {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(240, 236, 228, 0.2);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════
+   PROBLEM SECTION
+   ══════════════════════════════════════════ */
+.problem {
+  padding: 160px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.problem h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  max-width: 800px;
+  margin-bottom: 64px;
+  text-shadow: -1px 0 rgba(196,93,62,.08), 1px 0 rgba(74,158,125,.06);
+}
+.problem h2 em { font-style: italic; color: var(--accent); }
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+@media (max-width: 768px) {
+  .problem-grid { grid-template-columns: 1fr; }
+  .problem { padding: 100px 24px; }
+}
+
+.problem-card {
+  padding: 48px 40px;
+  background: rgba(240, 236, 228, 0.02);
+  border: 1px solid rgba(240, 236, 228, 0.05);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.problem-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(to right, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.problem-card:hover::before { opacity: 1; }
+.problem-card:hover {
+  background: rgba(240, 236, 228, 0.04);
+  border-color: rgba(240, 236, 228, 0.1);
+}
+
+.problem-card .number {
+  font-family: var(--mono);
+  font-size: 48px;
+  font-weight: 400;
+  color: rgba(240, 236, 228, 0.06);
+  margin-bottom: 24px;
+  line-height: 1;
+}
+
+.problem-card h3 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.problem-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════
+   THE SHIFT — Emotional Bridge
+   ══════════════════════════════════════════ */
+.shift {
+  padding: 200px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.shift-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, var(--accent-soft) 0%, transparent 60%);
+  z-index: 0;
+}
+.shift h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.shift h2 em { font-style: italic; color: var(--accent); }
+.shift p {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 40px auto 0;
+  line-height: 1.8;
+  position: relative;
+  z-index: 2;
+}
+
+/* ══════════════════════════════════════════
+   PROTOCOL SECTION — The Product
+   ══════════════════════════════════════════ */
+.protocol {
+  padding: 160px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.protocol h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.protocol h2 em { font-style: italic; color: var(--accent); }
+.protocol > p {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin-bottom: 80px;
+  line-height: 1.8;
+}
+
+.protocol-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.layer {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 2px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .layer { grid-template-columns: 1fr; }
+}
+
+.layer-label {
+  padding: 40px 32px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(196, 93, 62, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.layer-label .layer-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.layer-label h4 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.layer-content {
+  padding: 40px 32px;
+  background: rgba(240, 236, 228, 0.02);
+  border: 1px solid rgba(240, 236, 228, 0.05);
+}
+.layer-content h5 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.layer-content p {
+  font-size: 0.9rem;
+  color: var(--cream);
+  line-height: 1.7;
+}
+.layer-content ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.layer-content ul li {
+  font-size: 0.85rem;
+  color: var(--cream);
+  padding-left: 16px;
+  position: relative;
+}
+.layer-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px;
+  width: 4px; height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ══════════════════════════════════════════
+   CODE PREVIEW
+   ══════════════════════════════════════════ */
+.code-section {
+  padding: 160px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.code-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+.code-section h2 em { font-style: italic; color: var(--accent); }
+.code-section > p {
+  color: var(--muted);
+  max-width: 500px;
+  margin-bottom: 64px;
+}
+
+.code-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .code-grid { grid-template-columns: 1fr; }
+  .code-section { padding: 100px 24px; }
+}
+
+.code-block {
+  background: var(--deep);
+  border: 1px solid rgba(240, 236, 228, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.code-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(240, 236, 228, 0.06);
+}
+.code-dots {
+  display: flex;
+  gap: 6px;
+}
+.code-dots span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(240, 236, 228, 0.1);
+}
+.code-dots span:first-child { background: rgba(196, 93, 62, 0.5); }
+.code-filename {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.code-body {
+  padding: 24px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--cream);
+  overflow-x: auto;
+}
+.code-body .key { color: var(--accent); }
+.code-body .string { color: var(--green); }
+.code-body .comment { color: rgba(240, 236, 228, 0.25); }
+.code-body .tag { color: #7eb8da; }
+
+/* ══════════════════════════════════════════
+   NEUROSCIENCE SECTION
+   ══════════════════════════════════════════ */
+.neuro {
+  padding: 160px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.neuro h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+.neuro h2 em { font-style: italic; color: var(--accent); }
+.neuro > p {
+  color: var(--muted);
+  max-width: 560px;
+  margin-bottom: 80px;
+  line-height: 1.8;
+}
+
+.neuro-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+@media (max-width: 768px) {
+  .neuro-grid { grid-template-columns: 1fr; }
+  .neuro { padding: 100px 24px; }
+}
+
+.neuro-card {
+  padding: 56px 48px;
+  background: rgba(240, 236, 228, 0.015);
+  border: 1px solid rgba(240, 236, 228, 0.05);
+  transition: all 0.4s ease;
+}
+.neuro-card:hover {
+  background: rgba(240, 236, 228, 0.03);
+}
+.neuro-card .stat {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--accent);
+  margin-bottom: 16px;
+  line-height: 1;
+}
+.neuro-card h3 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.neuro-card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.neuro-card .source {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(240, 236, 228, 0.2);
+  margin-top: 20px;
+  letter-spacing: 0.03em;
+}
+
+/* ══════════════════════════════════════════
+   PRICING
+   ══════════════════════════════════════════ */
+.pricing {
+  padding: 160px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.pricing h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.pricing h2 em { font-style: italic; color: var(--accent); }
+.pricing > p {
+  color: var(--muted);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto 80px;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 550px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing { padding: 100px 24px; }
+}
+
+.price-card {
+  padding: 48px 32px;
+  background: rgba(240, 236, 228, 0.02);
+  border: 1px solid rgba(240, 236, 228, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease;
+}
+.price-card:hover {
+  background: rgba(240, 236, 228, 0.04);
+  border-color: rgba(240, 236, 228, 0.1);
+}
+.price-card.featured {
+  background: rgba(196, 93, 62, 0.06);
+  border-color: rgba(196, 93, 62, 0.2);
+}
+.price-card .tier {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.price-card.featured .tier { color: var(--accent); }
+.price-card .price {
+  font-family: var(--serif);
+  font-size: 2.8rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.price-card .price-period {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.price-card ul {
+  list-style: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.price-card ul li {
+  font-size: 0.85rem;
+  color: var(--cream);
+  padding-left: 20px;
+  position: relative;
+}
+.price-card ul li::before {
+  content: '+';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.price-card .btn-sm {
+  display: block;
+  text-align: center;
+  padding: 14px 24px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.price-card .btn-sm.btn-outline {
+  color: var(--white);
+  border: 1px solid rgba(240, 236, 228, 0.15);
+  background: transparent;
+}
+.price-card .btn-sm.btn-outline:hover {
+  border-color: rgba(240, 236, 228, 0.4);
+  background: rgba(240, 236, 228, 0.05);
+}
+.price-card .btn-sm.btn-fill {
+  color: var(--black);
+  background: var(--white);
+  border: 1px solid var(--white);
+}
+.price-card .btn-sm.btn-fill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(240, 236, 228, 0.15);
+}
+
+/* ══════════════════════════════════════════
+   MANIFESTO — The Big Close
+   ══════════════════════════════════════════ */
+.manifesto {
+  padding: 200px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.manifesto-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center bottom, rgba(196, 93, 62, 0.06) 0%, transparent 50%);
+}
+.manifesto blockquote {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  max-width: 800px;
+  margin: 0 auto 48px;
+  position: relative;
+  z-index: 2;
+  color: var(--cream);
+}
+.manifesto .source {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 64px;
+}
+.manifesto .final-cta {
+  position: relative;
+  z-index: 2;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+.footer {
+  padding: 48px;
+  border-top: 1px solid rgba(240, 236, 228, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-left {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.footer-left a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.footer-right {
+  display: flex;
+  gap: 24px;
+}
+.footer-right a {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+.footer-right a:hover { color: var(--white); }
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+   ══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ══════════════════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- SCANLINES -->
+<div class="scanlines-a"></div>
+
+<!-- GRAIN -->
+<div class="grain"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-prog" id="scrollProg"></div>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+  </div>
+
+  <div class="hero-badge">
+    <span class="pulse"></span>
+    The Emotional Protocol for Agentic Commerce
+  </div>
+
+  <h1>Give your website a soul that <em>machines</em> can feel.</h1>
+
+  <p class="hero-sub">
+    AI agents are buying for humans. But they can't feel trust.
+    They can't sense quality. They can't perceive craft. ANIMA bridges
+    the empathy gap between human emotion and machine intelligence.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#start" class="btn-primary">
+      Begin Integration
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#protocol" class="btn-ghost">Read the Protocol</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SOCIAL PROOF
+     ════════════════════════════════════════════════ -->
+<div class="proof-bar">
+  <p>Compatible with the protocols that matter</p>
+  <div class="proof-logos">
+    <span>ACP</span>
+    <span>MCP</span>
+    <span>UCP</span>
+    <span>Schema.org</span>
+    <span>Stripe</span>
+    <span>Shopify</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     THE PROBLEM
+     ════════════════════════════════════════════════ -->
+<section class="problem" id="problem">
+  <div class="section-label reveal">The Invisible Crisis</div>
+  <h2 class="reveal">
+    AI agents will control <em>$1.7 trillion</em> in purchases by 2030.
+    Your website is invisible to them.
+  </h2>
+
+  <div class="problem-grid">
+    <div class="problem-card reveal reveal-delay-1">
+      <div class="number">01</div>
+      <h3>Agents can't feel trust</h3>
+      <p>When a human lands on your site, they feel your brand in 50ms. An AI agent sees raw HTML. No emotion. No trust signal. No reason to choose you over a competitor with better-structured data.</p>
+    </div>
+    <div class="problem-card reveal reveal-delay-2">
+      <div class="number">02</div>
+      <h3>95% of decisions are subconscious</h3>
+      <p>Neuroscience proves humans decide emotionally before rationalizing. AI agents making purchases for humans need to encode that same emotional reasoning — or they'll always choose the cheapest option.</p>
+    </div>
+    <div class="problem-card reveal reveal-delay-3">
+      <div class="number">03</div>
+      <h3>The empathy gap kills conversion</h3>
+      <p>Research shows perceived empathy (beta = 0.32) and trust (beta = 0.27) mediate every interaction. If your website can't transmit these to an agent, you lose the sale you never knew existed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     THE SHIFT
+     ════════════════════════════════════════════════ -->
+<section class="shift">
+  <div class="shift-bg"></div>
+  <h2 class="reveal">
+    What if your website could<br>
+    <em>speak to machines</em><br>
+    the way it speaks to souls?
+  </h2>
+  <p class="reveal">
+    ANIMA is not another analytics tool. It's an emotional metadata layer —
+    the bridge between what humans feel and what agents compute.
+    One script. One protocol. One soul.
+  </p>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     THE PROTOCOL
+     ════════════════════════════════════════════════ -->
+<section class="protocol" id="protocol">
+  <div class="section-label reveal">The Protocol</div>
+  <h2 class="reveal">Three layers. <em>One soul.</em></h2>
+  <p class="reveal">
+    ANIMA works at every level of the stack — from the semantic layer
+    agents read, to the emotional signals they interpret, to the actions they execute.
+  </p>
+
+  <div class="protocol-layers">
+    <!-- SEMANTIC -->
+    <div class="layer reveal">
+      <div class="layer-label">
+        <span class="layer-num">LAYER 01</span>
+        <h4>Semantic</h4>
+      </div>
+      <div class="layer-content">
+        <h5>What agents read</h5>
+        <ul>
+          <li>agent-manifest.json — your complete product ontology</li>
+          <li>.well-known/agent-commerce endpoint</li>
+          <li>Schema.org enriched markup</li>
+          <li>Machine-readable trust certificates</li>
+        </ul>
+      </div>
+      <div class="layer-content">
+        <h5>Result</h5>
+        <p>AI agents discover your products, understand your catalog, and can navigate your offerings without rendering a single pixel.</p>
+      </div>
+    </div>
+
+    <!-- EMOTIONAL -->
+    <div class="layer reveal">
+      <div class="layer-label">
+        <span class="layer-num">LAYER 02</span>
+        <h4>Emotional</h4>
+      </div>
+      <div class="layer-content">
+        <h5>What agents feel</h5>
+        <ul>
+          <li>Brand emotion vectors (trust, warmth, authority)</li>
+          <li>Quality perception scores</li>
+          <li>Human-craft certification signals</li>
+          <li>Aesthetic coherence metadata</li>
+        </ul>
+      </div>
+      <div class="layer-content">
+        <h5>Result</h5>
+        <p>When an agent decides between two equivalent products, it chooses the one with higher emotional coherence. Your brand feeling becomes computable.</p>
+      </div>
+    </div>
+
+    <!-- KINETIC -->
+    <div class="layer reveal">
+      <div class="layer-label">
+        <span class="layer-num">LAYER 03</span>
+        <h4>Kinetic</h4>
+      </div>
+      <div class="layer-content">
+        <h5>What agents do</h5>
+        <ul>
+          <li>Agentic checkout protocol</li>
+          <li>Delegated payment flow (Stripe/ACP)</li>
+          <li>Cart, configure, and purchase actions</li>
+          <li>Post-purchase confirmation & tracking</li>
+        </ul>
+      </div>
+      <div class="layer-content">
+        <h5>Result</h5>
+        <p>The agent doesn't just find you — it completes the purchase. No human clicks needed. Frictionless autonomous commerce.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     CODE PREVIEW
+     ════════════════════════════════════════════════ -->
+<section class="code-section" id="code">
+  <div class="section-label reveal">Integration</div>
+  <h2 class="reveal">One line. <em>Infinite reach.</em></h2>
+  <p class="reveal">Install ANIMA in under 60 seconds. The protocol does the rest.</p>
+
+  <div class="code-grid">
+    <div class="code-block reveal">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">index.html</span>
+      </div>
+      <div class="code-body">
+<span class="comment">&lt;!-- Drop this before &lt;/head&gt; --&gt;</span>
+<br><span class="tag">&lt;script</span>
+<br>&nbsp;&nbsp;<span class="key">src</span>=<span class="string">"https://anima.cd/v1.js"</span>
+<br>&nbsp;&nbsp;<span class="key">data-key</span>=<span class="string">"your-key"</span>
+<br><span class="tag">&gt;&lt;/script&gt;</span>
+<br>
+<br><span class="comment">&lt;!-- That's it. --&gt;</span>
+<br><span class="comment">&lt;!-- ANIMA auto-generates: --&gt;</span>
+<br><span class="comment">&lt;!-- &bull; agent-manifest.json --&gt;</span>
+<br><span class="comment">&lt;!-- &bull; .well-known/agent-commerce --&gt;</span>
+<br><span class="comment">&lt;!-- &bull; emotional metadata layer --&gt;</span>
+<br><span class="comment">&lt;!-- &bull; Schema.org enrichment --&gt;</span>
+      </div>
+    </div>
+
+    <div class="code-block reveal reveal-delay-1">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">agent-manifest.json</span>
+      </div>
+      <div class="code-body">
+{
+<br>&nbsp;&nbsp;<span class="key">"protocol"</span>: <span class="string">"anima/v1"</span>,
+<br>&nbsp;&nbsp;<span class="key">"entity"</span>: {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"name"</span>: <span class="string">"Your Brand"</span>,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"soul"</span>: {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"trust"</span>: <span class="string">0.94</span>,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"warmth"</span>: <span class="string">0.87</span>,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"craft"</span>: <span class="string">0.91</span>,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"human_made"</span>: <span class="string">true</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;},
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"actions"</span>: [
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"discover"</span>, <span class="string">"compare"</span>,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"purchase"</span>, <span class="string">"subscribe"</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;]
+<br>&nbsp;&nbsp;}
+<br>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     NEUROSCIENCE
+     ════════════════════════════════════════════════ -->
+<section class="neuro" id="science">
+  <div class="section-label reveal">Built on Neuroscience</div>
+  <h2 class="reveal">Not opinions. <em>Neural evidence.</em></h2>
+  <p class="reveal">
+    Every signal in the ANIMA protocol is grounded in peer-reviewed research
+    on how human brains build trust — and how machines can learn to replicate it.
+  </p>
+
+  <div class="neuro-grid">
+    <div class="neuro-card reveal">
+      <div class="stat">95%</div>
+      <h3>Decisions are subconscious</h3>
+      <p>The brain decides emotionally before conscious reasoning activates. ANIMA encodes these pre-rational trust signals into machine-readable vectors.</p>
+      <div class="source">Harvard Business School, 2025</div>
+    </div>
+    <div class="neuro-card reveal reveal-delay-1">
+      <div class="stat">50ms</div>
+      <h3>First impression window</h3>
+      <p>Humans form website trust judgments in 50 milliseconds. ANIMA delivers equivalent trust metadata to agents in under 1ms.</p>
+      <div class="source">Lindgaard et al. — Behaviour & IT</div>
+    </div>
+    <div class="neuro-card reveal reveal-delay-2">
+      <div class="stat">0.32</div>
+      <h3>Empathy mediates everything</h3>
+      <p>Perceived empathy (beta = 0.32) is the strongest mediator of user experience — stronger than visual design or feature completeness.</p>
+      <div class="source">Frontiers in Computer Science, 2025</div>
+    </div>
+    <div class="neuro-card reveal reveal-delay-3">
+      <div class="stat">$1.7T</div>
+      <h3>Agent commerce by 2030</h3>
+      <p>From $135B today to $1.7 trillion. The websites that agents can read, trust, and purchase from will capture this market. The rest will disappear.</p>
+      <div class="source">McKinsey & Gartner, 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     PRICING
+     ════════════════════════════════════════════════ -->
+<section class="pricing" id="pricing">
+  <div class="section-label reveal" style="justify-content:center;">Access</div>
+  <h2 class="reveal">Choose your <em>frequency.</em></h2>
+  <p class="reveal">From indie makers to enterprise brands — ANIMA scales with your ambition.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <div class="tier">Signal</div>
+      <div class="price">Free</div>
+      <div class="price-period">forever</div>
+      <ul>
+        <li>agent-manifest.json generator</li>
+        <li>.well-known endpoint</li>
+        <li>Basic Schema.org enrichment</li>
+        <li>Community support</li>
+      </ul>
+      <a href="#start" class="btn-sm btn-outline">Start Free</a>
+    </div>
+
+    <div class="price-card reveal reveal-delay-1">
+      <div class="tier">Pulse</div>
+      <div class="price">&euro;29</div>
+      <div class="price-period">per month</div>
+      <ul>
+        <li>Everything in Signal</li>
+        <li>Emotional metadata layer</li>
+        <li>Agent analytics dashboard</li>
+        <li>Craft certification badge</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#start" class="btn-sm btn-outline">Start Trial</a>
+    </div>
+
+    <div class="price-card featured reveal reveal-delay-2">
+      <div class="tier">Soul</div>
+      <div class="price">&euro;99</div>
+      <div class="price-period">per month</div>
+      <ul>
+        <li>Everything in Pulse</li>
+        <li>Agentic checkout protocol</li>
+        <li>Stripe ACP integration</li>
+        <li>Real-time emotion tuning</li>
+        <li>Priority support</li>
+        <li>Agent simulation testing</li>
+      </ul>
+      <a href="#start" class="btn-sm btn-fill">Begin Journey</a>
+    </div>
+
+    <div class="price-card reveal reveal-delay-3">
+      <div class="tier">Infinite</div>
+      <div class="price">&euro;499</div>
+      <div class="price-period">per month</div>
+      <ul>
+        <li>Everything in Soul</li>
+        <li>Custom AI persona for your brand</li>
+        <li>White-label protocol</li>
+        <li>Dedicated account manager</li>
+        <li>SLA guarantee</li>
+        <li>On-call integration support</li>
+      </ul>
+      <a href="#start" class="btn-sm btn-outline">Contact Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     MANIFESTO
+     ════════════════════════════════════════════════ -->
+<section class="manifesto" id="start">
+  <div class="manifesto-bg"></div>
+  <blockquote class="reveal">
+    "In the brave new world, the machines that purchase for us
+    will choose the brands that feel like home.
+    Give them something to feel."
+  </blockquote>
+  <div class="source reveal">— The ANIMA Manifesto</div>
+  <div class="final-cta reveal">
+    <a href="mailto:hello@studiostarman.com" class="btn-primary" style="font-size:16px; padding: 20px 48px;">
+      Begin Your Integration
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-left">
+    ANIMA Protocol &mdash; by <a href="index.html">Studio Starmans</a> &mdash; Naples, 2026
+  </div>
+  <div class="footer-right">
+    <a href="index.html">Studio</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="bif.html">BIF</a>
+    <a href="lab.html">Lab</a>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════ -->
+<script src="cd-core.js"></script>
+<script>
+(() => {
+'use strict';
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+reveals.forEach(el => observer.observe(el));
+
+// ── SCROLL PROGRESS ──
+const scrollProg = document.getElementById('scrollProg');
+if(scrollProg){
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    scrollProg.style.height = (p * 100) + '%';
+  });
+}
+
+// ── NAV SCROLL EFFECT ──
+const nav = document.querySelector('.nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  if (scrollY > 100) {
+    nav.style.borderBottomColor = 'rgba(240, 236, 228, 0.08)';
+    nav.style.background = 'rgba(10, 10, 10, 0.85)';
+  } else {
+    nav.style.borderBottomColor = 'rgba(240, 236, 228, 0.05)';
+    nav.style.background = 'rgba(10, 10, 10, 0.6)';
+  }
+  lastScroll = scrollY;
+});
+
+// ── SMOOTH SCROLL FOR NAV LINKS ──
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ── AMBIENT ORB MOVEMENT ──
+const orbs = document.querySelectorAll('.hero-orb');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', (e) => {
+  mx = (e.clientX / window.innerWidth - 0.5) * 2;
+  my = (e.clientY / window.innerHeight - 0.5) * 2;
+});
+
+function animateOrbs() {
+  orbs.forEach((orb, i) => {
+    const speed = (i + 1) * 8;
+    const x = mx * speed;
+    const y = my * speed;
+    orb.style.transform = `translate(${x}px, ${y}px)`;
+  });
+  requestAnimationFrame(animateOrbs);
+}
+animateOrbs();
+
+// ── COUNTER ANIMATION FOR STATS ──
+const statEls = document.querySelectorAll('.stat');
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const text = el.textContent;
+
+      // Only animate numeric-looking stats
+      if (text.match(/^\d/)) {
+        const num = parseFloat(text);
+        const suffix = text.replace(/[\d.]/g, '');
+        let current = 0;
+        const step = num / 40;
+        const decimals = text.includes('.') ? text.split('.')[1].replace(/[^\d]/g, '').length : 0;
+
+        function count() {
+          current += step;
+          if (current >= num) {
+            el.textContent = text;
+          } else {
+            el.textContent = current.toFixed(decimals) + suffix;
+            requestAnimationFrame(count);
+          }
+        }
+        count();
+      }
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+statEls.forEach(el => statObserver.observe(el));
+
+})();
+</script>
+
+</body>
+</html>

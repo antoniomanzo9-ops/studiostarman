@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Feed — Sibilla / Studio Starman</title>
+  <meta name="description" content="Weekly cultural intelligence from Studio Starman. Sibilla reads the noise before it becomes signal.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cd-tokens.css">
+  <link rel="stylesheet" href="cd-components.css">
+  <style>
+    :root {
+      --sibilla: #AA00FF;
+      --sibilla-dim: rgba(170, 0, 255, .4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      color: #E8E4DF;
+      font-family: 'Space Mono', monospace;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .sg-hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(120px, 14vw, 200px) clamp(28px, 6vw, 100px) clamp(60px, 8vh, 120px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sg-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.66) 46%, rgba(0,0,0,.28) 100%),
+        linear-gradient(0deg, rgba(0,0,0,.92) 0%, transparent 58%, rgba(0,0,0,.64) 100%),
+        radial-gradient(ellipse at 15% 60%, rgba(170, 0, 255, .09) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 15%, rgba(170, 0, 255, .04) 0%, transparent 45%),
+        url("images/ourstudio/cityscape-signal.png") center / cover no-repeat;
+      filter: saturate(.68) contrast(1.08);
+      pointer-events: none;
+    }
+
+    .sg-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(170, 0, 255, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(170, 0, 255, .025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at 20% 70%, rgba(0,0,0,.8) 0%, transparent 65%);
+    }
+
+    .sg-hero-tr {
+      position: absolute;
+      top: clamp(100px, 12vw, 160px);
+      right: clamp(28px, 6vw, 100px);
+      text-align: right;
+    }
+
+    .sg-hero-tr p {
+      font-size: 9px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .18);
+      line-height: 2.2;
+    }
+
+    .sg-eyebrow {
+      font-size: 10px;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: var(--sibilla);
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .sg-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 9vw, 118px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: .92;
+      color: #E8E4DF;
+      max-width: 880px;
+      position: relative;
+    }
+
+    .sg-hero-sub {
+      margin-top: 32px;
+      font-size: 12px;
+      color: rgba(232, 228, 223, .4);
+      letter-spacing: .06em;
+      max-width: 460px;
+      line-height: 1.9;
+      position: relative;
+    }
+
+    /* ── FEED CONTAINER ── */
+    .sg-feed {
+      padding: clamp(80px, 10vw, 140px) clamp(28px, 6vw, 100px);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sg-feed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(232, 228, 223, .07);
+      padding-bottom: 20px;
+    }
+
+    .sg-feed-label { font-size: 10px; letter-spacing: .55em; text-transform: uppercase; color: var(--sibilla); }
+    .sg-feed-count { font-size: 10px; letter-spacing: .3em; color: rgba(232, 228, 223, .18); }
+
+    /* ── SIGNAL CARD — journal, not dashboard ── */
+    .sg-card {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 0 52px;
+      padding: 64px 0;
+      border-bottom: 1px solid rgba(232, 228, 223, .05);
+      position: relative;
+      transition: border-color .5s ease;
+    }
+
+    .sg-card:hover { border-color: rgba(170, 0, 255, .15); }
+
+    /* violet left-bar reveal on hover */
+    .sg-card::before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: 0;
+      width: 1px;
+      height: 0;
+      background: var(--sibilla);
+      opacity: 0;
+      transition: height .6s ease, opacity .4s ease;
+    }
+    .sg-card:hover::before { height: 100%; opacity: .2; }
+
+    .sg-card-index { padding-top: 2px; }
+
+    .sg-card-num {
+      font-size: 52px;
+      font-weight: 700;
+      color: rgba(232, 228, 223, .05);
+      line-height: 1;
+      display: block;
+      letter-spacing: -.02em;
+    }
+
+    .sg-card-week {
+      font-size: 8px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .15);
+      display: block;
+      margin-top: 10px;
+    }
+
+    .sg-card-meta {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .sg-card-cat {
+      font-size: 8px;
+      letter-spacing: .5em;
+      text-transform: uppercase;
+      color: var(--sibilla-dim);
+      border: 1px solid rgba(170, 0, 255, .18);
+      padding: 5px 14px;
+    }
+
+    .sg-card-date {
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: rgba(232, 228, 223, .18);
+    }
+
+    .sg-card-signal {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(21px, 2.8vw, 34px);
+      font-weight: 900;
+      font-style: italic;
+      color: #E8E4DF;
+      line-height: 1.22;
+      margin-bottom: 44px;
+      max-width: 780px;
+    }
+
+    .sg-card-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(232, 228, 223, .04);
+    }
+
+    .sg-row-label {
+      font-size: 8px;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .22);
+      padding-top: 2px;
+    }
+
+    .sg-row-value {
+      font-size: 12px;
+      line-height: 1.75;
+      color: rgba(232, 228, 223, .7);
+      letter-spacing: .02em;
+    }
+
+    /* CONFIDENCE */
+    .sg-confidence { display: inline-flex; align-items: center; gap: 10px; }
+
+    .sg-conf-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sg-conf-dot--high   { background: #00D4AA; box-shadow: 0 0 8px rgba(0, 212, 170, .5); }
+    .sg-conf-dot--medium { background: #FFB300; box-shadow: 0 0 8px rgba(255, 179, 0, .5); }
+    .sg-conf-dot--low    { background: #FF1744; box-shadow: 0 0 8px rgba(255, 23, 68, .5); }
+
+    .sg-conf-label { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; }
+    .sg-conf-label--high   { color: #00D4AA; }
+    .sg-conf-label--medium { color: #FFB300; }
+    .sg-conf-label--low    { color: #FF1744; }
+
+    /* ── ARCHIVE ── */
+    .sg-archive {
+      padding: clamp(48px, 6vw, 80px) clamp(28px, 6vw, 100px) clamp(64px, 8vw, 100px);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sg-archive-label {
+      font-size: 9px;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .2);
+      margin-bottom: 32px;
+    }
+
+    .sg-archive-list { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .sg-archive-item {
+      font-size: 9px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: rgba(232, 228, 223, .1);
+      padding: 8px 16px;
+      border: 1px solid rgba(232, 228, 223, .05);
+    }
+
+    .sg-archive-item--active {
+      color: var(--sibilla-dim);
+      border-color: rgba(170, 0, 255, .18);
+    }
+
+    /* ── SUBSCRIBE ── */
+    .sg-subscribe {
+      padding: clamp(80px, 10vw, 140px) clamp(28px, 6vw, 100px);
+      border-top: 1px solid rgba(232, 228, 223, .04);
+      background: radial-gradient(ellipse at 50% 0%, rgba(170, 0, 255, .06) 0%, transparent 55%);
+    }
+
+    .sg-subscribe-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+
+    .sg-sub-eyebrow {
+      font-size: 9px; letter-spacing: .6em; text-transform: uppercase;
+      color: var(--sibilla-dim); margin-bottom: 20px;
+    }
+
+    .sg-sub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3.5vw, 44px);
+      font-weight: 900; font-style: italic;
+      color: #E8E4DF; margin-bottom: 14px; line-height: 1.2;
+    }
+
+    .sg-sub-body {
+      font-size: 11px; color: rgba(232, 228, 223, .35);
+      letter-spacing: .06em; line-height: 1.9; margin-bottom: 44px;
+    }
+
+    .sg-form { display: flex; gap: 0; }
+
+    .sg-input {
+      flex: 1;
+      background: rgba(232, 228, 223, .03);
+      border: 1px solid rgba(232, 228, 223, .1);
+      border-right: none;
+      color: #E8E4DF;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px; letter-spacing: .04em;
+      padding: 16px 20px; outline: none;
+      transition: border-color .3s;
+    }
+    .sg-input:focus { border-color: var(--sibilla-dim); }
+    .sg-input::placeholder { color: rgba(232, 228, 223, .18); }
+
+    .sg-submit {
+      background: transparent;
+      border: 1px solid var(--sibilla-dim);
+      color: var(--sibilla);
+      font-family: 'Space Mono', monospace;
+      font-size: 8px; letter-spacing: .55em; text-transform: uppercase;
+      padding: 16px 24px; cursor: pointer;
+      transition: background .3s, color .3s; white-space: nowrap;
+    }
+    .sg-submit:hover { background: var(--sibilla); color: #000; }
+
+    /* violet cursor ring override */
+    [data-cursor="violet"] .cur-ring { border-color: rgba(170, 0, 255, .18); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 10px 16px;
+        overflow: visible;
+      }
+      .sg-hero-tr { display: none; }
+      .sg-card { grid-template-columns: 1fr; }
+      .sg-card-index { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+      .sg-card-num { font-size: 36px; }
+      .sg-card-week { margin-top: 0; }
+      .sg-card-row { grid-template-columns: 1fr; gap: 6px; }
+      .sg-form { flex-direction: column; }
+      .sg-input { border-right: 1px solid rgba(232, 228, 223, .1); }
+    }
+  </style>
+</head>
+<body data-cursor="violet">
+
+  <div class="cur" id="cursor"></div>
+  <div class="cur-ring" id="cursor-ring"></div>
+
+  <div class="grain" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <filter id="grain-f">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain-f)" opacity="1"/>
+    </svg>
+  </div>
+
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="amb-line" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Navigazione principale">
+    <a href="index.html" class="nav-brand">Studio Starman</a>
+    <div class="nav-links">
+      <a href="studio.html">Studio</a>
+      <a href="nouvelle-vague.html">Nouvelle Vague</a>
+      <a href="collection.html">Collection</a>
+      <a href="honey.html">Honey</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-curtain" aria-hidden="true"></div>
+
+  <!-- HERO -->
+  <section class="sg-hero">
+    <div class="sg-hero-bg" aria-hidden="true"></div>
+    <div class="sg-hero-grid" aria-hidden="true"></div>
+    <div class="sg-hero-tr" aria-hidden="true">
+      <p>Aprile 2026</p>
+      <p>Anno I</p>
+    </div>
+    <p class="sg-eyebrow">Sibilla — Strategic Oracle &nbsp;/&nbsp; Week 15 &nbsp;/&nbsp; Anno I</p>
+    <h1 class="sg-hero-title">Signal Feed —<br>Sibilla reads<br>the noise.</h1>
+    <p class="sg-hero-sub">Weekly cultural intelligence from Studio Starman.<br>Published every Monday.</p>
+  </section>
+
+  <!-- SIGNALS -->
+  <main class="sg-feed" id="signals">
+
+    <div class="sg-feed-header">
+      <span class="sg-feed-label">Week 15 — Aprile 2026</span>
+      <span class="sg-feed-count">4 signals &nbsp;/&nbsp; Sibilla v.1.0</span>
+    </div>
+
+    <!-- 01 -->
+    <article class="sg-card">
+      <div class="sg-card-index">
+        <span class="sg-card-num">01</span>
+        <span class="sg-card-week">W15</span>
+      </div>
+      <div>
+        <div class="sg-card-meta">
+          <span class="sg-card-cat">Mercato / Emotività</span>
+          <span class="sg-card-date">13 Aprile 2026</span>
+        </div>
+        <h2 class="sg-card-signal">"L'emotional lead scoring sarà obbligatorio entro 2027"</h2>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Fonte</span>
+          <span class="sg-row-value">WPP Open Intelligence + Emotional Marketing Report 2026</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Pattern</span>
+          <span class="sg-row-value">Il mercato si sposta da identity-based a intelligence-led</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Interpretazione</span>
+          <span class="sg-row-value">I brand che non misurano risonanza emotiva oggi saranno ciechi quando il mercato li raggiunge</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Scadenza</span>
+          <span class="sg-row-value">18 mesi prima che i big player copino</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Confidence</span>
+          <span class="sg-row-value">
+            <span class="sg-confidence">
+              <span class="sg-conf-dot sg-conf-dot--high"></span>
+              <span class="sg-conf-label sg-conf-label--high">High</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 02 -->
+    <article class="sg-card">
+      <div class="sg-card-index">
+        <span class="sg-card-num">02</span>
+        <span class="sg-card-week">W15</span>
+      </div>
+      <div>
+        <div class="sg-card-meta">
+          <span class="sg-card-cat">Cultura / Autenticità</span>
+          <span class="sg-card-date">13 Aprile 2026</span>
+        </div>
+        <h2 class="sg-card-signal">"Underground come tattica = inflazione del termine"</h2>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Fonte</span>
+          <span class="sg-row-value">The Chow Newsletter, analisi nightlife europeo 2025</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Pattern</span>
+          <span class="sg-row-value">Quando tutti dicono underground, nessuno lo è</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Interpretazione</span>
+          <span class="sg-row-value">L'autenticità non si dichiara. Chi parla di underground non ci appartiene.</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Scadenza</span>
+          <span class="sg-row-value">Trend già in corso — uscire dal rumore subito</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Confidence</span>
+          <span class="sg-row-value">
+            <span class="sg-confidence">
+              <span class="sg-conf-dot sg-conf-dot--high"></span>
+              <span class="sg-conf-label sg-conf-label--high">High</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 03 -->
+    <article class="sg-card">
+      <div class="sg-card-index">
+        <span class="sg-card-num">03</span>
+        <span class="sg-card-week">W15</span>
+      </div>
+      <div>
+        <div class="sg-card-meta">
+          <span class="sg-card-cat">Tecnologia / AI</span>
+          <span class="sg-card-date">13 Aprile 2026</span>
+        </div>
+        <h2 class="sg-card-signal">"AI agency proliferation sta erodendo la fiducia"</h2>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Fonte</span>
+          <span class="sg-row-value">Campaign Agency of the Year 2026 — AI Creative Studio emergente</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Pattern</span>
+          <span class="sg-row-value">Troppi "AI studio" senza metodologia reale</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Interpretazione</span>
+          <span class="sg-row-value">La differenziazione non sarà "usiamo AI" ma "ecco come la usiamo e perché"</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Scadenza</span>
+          <span class="sg-row-value">2026–2027 window of credibility</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Confidence</span>
+          <span class="sg-row-value">
+            <span class="sg-confidence">
+              <span class="sg-conf-dot sg-conf-dot--medium"></span>
+              <span class="sg-conf-label sg-conf-label--medium">Medium</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04 -->
+    <article class="sg-card">
+      <div class="sg-card-index">
+        <span class="sg-card-num">04</span>
+        <span class="sg-card-week">W15</span>
+      </div>
+      <div>
+        <div class="sg-card-meta">
+          <span class="sg-card-cat">Brand / Community</span>
+          <span class="sg-card-date">13 Aprile 2026</span>
+        </div>
+        <h2 class="sg-card-signal">"Il brand come club — membership vs audience"</h2>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Fonte</span>
+          <span class="sg-row-value">Boiler Room 283M streams/mese senza advertising tradizionale</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Pattern</span>
+          <span class="sg-row-value">I brand più forti non hanno audience, hanno comunità con accesso differenziato</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Interpretazione</span>
+          <span class="sg-row-value">Il modello Nouvelle Vague (privato, su invito) è il futuro della brand experience premium</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Scadenza</span>
+          <span class="sg-row-value">2027 mainstream — 2025–2026 è il momento early adopter</span>
+        </div>
+        <div class="sg-card-row">
+          <span class="sg-row-label">Confidence</span>
+          <span class="sg-row-value">
+            <span class="sg-confidence">
+              <span class="sg-conf-dot sg-conf-dot--high"></span>
+              <span class="sg-conf-label sg-conf-label--high">High</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ARCHIVE -->
+  <section class="sg-archive">
+    <p class="sg-archive-label">Archive — Signal Feed / Anno I</p>
+    <div class="sg-archive-list">
+      <span class="sg-archive-item sg-archive-item--active">Week 15 — Current</span>
+      <span class="sg-archive-item">Week 14</span>
+      <span class="sg-archive-item">Week 13</span>
+      <span class="sg-archive-item">Week 12</span>
+      <span class="sg-archive-item">Week 11</span>
+      <span class="sg-archive-item">Week 10</span>
+      <span class="sg-archive-item">Week 09</span>
+      <span class="sg-archive-item">Week 08</span>
+    </div>
+  </section>
+
+  <!-- SUBSCRIBE -->
+  <section class="sg-subscribe">
+    <div class="sg-subscribe-inner">
+      <p class="sg-sub-eyebrow">Signal Feed</p>
+      <h2 class="sg-sub-title">Receive Sibilla's signal<br>feed every Monday.</h2>
+      <p class="sg-sub-body">Cultural intelligence before it becomes mainstream.<br>No noise. Only signal.</p>
+      <form class="sg-form" id="sg-subscribe-form">
+        <input type="email" name="email" class="sg-input" id="sg-email" placeholder="your@email.com" required autocomplete="email">
+        <button type="submit" class="sg-submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cd-footer">
+    <div class="cd-footer-grid">
+      <div>
+        <h3>Studio Starman</h3>
+        <a href="studio.html">Lo Studio</a>
+        <a href="method.html">Il Metodo</a>
+        <a href="signals.html" aria-current="page">Signal Feed</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h3>Ecosistema</h3>
+        <a href="nouvelle-vague.html">Nouvelle Vague</a>
+        <a href="honey.html">Honey</a>
+        <a href="collection.html">Collection</a>
+        <a href="bif.html">BIF</a>
+      </div>
+      <div>
+        <h3

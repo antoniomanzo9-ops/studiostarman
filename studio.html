@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Studio — Studio Starman</title>
+<meta name="description" content="Studio Starman is a future marketing and communication studio. We help brands become culturally inevitable.">
+<meta property="og:title" content="Studio — Studio Starman">
+<meta property="og:description" content="Future marketing and communication. Neuromarketing, sociology, esoterics applied. We make brands impossible to ignore.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/studio">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/silver-faces-club.png">
+<meta property="og:site_name" content="Studio Starman">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Studio — Studio Starman">
+<meta name="twitter:image" content="https://studiostarman.com/images/ourstudio/silver-faces-club.png">
+<link rel="canonical" href="https://studiostarman.com/studio">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+/* ── STUDIO PAGE ── */
+.s-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(80px,10vw,160px) clamp(24px,6vw,120px);
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+.s-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('images/ourstudio/silver-faces-club.png');
+  background-size: cover;
+  background-position: center 25%;
+  opacity: .42;
+  filter: saturate(.6) contrast(1.1);
+}
+/* darker veil so text stays readable over stronger image */
+.s-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(2,2,2,.55) 0%, rgba(2,2,2,.15) 40%, rgba(2,2,2,.78) 100%);
+  pointer-events: none;
+}
+.s-eyebrow {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--cyan, #00D4AA);
+  margin-bottom: 32px;
+  position: relative;
+}
+.s-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 8vw, 7rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.0;
+  color: #E8E4DF;
+  max-width: 900px;
+  position: relative;
+  margin-bottom: 40px;
+}
+.s-hero-title span { color: #A80000; }
+.s-hero-sub {
+  font: 15px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.5);
+  max-width: 560px;
+  position: relative;
+  margin-bottom: 56px;
+}
+.s-cta {
+  display: inline-block;
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #020202;
+  background: #E8E4DF;
+  padding: 18px 36px;
+  text-decoration: none;
+  position: relative;
+  transition: background .2s, color .2s;
+}
+.s-cta:hover { background: #A80000; color: #E8E4DF; }
+
+/* ── MANIFESTO — editorial, non grid ── */
+.s-manifesto {
+  padding: clamp(100px,14vw,180px) clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.04);
+}
+.s-manifesto-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 960px;
+}
+.s-manifesto-item {
+  padding: clamp(40px,6vw,80px) 0;
+  border-bottom: 1px solid rgba(232,228,223,.06);
+  display: grid;
+  grid-template-columns: 64px 1fr 1fr;
+  gap: 0 clamp(24px,5vw,80px);
+  align-items: start;
+}
+.s-manifesto-item:last-child { border-bottom: none; }
+.s-manifesto-num {
+  font: 10px/1.6 'Space Mono', monospace;
+  letter-spacing: .3em;
+  color: rgba(232,228,223,.2);
+  padding-top: 6px;
+}
+.s-manifesto-q {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.2;
+}
+.s-manifesto-a {
+  font: 12px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  padding-top: 4px;
+}
+
+/* ── SERVICES ── */
+.s-services {
+  padding: clamp(80px,10vw,140px) clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.04);
+}
+.s-section-label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.3);
+  margin-bottom: 64px;
+}
+.s-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  max-width: 1200px;
+}
+.s-service-card {
+  background: #050505;
+  padding: 56px 40px;
+  border: 1px solid rgba(232,228,223,.04);
+  transition: border-color .4s;
+}
+.s-service-card:hover { border-color: rgba(168,0,0,.2); }
+.s-service-icon {
+  font: 10px/1 'Space Mono', monospace;
+  color: #A80000;
+  letter-spacing: .2em;
+  margin-bottom: 24px;
+  display: block;
+}
+.s-service-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 16px;
+}
+.s-service-desc {
+  font: 12px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+
+/* ── METHOD ── */
+.s-method {
+  padding: clamp(80px,10vw,140px) clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.04);
+}
+.s-method-inner { max-width: 800px; }
+.s-method-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.1;
+  margin-bottom: 64px;
+}
+.s-method-title span { color: #00D4AA; }
+.s-method-steps { display: grid; gap: 0; }
+.s-method-step {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(232,228,223,.06);
+  align-items: start;
+}
+.s-method-step:last-child { border-bottom: none; }
+.s-step-num {
+  font: 700 11px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.2);
+  letter-spacing: .2em;
+  padding-top: 4px;
+}
+.s-step-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #E8E4DF;
+  margin-bottom: 12px;
+}
+.s-step-content p {
+  font: 12px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+
+/* ── PROOF ── */
+.s-proof {
+  padding: clamp(80px,10vw,140px) clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.06);
+}
+.s-proof-inner { max-width: 1100px; }
+.s-proof-lead {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.2;
+  margin-bottom: 64px;
+  max-width: 700px;
+}
+.s-proof-lead span { color: #A80000; }
+.s-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.s-proof-item {
+  background: #000;
+  padding: 40px 32px;
+  border: 1px solid rgba(232,228,223,.06);
+}
+.s-proof-stat {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #E8E4DF;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.s-proof-stat span { color: #A80000; }
+.s-proof-label {
+  font: 10px/1.6 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+/* ── BOTTOM CTA ── */
+.s-bottom {
+  padding: clamp(80px,10vw,140px) clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.06);
+  text-align: center;
+}
+.s-bottom-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+.s-bottom-sub {
+  font: 13px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  margin-bottom: 48px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .s-manifesto-item { grid-template-columns: 40px 1fr; }
+  .s-manifesto-a { grid-column: 2; margin-top: 12px; }
+}
+@media (max-width: 768px) {
+  .s-proof-grid { grid-template-columns: 1fr; }
+  .s-method-step { grid-template-columns: 48px 1fr; gap: 16px; }
+}
+
+/* ── FOOTER ── */
+.s-footer {
+  padding: 48px clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.s-footer p {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  letter-spacing: .2em;
+}
+</style>
+</head>
+<body>
+
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.45"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html" aria-current="page">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="s-hero">
+  <div class="s-hero-bg" aria-hidden="true"></div>
+  <p class="s-eyebrow">Studio Starman — Marketing &amp; Communication</p>
+  <h1 class="s-hero-title">
+    We don't make<br>
+    campaigns.<br>
+    We make brands<br>
+    <span>impossible<br>to ignore.</span>
+  </h1>
+  <p class="s-hero-sub">
+    Future marketing studio. Neuromarketing, applied sociology, and something agencies don't have yet. We make your brand culturally inevitable.
+  </p>
+  <a href="contact.html" class="s-cta">Work with us</a>
+</section>
+
+<!-- ── MANIFESTO ── -->
+<section class="s-manifesto">
+  <div class="s-manifesto-grid">
+    <div class="s-manifesto-item">
+      <span class="s-manifesto-num">01</span>
+      <p class="s-manifesto-q">Why does your brand feel like everyone else?</p>
+      <p class="s-manifesto-a">Because you briefed an agency. They optimized for metrics. Nobody asked what your brand is supposed to make people feel at 3AM when they can't sleep.</p>
+    </div>
+    <div class="s-manifesto-item">
+      <span class="s-manifesto-num">02</span>
+      <p class="s-manifesto-q">What is future communication?</p>
+      <p class="s-manifesto-a">It operates on two levels simultaneously — what the user sees, and what they feel without knowing why. We design both. Most studios only design one.</p>
+    </div>
+    <div class="s-manifesto-item">
+      <span class="s-manifesto-num">03</span>
+      <p class="s-manifesto-q">Why is Studio Starman different?</p>
+      <p class="s-manifesto-a">23 years in nightlife. 15 years of street photography. Deep studies in applied sociology and symbolic systems. We understand how humans move, decide, and remember — before any brief is written.</p>
+    </div>
+    <div class="s-manifesto-item">
+      <span class="s-manifesto-num">04</span>
+      <p class="s-manifesto-q">The proof?</p>
+      <p class="s-manifesto-a">We are our first client. Nouvelle Vague was designed as a demonstration — a club that shouldn't exist, that works because of how it was designed to feel. You're on the website. You feel it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section class="s-services">
+  <p class="s-section-label">What we do</p>
+  <div class="s-services-grid">
+    <div class="s-service-card">
+      <span class="s-service-icon">01 / CONTENT</span>
+      <h2 class="s-service-name">Content &amp; Storytelling</h2>
+      <p class="s-service-desc">Video, articles, social, newsletters. Every piece operates on two levels — surface narrative and emotional subtext. Content that your audience shares without knowing why.</p>
+    </div>
+    <div class="s-service-card">
+      <span class="s-service-icon">02 / IDENTITY</span>
+      <h2 class="s-service-name">Brand Identity</h2>
+      <p class="s-service-desc">Visual identity, typography systems, brand voice. Built on symbolic logic. We design identities that carry meaning people feel before they process it rationally.</p>
+    </div>
+    <div class="s-service-card">
+      <span class="s-service-icon">03 / PRODUCTION</span>
+      <h2 class="s-service-name">Shooting &amp; Direction</h2>
+      <p class="s-service-desc">Photography, video direction, creative direction for campaigns. We are the photographers, the directors, and the strategists. No middlemen between vision and execution.</p>
+    </div>
+    <div class="s-service-card">
+      <span class="s-service-icon">04 / FASHION</span>
+      <h2 class="s-service-name">Fashion &amp; Product</h2>
+      <p class="s-service-desc">Design, production, dropshipping of wearable objects that carry the brand frequency. From Nouvelle Vague collection to custom capsules for partner brands.</p>
+    </div>
+    <div class="s-service-card">
+      <span class="s-service-icon">05 / INTELLIGENCE</span>
+      <h2 class="s-service-name">Honey — Lead Intelligence</h2>
+      <p class="s-service-desc">Our proprietary system that measures the emotional quality of who enters your digital space. Not just clicks — resonance. Connected to Meta pixel for real lead qualification.</p>
+    </div>
+    <div class="s-service-card">
+      <span class="s-service-icon">06 / AI</span>
+      <h2 class="s-service-name">AI Agent Systems</h2>
+      <p class="s-service-desc">Custom AI agents trained on your brand voice, aesthetic instincts, and strategic vision. Not generic automation — digital extensions of how you actually think.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── METHOD ── -->
+<section class="s-method">
+  <div class="s-method-inner">
+    <h2 class="s-method-title">The method is<br><span>not a process.</span><br>It's a frequency.</h2>
+    <div class="s-method-steps">
+      <div class="s-method-step">
+        <span class="s-step-num">01</span>
+        <div class="s-step-content">
+          <h3>Read the signal</h3>
+          <p>Before any creative work, we read. Cultural landscape, competitor positioning, what your audience is actually looking for versus what they say they want. Sibilla — our strategic oracle — runs this analysis.</p>
+        </div>
+      </div>
+      <div class="s-method-step">
+        <span class="s-step-num">02</span>
+        <div class="s-step-content">
+          <h3>Design the two levels</h3>
+          <p>Every communication has a surface level (what the user reads) and a depth level (what they feel). We design both simultaneously. The depth level is built on neuromarketing principles, applied sociology, and symbolic systems.</p>
+        </div>
+      </div>
+      <div class="s-method-step">
+        <span class="s-step-num">03</span>
+        <div class="s-step-content">
+          <h3>Execute with precision</h3>
+          <p>Content, shooting, identity, fashion — all produced in-house. Echo handles visual direction. The Compiler normalizes output across formats. Antonio directs. Zero dilution between idea and execution.</p>
+        </div>
+      </div>
+      <div class="s-method-step">
+        <span class="s-step-num">04</span>
+        <div class="s-step-content">
+          <h3>Measure with Honey</h3>
+          <p>Our BIF system reads who enters your digital space and how they resonate. Not vanity metrics — emotional quality of leads. Before they fill a form, we already know if they're the right person.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROOF NUMBERS ── */
+<section class="s-proof">
+  <div class="s-proof-inner">
+    <p class="s-proof-lead">We didn't build a studio. We built<br><span>a working demonstration.</span></p>
+    <div class="s-proof-grid">
+      <div class="s-proof-item">
+        <p class="s-proof-stat">23<span>yr</span></p>
+        <p class="s-proof-label">Reading crowds before algorithms existed</p>
+      </div>
+      <div class="s-proof-item">
+        <p class="s-proof-stat">€0<span>.07</span></p>
+        <p class="s-proof-label">Cost of the brand identity you're looking at right now</p>
+      </div>
+      <div class="s-proof-item">
+        <p class="s-proof-stat">2<span>layers</span></p>
+        <p class="s-proof-label">Every piece of communication we produce</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOTTOM CTA ── -->
+<section class="s-bottom">
+  <h2 class="s-bottom-title">Ready to become<br>impossible to ignore?</h2>
+  <p class="s-bottom-sub">We work with brands that want to lead their category — not follow it. Tell us what you're building.</p>
+  <a href="contact.html" class="s-cta">Start the conversation</a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="s-footer">
+  <p>&copy; 2026 Studio Starman</p>
+  <p>Pozzuoli / Napoli / Campania</p>
+  <p>hello@studiostarman.com</p>
+</footer>
+
+<script src="cd-core.js"></script>
+</body>
+</html>

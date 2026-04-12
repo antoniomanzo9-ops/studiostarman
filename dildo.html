@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DILDO - Studio Starman</title>
+<meta name="description" content="Experimental graphic systems for designers who like friction, images, type, grids and dangerous tools.">
+<meta property="og:title" content="DILDO - Studio Starman">
+<meta property="og:description" content="Experimental graphic systems for designers who like friction, images, type, grids and dangerous tools.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/hf_20260408_200430_e4be4d3b-6fb9-4b79-a1d5-e72cf6163f9f.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DILDO - Studio Starman">
+<meta name="twitter:description" content="Alternative interfaces for graphic designers.">
+<meta name="twitter:image" content="https://studiostarman.com/images/ourstudio/hf_20260408_200430_e4be4d3b-6fb9-4b79-a1d5-e72cf6163f9f.png">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+:root {
+  --d-bg: #050505;
+  --d-ink: #f4efe6;
+  --d-dim: rgba(244,239,230,.58);
+  --d-line: rgba(244,239,230,.1);
+  --d-acid: #c8ff3d;
+  --d-pink: #ff4fc4;
+  --d-cyan: #00d4aa;
+  --d-red: #ff322e;
+  --mx: 50%;
+  --my: 50%;
+}
+html,
+body {
+  cursor: auto;
+  background: var(--d-bg);
+}
+body.dildo-page {
+  color: var(--d-ink);
+  font-family: "Space Mono", var(--font-body), monospace;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+.dildo-page *,
+.dildo-page *::before,
+.dildo-page *::after {
+  letter-spacing: 0;
+}
+.dildo-page a,
+.dildo-page button {
+  cursor: pointer;
+}
+.dildo-shell {
+  min-height: 100svh;
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(200,255,61,.12), transparent 28rem),
+    linear-gradient(180deg, #050505 0%, #0c0c08 42%, #050505 100%);
+  isolation: isolate;
+}
+.dildo-grain,
+.dildo-scan {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+.dildo-grain {
+  opacity: .18;
+  mix-blend-mode: overlay;
+  background-image:
+    repeating-radial-gradient(circle at 19% 31%, rgba(255,255,255,.06) 0 1px, transparent 1px 4px),
+    repeating-radial-gradient(circle at 71% 43%, rgba(255,255,255,.04) 0 1px, transparent 1px 5px);
+}
+.dildo-scan {
+  opacity: .12;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.16) 0 1px, transparent 1px 5px);
+}
+.dildo-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 28px;
+  border-bottom: 1px solid rgba(244,239,230,.08);
+  background: rgba(5,5,5,.64);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+}
+.dildo-brand,
+.dildo-nav a {
+  color: var(--d-ink);
+  text-decoration: none;
+  font-size: .78rem;
+  line-height: 1;
+}
+.dildo-brand { font-weight: 700; }
+.dildo-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.dildo-nav-links a {
+  color: rgba(244,239,230,.62);
+  transition: color .2s ease, transform .2s ease;
+}
+.dildo-nav-links a:hover,
+.dildo-nav-links a[aria-current="page"] {
+  color: var(--d-acid);
+  transform: translateY(-1px);
+}
+.dildo-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: 110px 30px 56px;
+  overflow: hidden;
+}
+.dildo-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.dildo-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(1.08) saturate(.96);
+  transform: scale(1.03);
+  animation: image-breathe 14s ease-in-out infinite alternate;
+}
+.dildo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(5,5,5,.9) 0%, rgba(5,5,5,.56) 38%, rgba(5,5,5,.16) 100%),
+    linear-gradient(0deg, rgba(5,5,5,.94) 0%, rgba(5,5,5,.2) 48%, rgba(5,5,5,.48) 100%);
+}
+.dildo-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--d-acid), var(--d-pink), transparent);
+  opacity: .8;
+}
+.dildo-hero-content {
+  width: min(100%, 1020px);
+  display: grid;
+  gap: 22px;
+}
+.dildo-kicker,
+.dildo-label {
+  color: var(--d-acid);
+  font-size: .78rem;
+  text-transform: uppercase;
+}
+.dildo-title {
+  font-family: var(--font-display), Inter, sans-serif;
+  font-size: 8rem;
+  line-height: .82;
+  font-weight: 900;
+  color: var(--d-ink);
+  max-width: 900px;
+  text-transform: uppercase;
+}
+.dildo-deck {
+  max-width: 680px;
+  color: rgba(244,239,230,.78);
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+.dildo-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.dildo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(244,239,230,.18);
+  background: rgba(244,239,230,.08);
+  color: var(--d-ink);
+  text-decoration: none;
+  font: 700 .82rem/1 "Space Mono", monospace;
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  transition: transform .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
+}
+.dildo-button:hover,
+.dildo-button:focus-visible {
+  transform: translateY(-2px);
+  background: var(--d-acid);
+  border-color: var(--d-acid);
+  color: #050505;
+}
+.dildo-button.is-quiet {
+  color: rgba(244,239,230,.72);
+  background: transparent;
+}
+.dildo-hero-readout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  width: min(100%, 760px);
+  margin-top: 26px;
+  border: 1px solid rgba(244,239,230,.08);
+  background: rgba(244,239,230,.08);
+}
+.dildo-hero-readout span {
+  display: block;
+  padding: 12px 14px;
+  background: rgba(5,5,5,.72);
+  color: rgba(244,239,230,.64);
+  font-size: .72rem;
+}
+.dildo-hero-readout strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--d-ink);
+  font-weight: 700;
+}
+.dildo-section {
+  padding: 92px 30px;
+}
+.dildo-section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 470px);
+  gap: 38px;
+  align-items: end;
+  margin: 0 auto 42px;
+  width: min(100%, 1180px);
+}
+.dildo-section-head h2 {
+  font-family: var(--font-display), Inter, sans-serif;
+  font-size: 4.8rem;
+  line-height: .95;
+  font-weight: 900;
+  max-width: 760px;
+}
+.dildo-section-head p {
+  color: var(--d-dim);
+  line-height: 1.75;
+  font-size: .96rem;
+}
+.dildo-grid {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--d-line);
+  border-left: 1px solid var(--d-line);
+}
+.dildo-tool {
+  min-height: 430px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  border-right: 1px solid var(--d-line);
+  border-bottom: 1px solid var(--d-line);
+  background: rgba(255,255,255,.025);
+  overflow: hidden;
+  transition: background .25s ease;
+}
+.dildo-tool:hover,
+.dildo-tool:focus-within {
+  background: rgba(200,255,61,.06);
+}
+.dildo-tool-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px;
+  color: rgba(244,239,230,.62);
+  font-size: .78rem;
+}
+.dildo-tool-name {
+  color: var(--d-acid);
+  font-weight: 700;
+}
+.dildo-tool-media {
+  position: relative;
+  min-height: 210px;
+  overflow: hidden;
+  background: #0b0b0b;
+}
+.dildo-tool-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(.18) contrast(1.08) saturate(.9);
+  transition: transform .42s ease, filter .42s ease;
+}
+.dildo-tool:hover img,
+.dildo-tool:focus-within img {
+  transform: scale(1.04);
+  filter: grayscale(0) contrast(1.12) saturate(1.12);
+}
+.dildo-tool-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0 47%, rgba(255,255,255,.18) 48% 49%, transparent 50%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.14) 0 1px, transparent 1px 8px);
+  mix-blend-mode: overlay;
+  opacity: .26;
+  transform: translateX(-14%);
+  transition: transform .42s ease, opacity .42s ease;
+}
+.dildo-tool:hover .dildo-tool-media::after,
+.dildo-tool:focus-within .dildo-tool-media::after {
+  opacity: .48;
+  transform: translateX(14%);
+}
+.dildo-tool-body {
+  padding: 18px;
+}
+.dildo-tool-body p {
+  min-height: 74px;
+  color: rgba(244,239,230,.68);
+  font-size: .86rem;
+  line-height: 1.62;
+}
+.dildo-load {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  min-height: 42px;
+  margin-top: 16px;
+  border: 1px solid rgba(244,239,230,.14);
+  border-radius: 8px;
+  background: rgba(5,5,5,.52);
+  color: var(--d-ink);
+  padding: 0 14px;
+  font: 700 .78rem/1 "Space Mono", monospace;
+  transition: background .22s ease, color .22s ease, border-color .22s ease;
+}
+.dildo-load:hover,
+.dildo-load[aria-pressed="true"] {
+  background: var(--d-ink);
+  color: #050505;
+  border-color: var(--d-ink);
+}
+.dildo-playground {
+  position: relative;
+  padding: 0 30px 110px;
+}
+.dildo-lab {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  border: 1px solid var(--d-line);
+  background: rgba(255,255,255,.026);
+}
+.dildo-lab-copy {
+  padding: 28px;
+  border-right: 1px solid var(--d-line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+.dildo-lab-copy h2 {
+  font-family: var(--font-display), Inter, sans-serif;
+  font-size: 3.4rem;
+  line-height: .98;
+  font-weight: 900;
+  margin-top: 18px;
+}
+.dildo-lab-copy p {
+  color: rgba(244,239,230,.62);
+  line-height: 1.75;
+  font-size: .92rem;
+}
+.dildo-lab-status {
+  display: grid;
+  gap: 10px;
+  font-size: .76rem;
+  color: rgba(244,239,230,.54);
+}
+.dildo-lab-status strong {
+  color: var(--d-acid);
+  font-weight: 700;
+}
+.dildo-canvas-wrap {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+}
+#dildoCanvas {
+  width: 100%;
+  height: 100%;
+  min-height: 620px;
+  display: block;
+  background: #050505;
+}
+.dildo-canvas-glass {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(244,239,230,.12);
+  border-radius: 8px;
+  background: rgba(5,5,5,.46);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+}
+.dildo-now {
+  color: rgba(244,239,230,.74);
+  font-size: .78rem;
+}
+.dildo-now strong { color: var(--d-ink); }
+.dildo-mini-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.dildo-mini-actions button {
+  min-height: 34px;
+  border: 1px solid rgba(244,239,230,.14);
+  border-radius: 8px;
+  background: rgba(244,239,230,.08);
+  color: var(--d-ink);
+  padding: 0 12px;
+  font: 700 .72rem/1 "Space Mono", monospace;
+}
+.dildo-mini-actions button:hover {
+  background: var(--d-acid);
+  color: #050505;
+}
+.dildo-manifesto {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr);
+  gap: 1px;
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  border: 1px solid var(--d-line);
+  background: var(--d-line);
+}
+.dildo-manifesto > * { background: rgba(5,5,5,.9); }
+.dildo-statement { padding: 44px; }
+.dildo-statement p {
+  font-family: var(--font-display), Inter, sans-serif;
+  font-size: 3.2rem;
+  line-height: 1.03;
+  font-weight: 900;
+}
+.dildo-statement span { color: var(--d-acid); }
+.dildo-brief {
+  padding: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 42px;
+}
+.dildo-brief p {
+  color: rgba(244,239,230,.68);
+  line-height: 1.75;
+  font-size: .95rem;
+}
+.dildo-footer {
+  padding: 36px 30px 48px;
+  color: rgba(244,239,230,.42);
+  font-size: .76rem;
+}
+.dildo-footer-inner {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--d-line);
+  padding-top: 24px;
+}
+.dildo-footer a {
+  color: var(--d-acid);
+  text-decoration: none;
+}
+.reveal-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@keyframes image-breathe {
+  from { transform: scale(1.03) translate3d(0,0,0); }
+  to { transform: scale(1.075) translate3d(-1.2%, .6%, 0); }
+}
+@media (max-width: 980px) {
+  .dildo-title { font-size: 5.4rem; }
+  .dildo-section-head,
+  .dildo-lab,
+  .dildo-manifesto { grid-template-columns: 1fr; }
+  .dildo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dildo-lab-copy {
+    border-right: 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+}
+@media (max-width: 680px) {
+  .dildo-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 14px 16px;
+    align-items: flex-start;
+  }
+  .dildo-nav-links {
+    gap: 10px 14px;
+    overflow: visible;
+    flex-wrap: wrap;
+    max-width: 100%;
+    padding-bottom: 4px;
+  }
+  .dildo-nav-links::-webkit-scrollbar { display: none; }
+  .dildo-hero {
+    min-height: 92svh;
+    padding: 108px 18px 36px;
+  }
+  .dildo-title { font-size: 3.55rem; }
+  .dildo-deck { font-size: .98rem; }
+  .dildo-hero-readout { grid-template-columns: 1fr; }
+  .dildo-section,
+  .dildo-playground {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .dildo-section-head h2,
+  .dildo-lab-copy h2,
+  .dildo-statement p { font-size: 2.55rem; }
+  .dildo-grid { grid-template-columns: 1fr; }
+  .dildo-canvas-wrap,
+  #dildoCanvas { min-height: 540px; }
+  .dildo-canvas-glass {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dildo-mini-actions { justify-content: space-between; }
+  .dildo-statement,
+  .dildo-brief { padding: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body class="dildo-page">
+<div class="dildo-shell" id="dildoShell">
+  <div class="dildo-grain" aria-hidden="true"></div>
+  <div class="dildo-scan" aria-hidden="true"></div>
+
+  <nav class="dildo-nav" aria-label="DILDO navigation">
+    <a class="dildo-brand" href="index.html">Studio Starman</a>
+    <div class="dildo-nav-links">
+      <a href="gallery-3d.html">Gallery</a>
+      <a href="anima.html">ANIMA</a>
+      <a href="marketplace.html">Inner Studio</a>
+      <a href="nouvelle-vague.html">Nouvelle Vague</a>
+      <a href="dildo.html" aria-current="page">DILDO</a>
+      <a href="lab.html">Lab</a>
+      <a href="mailto:hello@studiostarman.com">Contact</a>
+    </div>
+  </nav>
+
+  <header class="dildo-hero" aria-labelledby="dildo-title">
+    <div class="dildo-hero-media" aria-hidden="true">
+      <img src="images/ourstudio/hf_20260408_200430_e4be4d3b-6fb9-4b79-a1d5-e72cf6163f9f.png" alt="">
+    </div>
+    <div class="dildo-hero-content reveal-in">
+      <p class="dildo-kicker">Alternative interfaces for graphic designers</p>
+      <h1 class="dildo-title" id="dildo-title">DILDO</h1>
+      <p class="dildo-deck">A dirty little collection of graphic machines for people who still want to touch pixels, break type, disturb images and make software feel physical.</p>
+      <div class="dildo-hero-actions">
+        <a class="dildo-button" href="#systems">Enter the systems</a>
+        <a class="dildo-button is-quiet" href="#playground">Open the playground</a>
+      </div>
+      <div class="dildo-hero-readout" aria-label="DILDO status">
+        <span><strong>Format</strong> Web tools, posters, live visuals</span>
+        <span><strong>Audience</strong> Graphic designers, clubs, labels</span>
+        <span><strong>Output</strong> Images that look touched</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="dildo-section" id="systems" aria-labelledby="systems-title">
+      <div class="dildo-section-head reveal-in">
+        <div>
+          <p class="dildo-label">Collection 01</p>
+          <h2 id="systems-title">Tools with a pulse, not templates.</h2>
+        </div>
+        <p>This is the designer-facing room: small experimental engines, each built around one constraint. No polite preset packs. No Canva mood. Each system starts from an image, a rule, and a mistake worth keeping.</p>
+      </div>
+
+      <div class="dildo-grid" aria-label="DILDO systems">
+        <article class="dildo-tool reveal-in" data-mode="grid" data-title="Mouth Grid" data-color="#c8ff3d" data-img="images/ourstudio/hf_20260408_200430_e4be4d3b-6fb9-4b79-a1d5-e72cf6163f9f.png">
+          <div class="dildo-tool-top"><span><span class="dildo-tool-name">01. Mouth Grid</span></span><span>2026</span></div>
+          <div class="dildo-tool-media"><img src="images/ourstudio/hf_20260408_200430_e4be4d3b-6fb9-4b79-a1d5-e72cf6163f9f.png" alt="Two figures inside a stage-like space"></div>
+          <div class="dildo-tool-body">
+            <p>Set an image inside a moving grid and let the cells decide where the poster breathes.</p>
+            <button class="dildo-load" type="button" data-tool>Load system <span>01</span></button>
+          </div>
+        </article>
+
+        <article class="dildo-tool reveal-in" data-mode="rgb" data-title="Bleed" data-color="#ff4fc4" data-img="images/ourstudio/hf_20260408_202043_6e134c22-ab9b-4828-a610-9d33b68ce014.png">
+          <div class="dildo-tool-top"><span><span class="dildo-tool-name">02. Bleed</span></span><span>2026</span></div>
+          <div class="dildo-tool-media"><img src="images/ourstudio/hf_20260408_202043_6e134c22-ab9b-4828-a610-9d33b68ce014.png" alt="Neon portrait in a club"></div>
+          <div class="dildo-tool-body">
+            <p>Push red, green and blue out of registration until the face turns into signal.</p>
+            <button class="dildo-load" type="button" data-tool>Load system <span>02</span></button>
+          </div>
+        </article>
+
+        <article class="dildo-tool reveal-in" data-mode="slice" data-title="Echo" data-color="#00d4aa" data-img="images/ourstudio/ascii-art%20%281%29.png">
+          <div class="dildo-tool-top"><span><span class="dildo-tool-name">03. Echo</span></span><span>2026</span></div>
+          <div class="dildo-tool-media"><img src="images/ourstudio/ascii-art%20%281%29.png" alt="Blue backstage dancers in motion"></div>
+          <div class="dildo-tool-body">
+            <p>Cut movement into horizontal bands and keep the second before the body arrives.</p>
+            <button class="dildo-load" type="button" data-tool>Load system <span>03</span></button>
+          </div>
+        </article>
+        <article class="dildo-tool reveal-in" data-mode="mask" data-title="Pool Mask" data-color="#ff322e" data-img="images/ourstudio/hf_20260408_205000_1e7ff23d-7383-4d24-9d9f-ed7ff042797d.png">
+          <div class="dildo-tool-top"><span><span class="dildo-tool-name">04. Pool Mask</span></span><span>2026</span></div>
+          <div class="dildo-tool-media"><img src="images/ourstudio/hf_20260408_205000_1e7ff23d-7383-4d24-9d9f-ed7ff042797d.png" alt="Masked figures in water and club light"></div>
+          <div class="dildo-tool-body">
+            <p>Generate wet masks from circles, cuts and impossible nightlife geometry.</p>
+            <button class="dildo-load" type="button" data-tool>Load system <span>04</span></button>
+          </div>
+        </article>
+
+        <article class="dildo-tool reveal-in" data-mode="type" data-title="Static Type" data-color="#f4efe6" data-img="images/ourstudio/cityscape-signal.png">
+          <div class="dildo-tool-top"><span><span class="dildo-tool-name">05. Static Type</span></span><span>2026</span></div>
+          <div class="dildo-tool-media"><img src="images/ourstudio/cityscape-signal.png" alt="City signal and street lights"></div>
+          <div class="dildo-tool-body">
+            <p>Turn a word into texture, then let the texture attack the photograph back.</p>
+            <button class="dildo-load" type="button" data-tool>Load system <span>05</span></button>
+          </div>
+        </article>
+
+        <article class="dildo-tool reveal-in" data-mode="moire" data-title="Moire Room" data-color="#ffc247" data-img="images/ourstudio/backstage-mirror.png">
+          <div class="dildo-tool-top"><span><span class="dildo-tool-name">06. Moire Room</span></span><span>2026</span></div>
+          <div class="dildo-tool-media"><img src="images/ourstudio/backstage-mirror.png" alt="Backstage mirror with flash and graffiti"></div>
+          <div class="dildo-tool-body">
+            <p>Lay interference over a room until the image starts sounding like a speaker.</p>
+            <button class="dildo-load" type="button" data-tool>Load system <span>06</span></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="dildo-playground" id="playground" aria-labelledby="playground-title">
+      <div class="dildo-lab reveal-in">
+        <div class="dildo-lab-copy">
+          <div>
+            <p class="dildo-label">Live playground</p>
+            <h2 id="playground-title">Click a system. Move the mouse. Steal the frame.</h2>
+          </div>
+          <p>The canvas below is a prototype surface. It loads the selected image, applies a graphic constraint, reacts to the pointer and lets you download a frame as a PNG.</p>
+          <div class="dildo-lab-status">
+            <span><strong>Current system</strong> <span id="currentSystem">Mouth Grid</span></span>
+            <span><strong>Pointer</strong> <span id="pointerReadout">50 / 50</span></span>
+            <span><strong>Output</strong> 1600 x 1000 working surface</span>
+          </div>
+        </div>
+        <div class="dildo-canvas-wrap">
+          <canvas id="dildoCanvas" width="1600" height="1000" aria-label="Interactive DILDO graphic playground"></canvas>
+          <div class="dildo-canvas-glass">
+            <p class="dildo-now"><strong id="currentSystemGlass">Mouth Grid</strong> is loaded.</p>
+            <div class="dildo-mini-actions">
+              <button type="button" id="randomizeSystem">Randomize</button>
+              <button type="button" id="downloadFrame">Download PNG</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dildo-section" aria-labelledby="brief-title">
+      <div class="dildo-manifesto reveal-in">
+        <div class="dildo-statement">
+          <p id="brief-title">Graphic design does not need cleaner tools. It needs <span>stranger hands.</span></p>
+        </div>
+        <div class="dildo-brief">
+          <p>DILDO is the door for designers who want custom systems: poster engines, visual identities, editorial tools, club graphics, reactive screens and messy little rituals that a normal studio would sand down.</p>
+          <a class="dildo-button" href="mailto:hello@studiostarman.com?subject=DILDO%20graphic%20system">Send a brief</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="dildo-footer">
+    <div class="dildo-footer-inner">
+      <span>Studio Starman / DILDO / Napoli / 2026</span>
+      <a href="index.html">Return to the main site</a>
+    </div>
+  </footer>
+</div>
+<script>
+(() => {
+  const root = document.documentElement;
+  const shell = document.getElementById("dildoShell");
+  const canvas = document.getElementById("dildoCanvas");
+  const ctx = canvas.getContext("2d");
+  const tools = Array.from(document.querySelectorAll(".dildo-tool"));
+  const buttons = Array.from(document.querySelectorAll("[data-tool]"));
+  const currentSystem = document.getElementById("currentSystem");
+  const currentSystemGlass = document.getElementById("currentSystemGlass");
+  const pointerReadout = document.getElementById("pointerReadout");
+  const randomizeButton = document.getElementById("randomizeSystem");
+  const downloadButton = document.getElementById("downloadFrame");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const state = {
+    mode: "grid",
+    title: "Mouth Grid",
+    color: "#c8ff3d",
+    imageSrc: tools[0] ? tools[0].dataset.img : "",
+    image: null,
+    pointerX: .5,
+    pointerY: .5,
+    tick: 0
+  };
+
+  const loadImage = (src) => {
+    const img = new Image();
+    img.onload = () => {
+      state.image = img;
+      draw(performance.now());
+    };
+    img.src = src;
+  };
+
+  const setTool = (tool) => {
+    state.mode = tool.dataset.mode;
+    state.title = tool.dataset.title;
+    state.color = tool.dataset.color;
+    state.imageSrc = tool.dataset.img;
+    currentSystem.textContent = state.title;
+    currentSystemGlass.textContent = state.title;
+    buttons.forEach((button) => button.setAttribute("aria-pressed", "false"));
+    const activeButton = tool.querySelector("[data-tool]");
+    if (activeButton) activeButton.setAttribute("aria-pressed", "true");
+    loadImage(state.imageSrc);
+    document.getElementById("playground").scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+  };
+
+  const resizeCanvas = () => {
+    const box = canvas.getBoundingClientRect();
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.floor(box.width * ratio));
+    canvas.height = Math.max(1, Math.floor(box.height * ratio));
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    draw(performance.now());
+  };
+
+  const drawCover = (img, x, y, w, h, offsetX = 0, offsetY = 0) => {
+    const scale = Math.max(w / img.width, h / img.height);
+    const sw = w / scale;
+    const sh = h / scale;
+    const sx = (img.width - sw) * .5 + offsetX;
+    const sy = (img.height - sh) * .5 + offsetY;
+    ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+  };
+
+  const drawLines = (w, h, color) => {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = .42;
+    ctx.lineWidth = 1;
+    const gap = 18 + Math.round(state.pointerX * 34);
+    for (let x = -w; x < w * 2; x += gap) {
+      ctx.beginPath();
+      ctx.moveTo(x + state.tick % gap, 0);
+      ctx.lineTo(x + h * .32, h);
+      ctx.stroke();
+    }
+    ctx.restore();
+  };
+
+  const drawType = (w, h) => {
+    ctx.save();
+    ctx.font = "900 64px Inter, Arial, sans-serif";
+    ctx.fillStyle = "rgba(244,239,230,.9)";
+    ctx.globalCompositeOperation = "screen";
+    const word = state.title.toUpperCase();
+    const stepY = 78;
+    const stepX = 320 - Math.round(state.pointerX * 110);
+    for (let y = -40; y < h + stepY; y += stepY) {
+      for (let x = -220; x < w + stepX; x += stepX) {
+        ctx.fillText(word, x + ((y / stepY) % 2) * 64 - state.tick % 90, y);
+      }
+    }
+    ctx.restore();
+  };
+
+  const draw = (time = 0) => {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    state.tick = reducedMotion ? 0 : time * .035;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#050505";
+    ctx.fillRect(0, 0, w, h);
+
+    if (state.image) {
+      ctx.save();
+      if (state.mode === "rgb") {
+        const drift = 18 + state.pointerX * 40;
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = .8;
+        ctx.filter = "sepia(1) saturate(5) hue-rotate(300deg)";
+        drawCover(state.image, -drift, 0, w, h);
+        ctx.filter = "sepia(1) saturate(5) hue-rotate(80deg)";
+        drawCover(state.image, drift, 0, w, h);
+        ctx.filter = "sepia(1) saturate(5) hue-rotate(170deg)";
+        drawCover(state.image, 0, Math.sin(time * .002) * 18, w, h);
+        ctx.filter = "none";
+        ctx.globalAlpha = .5;
+        drawCover(state.image, 0, 0, w, h);
+      } else if (state.mode === "slice") {
+        const slices = 16;
+        for (let i = 0; i < slices; i++) {
+          const sh = h / slices;
+          const shift = Math.sin(i * 1.7 + state.tick * .045) * (20 + state.pointerX * 90);
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, i * sh, w, sh + 1);
+          ctx.clip();
+          drawCover(state.image, shift, 0, w, h);
+          ctx.restore();
+        }
+      } else {
+        drawCover(state.image, 0, 0, w, h);
+      }
+      ctx.restore();
+    }
+
+    ctx.fillStyle = "rgba(5,5,5,.38)";
+    ctx.fillRect(0, 0, w, h);
+
+    if (state.mode === "grid") {
+      const cols = 8;
+      const rows = 5;
+      ctx.strokeStyle = state.color;
+      ctx.globalAlpha = .55;
+      for (let c = 0; c <= cols; c++) {
+        const x = c * w / cols + Math.sin(state.tick * .05 + c) * (state.pointerX * 24);
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let r = 0; r <= rows; r++) {
+        const y = r * h / rows + Math.cos(state.tick * .05 + r) * (state.pointerY * 24);
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+    }
+
+    if (state.mode === "mask") {
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      for (let i = 0; i < 26; i++) {
+        const radius = 28 + ((i * 17 + state.tick) % 90);
+        const x = (i * 97 + state.pointerX * w + state.tick * 2) % (w + 160) - 80;
+        const y = (i * 61 + state.pointerY * h + Math.sin(i + state.tick * .04) * 90) % (h + 160) - 80;
+        ctx.strokeStyle = i % 3 === 0 ? state.color : "rgba(244,239,230,.76)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    if (state.mode === "type") drawType(w, h);
+    if (state.mode === "moire") drawLines(w, h, state.color);
+    if (state.mode === "rgb") drawLines(w, h, "rgba(244,239,230,.5)");
+
+    ctx.save();
+    ctx.fillStyle = "rgba(5,5,5,.72)";
+    ctx.fillRect(22, 22, Math.min(420, w - 44), 92);
+    ctx.strokeStyle = "rgba(244,239,230,.16)";
+    ctx.strokeRect(22.5, 22.5, Math.min(420, w - 44), 92);
+    ctx.fillStyle = state.color;
+    ctx.font = "700 13px Space Mono, monospace";
+    ctx.fillText("DILDO SYSTEM", 42, 54);
+    ctx.fillStyle = "#f4efe6";
+    ctx.font = "900 36px Inter, Arial, sans-serif";
+    ctx.fillText(state.title.toUpperCase(), 42, 96);
+    ctx.restore();
+
+    ctx.save();
+    ctx.globalAlpha = .3;
+    ctx.fillStyle = "#fff";
+    for (let i = 0; i < 130; i++) {
+      const x = (i * 137 + state.tick * 2.3) % w;
+      const y = (i * 83 + state.tick * 1.7) % h;
+      ctx.fillRect(x, y, 1, 1);
+    }
+    ctx.restore();
+  };
+
+  shell.addEventListener("pointermove", (event) => {
+    const x = event.clientX / Math.max(1, window.innerWidth);
+    const y = event.clientY / Math.max(1, window.innerHeight);
+    state.pointerX = x;
+    state.pointerY = y;
+    root.style.setProperty("--mx", `${Math.round(x * 100)}%`);
+    root.style.setProperty("--my", `${Math.round(y * 100)}%`);
+    pointerReadout.textContent = `${Math.round(x * 100)} / ${Math.round(y * 100)}`;
+    draw(performance.now());
+  }, { passive: true });
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tool = button.closest(".dildo-tool");
+      if (tool) setTool(tool);
+    });
+  });
+
+  randomizeButton.addEventListener("click", () => {
+    const next = tools[Math.floor(Math.random() * tools.length)];
+    if (next) setTool(next);
+  });
+
+  downloadButton.addEventListener("click", () => {
+    draw(performance.now());
+    const link = document.createElement("a");
+    link.download = `dildo-${state.title.toLowerCase().replace(/\s+/g, "-")}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("is-visible");
+    });
+  }, { threshold: .12 });
+
+  document.querySelectorAll(".reveal-in").forEach((node) => observer.observe(node));
+  window.addEventListener("resize", resizeCanvas);
+
+  if (tools[0]) {
+    const firstButton = tools[0].querySelector("[data-tool]");
+    if (firstButton) firstButton.setAttribute("aria-pressed", "true");
+  }
+
+  loadImage(state.imageSrc);
+  requestAnimationFrame(resizeCanvas);
+})();
+</script>
+</body>
+</html>

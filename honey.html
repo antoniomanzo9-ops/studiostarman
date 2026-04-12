@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Honey — Studio Starman</title>
+<meta name="description" content="Honey by Studio Starman. Lead intelligence that measures emotional resonance, not just clicks. Powered by BIF. Built for brands that want the right people, not just more people.">
+<meta property="og:title" content="Honey — Studio Starman">
+<meta property="og:description" content="Digital pheromones. We detect who resonates with your brand before they fill a form.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/honey">
+<meta property="og:site_name" content="Studio Starman">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Honey — Studio Starman">
+<link rel="canonical" href="https://studiostarman.com/honey">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+/* ── HONEY PAGE — amber variant ── */
+:root {
+  --honey: #FFB300;
+  --honey-dim: rgba(255,179,0,.12);
+  --honey-glow: rgba(255,179,0,.06);
+}
+
+/* ── HERO ── */
+.h-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(80px,10vw,160px) clamp(24px,6vw,120px);
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+.h-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 70% 50%, rgba(255,179,0,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.h-eyebrow {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--honey);
+  margin-bottom: 32px;
+  position: relative;
+}
+.h-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 9vw, 8rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: .95;
+  color: #E8E4DF;
+  max-width: 960px;
+  position: relative;
+  margin-bottom: 40px;
+}
+.h-hero-title .accent { color: var(--honey); }
+.h-hero-sub {
+  font: 15px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.5);
+  max-width: 560px;
+  position: relative;
+  margin-bottom: 64px;
+}
+.h-cta {
+  display: inline-block;
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #020202;
+  background: var(--honey);
+  padding: 18px 36px;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.h-cta:hover { opacity: .8; }
+
+/* ── SCROLL INDICATOR ── */
+.h-scroll {
+  position: absolute;
+  bottom: 48px;
+  left: clamp(24px,6vw,120px);
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+}
+
+/* ── SECTION BASE ── */
+.h-section {
+  padding: clamp(80px,10vw,140px) clamp(24px,6vw,120px);
+  border-top: 1px solid rgba(232,228,223,.06);
+}
+.h-section-label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.25);
+  margin-bottom: 64px;
+}
+
+/* ── WHAT IS HONEY ── */
+.h-what { background: #000; }
+.h-what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px 120px;
+  max-width: 1100px;
+}
+.h-what-main {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.2;
+}
+.h-what-main .accent { color: var(--honey); }
+.h-what-body {
+  font: 13px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.45);
+  padding-top: 8px;
+}
+.h-what-body p + p { margin-top: 20px; }
+
+/* ── METAPHOR ── */
+.h-metaphor {
+  background: #000;
+  padding: clamp(60px,8vw,100px) clamp(24px,6vw,120px);
+  border-top: 1px solid rgba(255,179,0,.08);
+  border-bottom: 1px solid rgba(255,179,0,.08);
+  position: relative;
+  overflow: hidden;
+}
+.h-metaphor::before {
+  content: '⬡';
+  position: absolute;
+  right: clamp(24px,8vw,160px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(120px,20vw,280px);
+  color: rgba(255,179,0,.03);
+  line-height: 1;
+  pointer-events: none;
+  font-family: monospace;
+}
+.h-metaphor-inner { max-width: 700px; position: relative; }
+.h-metaphor-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 2.8vw, 2.1rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.3;
+  margin-bottom: 32px;
+}
+.h-metaphor-quote .accent { color: var(--honey); }
+.h-metaphor-body {
+  font: 12px/1.9 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+
+/* ── HOW IT WORKS ── */
+.h-how { background: #000; }
+.h-how-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.1;
+  margin-bottom: 80px;
+  max-width: 700px;
+}
+.h-how-title .accent { color: var(--honey); }
+.h-pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  max-width: 1100px;
+  margin-bottom: 80px;
+}
+.h-pipe-step {
+  background: #0a0a0a;
+  border: 1px solid rgba(232,228,223,.06);
+  padding: 40px 28px;
+  position: relative;
+}
+.h-pipe-step::after {
+  content: '→';
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,179,0,.3);
+  font-size: 14px;
+  font-family: monospace;
+  z-index: 2;
+}
+.h-pipe-step:last-child::after { display: none; }
+.h-pipe-num {
+  font: 10px/1 'Space Mono', monospace;
+  color: var(--honey);
+  letter-spacing: .3em;
+  margin-bottom: 20px;
+  display: block;
+}
+.h-pipe-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 12px;
+}
+.h-pipe-desc {
+  font: 11px/1.7 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+
+/* ── BIF STATES AS SIGNAL ── */
+.h-states { background: #030303; }
+.h-states-intro {
+  max-width: 680px;
+  margin-bottom: 64px;
+}
+.h-states-intro h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.h-states-intro h2 .accent { color: var(--honey); }
+.h-states-intro p {
+  font: 13px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+.h-states-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2px;
+  max-width: 1200px;
+}
+.h-state-card {
+  padding: 36px 28px;
+  border: 1px solid rgba(232,228,223,.04);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s;
+}
+.h-state-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.h-state-card.pace { background: rgba(10,10,10,.8); }
+.h-state-card.pace::before { background: #0A0A0A; border-bottom: 2px solid rgba(232,228,223,.1); }
+.h-state-card.calm { background: rgba(0,212,170,.03); }
+.h-state-card.calm::before { background: #00D4AA; }
+.h-state-card.night { background: rgba(26,35,126,.04); }
+.h-state-card.night::before { background: #1A237E; }
+.h-state-card.fire { background: rgba(255,109,0,.04); }
+.h-state-card.fire::before { background: #FF6D00; }
+.h-state-card.intuition { background: rgba(170,0,255,.04); }
+.h-state-card.intuition::before { background: #AA00FF; }
+.h-state-card.danger { background: rgba(255,23,68,.04); }
+.h-state-card.danger::before { background: #FF1744; }
+.h-state-card.heat { background: rgba(255,179,0,.04); }
+.h-state-card.heat::before { background: #FFB300; }
+
+.h-state-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.h-state-name {
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.6);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+.h-state-signal {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.h-state-read {
+  font: 11px/1.6 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+}
+.h-state-bpm {
+  margin-top: 20px;
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.2);
+  letter-spacing: .2em;
+}
+
+/* ── OUTPUT ── */
+.h-output { background: #000; }
+.h-output-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  max-width: 1000px;
+}
+.h-output-item {
+  padding: 48px 40px;
+  background: #000;
+  border: 1px solid rgba(232,228,223,.06);
+}
+.h-output-num {
+  font: 10px/1 'Space Mono', monospace;
+  color: var(--honey);
+  letter-spacing: .3em;
+  margin-bottom: 20px;
+  display: block;
+}
+.h-output-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 14px;
+}
+.h-output-desc {
+  font: 12px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+
+/* ── BOTTOM CTA ── */
+.h-bottom {
+  padding: clamp(80px,10vw,140px) clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(255,179,0,.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.h-bottom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255,179,0,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.h-bottom-label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--honey);
+  margin-bottom: 32px;
+  position: relative;
+}
+.h-bottom-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  position: relative;
+}
+.h-bottom-title .accent { color: var(--honey); }
+.h-bottom-sub {
+  font: 13px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  max-width: 480px;
+  margin: 0 auto 48px;
+  position: relative;
+}
+
+/* ── FOOTER ── */
+.h-footer {
+  padding: 48px clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.h-footer p {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  letter-spacing: .2em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .h-pipeline { grid-template-columns: 1fr 1fr; }
+  .h-pipe-step::after { display: none; }
+  .h-what-grid { grid-template-columns: 1fr; gap: 40px; }
+  .h-output-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .h-pipeline { grid-template-columns: 1fr; }
+  .h-states-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.45"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html" aria-current="page">Honey</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="h-hero">
+  <div class="h-hero-bg" aria-hidden="true"></div>
+  <p class="h-eyebrow">Honey — Lead Intelligence System</p>
+  <h1 class="h-hero-title">
+    Every visitor<br>
+    leaves a<br>
+    <span class="accent">scent.</span>
+  </h1>
+  <p class="h-hero-sub">
+    Honey detects who resonates with your brand before they fill a form. Not analytics — emotional signal intelligence. Powered by BIF.
+  </p>
+  <a href="contact.html" class="h-cta">Activate Honey</a>
+  <p class="h-scroll">Scroll to understand</p>
+</section>
+
+<!-- ── WHAT IS HONEY ── -->
+<section class="h-section h-what">
+  <p class="h-section-label">What is Honey</p>
+  <div class="h-what-grid">
+    <div>
+      <h2 class="h-what-main">
+        Analytics tells you<br>
+        <span class="accent">how many</span> people came.<br>
+        Honey tells you<br>
+        <span class="accent">who they were.</span>
+      </h2>
+    </div>
+    <div class="h-what-body">
+      <p>Every digital interaction carries an emotional signature. The way someone scrolls. The pages they return to. The content they hover over without clicking. These micro-signals compose a pattern that standard analytics can't see.</p>
+      <p>Honey reads those patterns. Using BIF — our proprietary emotional AI system — we assign each visitor a resonance profile drawn from 7 emotional states. The result is a lead quality score that tells you, before any conversion event, whether this is someone your brand will actually move.</p>
+      <p>When that signal is connected to your Meta pixel, your ad targeting becomes something different: instead of chasing demographics, you attract frequency matches. People who were already looking for exactly what you are.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── METAPHOR ── -->
+<div class="h-metaphor">
+  <div class="h-metaphor-inner">
+    <p class="h-metaphor-quote">
+      Bees use pheromones to identify their queen,<br>
+      alert the colony, mark the <span class="accent">right flowers.</span><br>
+      Your brand emits a frequency too.
+    </p>
+    <p class="h-metaphor-body">
+      Most visitors can't feel it. That's fine — they were never yours. Honey doesn't try to convert everyone. It identifies the ones who already resonate — and makes sure you never miss them because you were watching the wrong signal.
+    </p>
+  </div>
+</div>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="h-section h-how">
+  <p class="h-section-label">How it works</p>
+  <h2 class="h-how-title">
+    Four layers.<br>
+    One <span class="accent">signal.</span>
+  </h2>
+  <div class="h-pipeline">
+    <div class="h-pipe-step">
+      <span class="h-pipe-num">01 / VISITOR</span>
+      <p class="h-pipe-name">The signal enters</p>
+      <p class="h-pipe-desc">A visitor lands on your digital space. BIF activates immediately — reading behavioral micro-signals in real time.</p>
+    </div>
+    <div class="h-pipe-step">
+      <span class="h-pipe-num">02 / BIF</span>
+      <p class="h-pipe-name">Emotional state detection</p>
+      <p class="h-pipe-desc">BIF maps the visitor's interaction pattern against its 7 emotional states. Pace, calm, fire, intuition — each state carries a different quality of intent.</p>
+    </div>
+    <div class="h-pipe-step">
+      <span class="h-pipe-num">03 / SCORE</span>
+      <p class="h-pipe-name">Resonance score</p>
+      <p class="h-pipe-desc">A resonance score is generated. High resonance visitors are in a state aligned with your brand frequency. Low resonance signals mismatch — save your retargeting budget.</p>
+    </div>
+    <div class="h-pipe-step">
+      <span class="h-pipe-num">04 / META</span>
+      <p class="h-pipe-name">Pixel intelligence</p>
+      <p class="h-pipe-desc">The resonance signal feeds your Meta pixel. Your lookalike audiences, retargeting, and conversion campaigns now target emotional matches — not just behavioral ones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BIF STATES ── -->
+<section class="h-section h-states">
+  <p class="h-section-label">The seven signals</p>
+  <div class="h-states-intro">
+    <h2>BIF reads your visitors<br>in <span class="accent">seven frequencies.</span></h2>
+    <p>Each emotional state carries a different signal about lead quality. A visitor in Intuition state — curious, open, sensing something without being able to name it — is worth ten visitors in Danger state, who are defensive, price-comparing, ready to leave.</p>
+  </div>
+  <div class="h-states-grid">
+    <div class="h-state-card peace">
+      <p class="h-state-name">
+        <span class="h-state-dot" style="background:#555"></span>
+        Pace
+      </p>
+      <p class="h-state-signal">Deep presence. Stillness.</p>
+      <p class="h-state-read">Visitor is absorbing. Long dwell time, minimal scrolling. This is someone who reads everything.</p>
+      <p class="h-state-bpm">4–6 BPM</p>
+    </div>
+    <div class="h-state-card calm">
+      <p class="h-state-name">
+        <span class="h-state-dot" style="background:#00D4AA"></span>
+        Calma
+      </p>
+      <p class="h-state-signal">Clarity. Open decision mode.</p>
+      <p class="h-state-read">Visitor is evaluating with a clear head. High quality lead signal — they are in conditions to decide.</p>
+      <p class="h-state-bpm">8–12 BPM</p>
+    </div>
+    <div class="h-state-card night">
+      <p class="h-state-name">
+        <span class="h-state-dot" style="background:#1A237E"></span>
+        Notte
+      </p>
+      <p class="h-state-signal">Depth seeking. Searching for truth.</p>
+      <p class="h-state-read">Visitor is in research mode, digging into your story. Early funnel — high potential if nurtured right.</p>
+      <p class="h-state-bpm">4–6 BPM</p>
+    </div>
+    <div class="h-state-card fire">
+      <p class="h-state-name">
+        <span class="h-state-dot" style="background:#FF6D00"></span>
+        Fuoco
+      </p>
+      <p class="h-state-signal">Urgency. Action ready.</p>
+      <p class="h-state-read">Visitor is hot — rapid navigation, direct intent. Ready to convert. Retarget immediately.</p>
+      <p class="h-state-bpm">24–30 BPM</p>
+    </div>
+    <div class="h-state-card intuition">
+      <p class="h-state-name">
+        <span class="h-state-dot" style="background:#AA00FF"></span>
+        Intuizione
+      </p>
+      <p class="h-state-signal">Sensing something. Resonating.</p>
+      <p class="h-state-read">Visitor can feel your brand frequency without naming it. The highest emotional alignment signal Honey detects.</p>
+      <p class="h-state-bpm">16–20 BPM</p>
+    </div>
+    <div class="h-state-card danger">
+      <p class="h-state-name">
+        <span class="h-state-dot" style="background:#FF1744"></span>
+        Pericolo
+      </p>
+      <p class="h-state-signal">Resistance. Defensive browsing.</p>
+      <p class="h-state-read">Visitor is comparing, skeptical, ready to exit. Low resonance. Exclude from retargeting — don't waste budget.</p>
+      <p class="h-state-bpm">40–60 BPM</p>
+    </div>
+    <div class="h-state-card heat">
+      <p class="h-state-name">
+        <span class="h-state-dot" style="background:#FFB300"></span>
+        Calore
+      </p>
+      <p class="h-state-signal">Warmth. Emotional connection forming.</p>
+      <p class="h-state-read">Visitor is developing an emotional bond with the brand. Highest conversion potential over a 7-day window.</p>
+      <p class="h-state-bpm">8–14 BPM</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT YOU GET ── -->
+<section class="h-section h-output">
+  <p class="h-section-label">What you get</p>
+  <div class="h-output-grid">
+    <div class="h-output-item">
+      <span class="h-output-num">01 / DASHBOARD</span>
+      <h3 class="h-output-name">Real-time resonance feed</h3>
+      <p class="h-output-desc">A live view of your current visitors' emotional state distribution. See in real time whether your content is attracting Intuizione visitors or triggering Pericolo exits.</p>
+    </div>
+    <div class="h-output-item">
+      <span class="h-output-num">02 / PIXEL</span>
+      <h3 class="h-output-name">Meta pixel integration</h3>
+      <p class="h-output-desc">Resonance scores fed directly into your Meta pixel as custom events. Your lookalike audiences are now built from emotional alignment, not just purchase behavior.</p>
+    </div>
+    <div class="h-output-item">
+      <span class="h-output-num">03 / REPORT</span>
+      <h3 class="h-output-name">Weekly emotional quality report</h3>
+      <p class="h-output-desc">Every Monday, MirrorMind — our growth intelligence agent — sends you a pattern analysis of the previous week. Which signals dominated, which content drove Calore, what to change.</p>
+    </div>
+    <div class="h-output-item">
+      <span class="h-output-num">04 / TUNING</span>
+      <h3 class="h-output-name">Brand frequency calibration</h3>
+      <p class="h-output-desc">Monthly session to align your content and channel strategy with what Honey is detecting. If your brand is attracting the wrong frequency — we find out why and fix it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOTTOM CTA ── -->
+<section class="h-bottom">
+  <p class="h-bottom-label">Honey — by Studio Starman</p>
+  <h2 class="h-bottom-title">
+    Stop counting visitors.<br>
+    Start reading<br>
+    <span class="accent">who they are.</span>
+  </h2>
+  <p class="h-bottom-sub">
+    Honey is available as a standalone product or integrated within a full Studio Starman partnership. Early access — limited to 10 brands.
+  </p>
+  <a href="contact.html" class="h-cta">Request access</a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="h-footer">
+  <p>&copy; 2026 Studio Starman</p>
+  <p>Pozzuoli / Napoli / Campania</p>
+  <p>hello@studiostarman.com</p>
+</footer>
+
+<script src="cd-core.js"></script>
+</body>
+</html>

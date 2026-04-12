@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Contact — Studio Starman</title>
+<meta name="description" content="Work with Studio Starman. Collaborations for brands that want to become culturally inevitable. Services, pricing, and access to Honey.">
+<meta property="og:title" content="Contact — Studio Starman">
+<meta property="og:description" content="Let's build something that shouldn't exist but works completely.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/contact">
+<meta property="og:site_name" content="Studio Starman">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact — Studio Starman">
+<link rel="canonical" href="https://studiostarman.com/contact">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+/* ── CONTACT PAGE ── */
+
+/* ── HERO ── */
+.c-hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(120px,14vw,200px) clamp(24px,6vw,120px) clamp(60px,8vw,100px);
+  background: #000;
+  position: relative;
+}
+.c-eyebrow {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: #A80000;
+  margin-bottom: 28px;
+}
+.c-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 9vw, 8rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: .95;
+  color: #E8E4DF;
+  max-width: 900px;
+}
+.c-hero-title span { color: #A80000; }
+.c-hero-sub {
+  font: 13px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  margin-top: 32px;
+  max-width: 500px;
+}
+
+/* ── SECTION BASE ── */
+.c-section {
+  padding: clamp(80px,10vw,120px) clamp(24px,6vw,120px);
+  border-top: 1px solid rgba(232,228,223,.06);
+}
+.c-section-label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.25);
+  margin-bottom: 64px;
+}
+
+/* ── PRICING ── */
+.c-pricing { background: #000; }
+.c-pricing-intro {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.2;
+  max-width: 700px;
+  margin-bottom: 80px;
+}
+.c-pricing-intro span { color: #A80000; }
+.c-plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  max-width: 1100px;
+}
+.c-plan {
+  background: #0a0a0a;
+  border: 1px solid rgba(232,228,223,.06);
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color .3s;
+}
+.c-plan:hover { border-color: rgba(168,0,0,.3); }
+.c-plan.featured {
+  border-color: rgba(168,0,0,.25);
+  background: #0d0505;
+}
+.c-plan-badge {
+  position: absolute;
+  top: 20px; right: 20px;
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #020202;
+  background: #A80000;
+  padding: 6px 12px;
+}
+.c-plan-num {
+  font: 10px/1 'Space Mono', monospace;
+  color: #A80000;
+  letter-spacing: .3em;
+  margin-bottom: 24px;
+  display: block;
+}
+.c-plan-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 8px;
+}
+.c-plan-tagline {
+  font: 11px/1.6 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+  margin-bottom: 32px;
+}
+.c-plan-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #E8E4DF;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.c-plan-price sub {
+  font-size: 1rem;
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+  color: rgba(232,228,223,.4);
+  vertical-align: baseline;
+  font-style: normal;
+}
+.c-plan-billing {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  margin-bottom: 40px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.c-plan-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+  flex: 1;
+}
+.c-plan-items li {
+  font: 12px/1.7 'Space Mono', monospace;
+  color: rgba(232,228,223,.5);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(232,228,223,.04);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.c-plan-items li::before {
+  content: '—';
+  color: #A80000;
+  flex-shrink: 0;
+  font-size: 11px;
+  margin-top: 1px;
+}
+.c-plan-cta {
+  display: block;
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #E8E4DF;
+  border: 1px solid rgba(232,228,223,.2);
+  padding: 16px 24px;
+  text-decoration: none;
+  text-align: center;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.c-plan-cta:hover, .c-plan.featured .c-plan-cta {
+  background: #A80000;
+  border-color: #A80000;
+  color: #E8E4DF;
+}
+.c-plan.featured .c-plan-cta:hover { opacity: .8; }
+
+/* ── NOTE BELOW PRICING ── */
+.c-pricing-note {
+  margin-top: 48px;
+  max-width: 700px;
+  font: 12px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.3);
+}
+.c-pricing-note strong { color: rgba(232,228,223,.5); font-weight: 700; }
+
+/* ── FORM SECTION ── */
+.c-form-section { background: #030303; }
+.c-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px 120px;
+  max-width: 1100px;
+  align-items: start;
+}
+.c-form-left h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.c-form-left h2 span { color: #A80000; }
+.c-form-left p {
+  font: 12px/1.8 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+  margin-bottom: 48px;
+}
+.c-form-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.c-contact-item {
+  font: 12px/1.6 'Space Mono', monospace;
+  color: rgba(232,228,223,.4);
+}
+.c-contact-item strong {
+  display: block;
+  font: 700 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.c-contact-item a {
+  color: #E8E4DF;
+  text-decoration: none;
+  transition: color .2s;
+}
+.c-contact-item a:hover { color: #A80000; }
+
+/* ── FORM ── */
+.c-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.c-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.c-field label {
+  font: 10px/1 'Space Mono', monospace;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(232,228,223,.3);
+}
+.c-field input,
+.c-field select,
+.c-field textarea {
+  background: #0a0a0a;
+  border: 1px solid rgba(232,228,223,.1);
+  color: #E8E4DF;
+  font: 13px/1 'Space Mono', monospace;
+  padding: 16px 20px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color .2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.c-field input:focus,
+.c-field select:focus,
+.c-field textarea:focus {
+  border-color: rgba(168,0,0,.5);
+}
+.c-field textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.7;
+}
+.c-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(232,228,223,0.3)' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  padding-right: 48px;
+  cursor: pointer;
+}
+.c-field select option { background: #0a0a0a; }
+.c-form-submit {
+  display: inline-block;
+  font: 700 11px/1 'Space Mono', monospace;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #020202;
+  background: #E8E4DF;
+  padding: 20px 40px;
+  border: none;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+.c-form-submit:hover { background: #A80000; color: #E8E4DF; }
+
+/* ── PROCESS ── */
+.c-process { background: #000; }
+.c-process-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #E8E4DF;
+  line-height: 1.2;
+  margin-bottom: 64px;
+  max-width: 600px;
+}
+.c-process-title span { color: #00D4AA; }
+.c-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2px;
+  max-width: 1100px;
+}
+.c-step {
+  padding: 40px 32px;
+  background: #000;
+  border: 1px solid rgba(232,228,223,.04);
+}
+.c-step-num {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.2);
+  letter-spacing: .3em;
+  margin-bottom: 20px;
+  display: block;
+}
+.c-step-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #E8E4DF;
+  margin-bottom: 12px;
+}
+.c-step-desc {
+  font: 11px/1.7 'Space Mono', monospace;
+  color: rgba(232,228,223,.35);
+}
+
+/* ── FOOTER ── */
+.c-footer {
+  padding: 48px clamp(24px,6vw,120px);
+  background: #000;
+  border-top: 1px solid rgba(232,228,223,.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.c-footer p {
+  font: 10px/1 'Space Mono', monospace;
+  color: rgba(232,228,223,.25);
+  letter-spacing: .2em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .c-form-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+@media (max-width: 640px) {
+  .c-steps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.45"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-brand">
+    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
+  </a>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="nouvelle-vague.html">Nouvelle Vague</a>
+    <a href="collection.html">Collection</a>
+    <a href="honey.html">Honey</a>
+    <a href="contact.html" aria-current="page">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="c-hero">
+  <p class="c-eyebrow">Contact — Studio Starman</p>
+  <h1 class="c-hero-title">
+    Let's build<br>
+    something that<br>
+    <span>shouldn't exist.</span>
+  </h1>
+  <p class="c-hero-sub">
+    We work with brands ready to lead their category — not follow it. Tell us what you're building.
+  </p>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="c-section c-pricing">
+  <p class="c-section-label">Services &amp; pricing</p>
+  <p class="c-pricing-intro">
+    We don't do <span>hourly rates.</span><br>
+    We do outcomes.
+  </p>
+  <div class="c-plans">
+
+    <div class="c-plan">
+      <span class="c-plan-num">01 / HONEY</span>
+      <h2 class="c-plan-name">Honey Access</h2>
+      <p class="c-plan-tagline">Lead intelligence, standalone</p>
+      <p class="c-plan-price">€490<sub>/mo</sub></p>
+      <p class="c-plan-billing">Monthly — min. 3 months</p>
+      <ul class="c-plan-items">
+        <li>BIF emotional signal detection on your site</li>
+        <li>Meta pixel resonance integration</li>
+        <li>Weekly MirrorMind quality report</li>
+        <li>Monthly calibration session (60 min)</li>
+        <li>Onboarding + pixel setup included</li>
+      </ul>
+      <a href="mailto:hello@studiostarman.com?subject=Honey Access" class="c-plan-cta">Request Honey</a>
+    </div>
+
+    <div class="c-plan featured">
+      <span class="c-plan-badge">Most requested</span>
+      <span class="c-plan-num">02 / STUDIO</span>
+      <h2 class="c-plan-name">Studio Partnership</h2>
+      <p class="c-plan-tagline">Full strategic + creative collaboration</p>
+      <p class="c-plan-price">€2.400<sub>/mo</sub></p>
+      <p class="c-plan-billing">Monthly retainer — min. 6 months</p>
+      <ul class="c-plan-items">
+        <li>Full content strategy + production (4 pieces/mo)</li>
+        <li>Brand identity or evolution</li>
+        <li>Honey included — lead intelligence live</li>
+        <li>AI agents custom trained on your brand voice</li>
+        <li>Monthly creative direction session (90 min)</li>
+        <li>Direct access to Antonio + BIF ecosystem</li>
+      </ul>
+      <a href="mailto:hello@studiostarman.com?subject=Studio Partnership" class="c-plan-cta">Start partnership</a>
+    </div>
+
+    <div class="c-plan">
+      <span class="c-plan-num">03 / CAMPAIGN</span>
+      <h2 class="c-plan-name">Campaign</h2>
+      <p class="c-plan-tagline">Single campaign, complete production</p>
+      <p class="c-plan-price">€3.800<sub>+</sub></p>
+      <p class="c-plan-billing">Fixed project — 6–10 weeks</p>
+      <ul class="c-plan-items">
+        <li>Campaign concept, two-level design</li>
+        <li>Art direction + shooting (2 days)</li>
+        <li>Content production for all channels</li>
+        <li>Launch strategy + Honey measurement</li>
+        <li>Post-campaign analysis</li>
+      </ul>
+      <a href="mailto:hello@studiostarman.com?subject=Campaign" class="c-plan-cta">Tell us about the project</a>
+    </div>
+
+    <div class="c-plan">
+      <span class="c-plan-num">04 / CUSTOM</span>
+      <h2 class="c-plan-name">Custom</h2>
+      <p class="c-plan-tagline">For complex or ongoing builds</p>
+      <p class="c-plan-price">Let's<sub> talk</sub></p>
+      <p class="c-plan-billing">Scoped per project</p>
+      <ul class="c-plan-items">
+        <li>Fashion capsule with Nouvelle Vague</li>
+        <li>AI agent system (custom trained)</li>
+        <li>Event concept + creative direction</li>
+        <li>Brand identity from zero</li>
+        <li>Long-term advisory</li>
+      </ul>
+      <a href="mailto:hello@studiostarman.com?subject=Custom project" class="c-plan-cta">Write to us</a>
+    </div>
+
+  </div>
+  <p class="c-pricing-note">
+    <strong>Note on Honey:</strong> Honey is currently in early access. We are onboarding a maximum of 10 brands in 2026. If you are interested, mention it — we will tell you if there is still space.
+  </p>
+</section>
+
+<!-- ── FORM ── -->
+<section class="c-section c-form-section">
+  <p class="c-section-label">Start a conversation</p>
+  <div class="c-form-grid">
+    <div class="c-form-left">
+      <h2>Tell us<br>what you're<br><span>building.</span></h2>
+      <p>We read every message. No automated responses. If there's a conversation to have, Antonio reads it first.</p>
+      <div class="c-form-contact">
+        <div class="c-contact-item">
+          <strong>Email</strong>
+          <a href="mailto:hello@studiostarman.com">hello@studiostarman.com</a>
+        </div>
+        <div class="c-contact-item">
+          <strong>Instagram</strong>
+          <a href="https://instagram.com/studiostarman" target="_blank" rel="noopener">@studiostarman</a>
+        </div>
+        <div class="c-contact-item">
+          <strong>Based in</strong>
+          Pozzuoli / Napoli — Campania
+        </div>
+      </div>
+    </div>
+    <form class="c-form" action="mailto:hello@studiostarman.com" method="GET" enctype="text/plain">
+      <div class="c-field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="Name / Brand" autocomplete="name">
+      </div>
+      <div class="c-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email">
+      </div>
+      <div class="c-field">
+        <label for="service">I am interested in</label>
+        <select id="service" name="service">
+          <option value="">Select a service</option>
+          <option value="Honey Access">Honey — Lead Intelligence</option>
+          <option value="Studio Partnership">Studio Partnership</option>
+          <option value="Campaign">Campaign</option>
+          <option value="Brand Identity">Brand Identity</option>
+          <option value="Shooting / Production">Shooting / Production</option>
+          <option value="Fashion Capsule">Fashion Capsule</option>
+          <option value="AI Agents">AI Agents</option>
+          <option value="Custom">Custom / Other</option>
+        </select>
+      </div>
+      <div class="c-field">
+        <label for="message">What you're building</label>
+        <textarea id="message" name="body" placeholder="Tell us about your brand, your challenge, what you want to become."></textarea>
+      </div>
+      <button type="submit" class="c-form-submit">Send message</button>
+    </form>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section class="c-section c-process">
+  <p class="c-section-label">What happens next</p>
+  <h2 class="c-process-title">
+    From first message to<br>
+    <span>first output</span> — 10 days.
+  </h2>
+  <div class="c-steps">
+    <div class="c-step">
+      <span class="c-step-num">01</span>
+      <h3 class="c-step-name">We read your message</h3>
+      <p class="c-step-desc">Within 48 hours. Antonio reads first. No intake forms, no automated qualification.</p>
+    </div>
+    <div class="c-step">
+      <span class="c-step-num">02</span>
+      <h3 class="c-step-name">Discovery call</h3>
+      <p class="c-step-desc">45 minutes. We listen, you talk. We'll ask what your brand is supposed to make people feel at 3AM.</p>
+    </div>
+    <div class="c-step">
+      <span class="c-step-num">03</span>
+      <h3 class="c-step-name">Signal reading</h3>
+      <p class="c-step-desc">Sibilla scans your category, competitors, audience patterns. We read the cultural landscape before touching a single design.</p>
+    </div>
+    <div class="c-step">
+      <span class="c-step-num">04</span>
+      <h3 class="c-step-name">First output</h3>
+      <p class="c-step-desc">A concept direction — not a deck. Something real, in your hands, that already feels like what you're supposed to be.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="c-footer">
+  <p>&copy; 2026 Studio Starman</p>
+  <p>Pozzuoli / Napoli / Campania</p>
+  <p>hello@studiostarman.com</p>
+</footer>
+
+<script src="cd-core.js"></script>
+</body>
+</html>
