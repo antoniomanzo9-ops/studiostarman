@@ -247,6 +247,24 @@
     setTimeout(() => { window.location.href = href }, 300);
   });
 
+  // Mobile navigation
+  document.querySelectorAll('.nav').forEach(nav => {
+    const toggle = nav.querySelector('.nav-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    });
+    nav.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation');
+      });
+    });
+  });
+
 
   // ══════════════════════════════════════════
   // BIF GLOBAL ORB — Time-aware, breathing

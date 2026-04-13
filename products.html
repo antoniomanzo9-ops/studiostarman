@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Products - Studio Starman</title>
+<meta name="description" content="Studio Starman products: Honey, Inner Studio, ANIMA, and wearable objects.">
+<meta property="og:title" content="Products - Studio Starman">
+<meta property="og:description" content="Tools and objects from Studio Starman. Signal systems, not templates.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/products">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/cityscape-signal.png">
+<meta property="og:site_name" content="Studio Starman">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://studiostarman.com/products">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23A80000'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+.page{min-height:100vh;background:#E8E4DF;color:#010101;padding:clamp(120px,16vw,220px) clamp(24px,7vw,110px) 80px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.55fr);gap:clamp(48px,8vw,120px);align-items:end}
+.eyebrow{font:400 11px/1 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A80000;margin-bottom:26px}
+h1{font-family:var(--font-display);font-size:clamp(4rem,12vw,11rem);line-height:.82;text-transform:uppercase;letter-spacing:0;max-width:980px}
+.intro{font:400 13px/1.8 'Space Mono',monospace;color:rgba(1,1,1,.62);max-width:430px}
+.products{margin-top:clamp(76px,11vw,140px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(1,1,1,.16)}
+.product{background:#E8E4DF;min-height:360px;padding:clamp(28px,4vw,44px);display:flex;flex-direction:column;justify-content:space-between}
+.product-num{font-family:var(--font-display);font-size:clamp(4rem,8vw,7rem);line-height:.8;color:#A80000}
+.product h2{margin:40px 0 14px;font:700 15px/1.35 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.product p{font:400 13px/1.7 'Space Mono',monospace;color:rgba(1,1,1,.62)}
+.product a{margin-top:34px;display:inline-flex;width:max-content;border:1px solid #A80000;border-radius:4px;padding:14px 18px;font:400 11px/1 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#010101}
+.product a:hover{background:#A80000;color:#E8E4DF}
+.footer-lite{background:#010101;color:rgba(232,228,223,.5);padding:48px clamp(24px,7vw,110px);font:400 11px/1.7 'Space Mono',monospace;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-lite a{color:#E8E4DF}.footer-lite a:hover{color:#A80000}
+@media(max-width:860px){.hero,.products{grid-template-columns:1fr}.product{min-height:260px}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"><animate attributeName="seed" from="0" to="100" dur="1.5s" repeatCount="indefinite"/></feTurbulence><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.5"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-brand">Studio Starman</a>
+  <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span></button>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="work.html">Work</a>
+    <a href="products.html" aria-current="page">Products</a>
+    <a href="lab.html">Lab</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<main class="page">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Products</p>
+      <h1>Objects with a nervous system.</h1>
+    </div>
+    <p class="intro">Honey, Inner Studio, ANIMA, and wearable objects belong here. Each one extends the method into a product people can use, wear, or enter.</p>
+  </section>
+
+  <section class="products" aria-label="Products">
+    <article class="product">
+      <div>
+        <span class="product-num">01</span>
+        <h2>Honey</h2>
+        <p>Lead intelligence for emotional resonance. Early access for selected brands in 2026.</p>
+      </div>
+      <a href="honey.html">Open Honey</a>
+    </article>
+    <article class="product">
+      <div>
+        <span class="product-num">02</span>
+        <h2>Inner Studio</h2>
+        <p>Graphic machines and internal tools for people who still want software to feel physical.</p>
+      </div>
+      <a href="marketplace.html">Enter studio</a>
+    </article>
+    <article class="product">
+      <div>
+        <span class="product-num">03</span>
+        <h2>ANIMA</h2>
+        <p>A future protocol for agents, memory, and identity. Not public yet. The landing page remains alive.</p>
+      </div>
+      <a href="anima.html">See ANIMA</a>
+    </article>
+  </section>
+</main>
+
+<footer class="footer-lite">
+  <span>© 2026 Studio Starman</span>
+  <a href="mailto:hello@studiostarman.com">hello@studiostarman.com</a>
+</footer>
+<script src="cd-core.js"></script>
+</body>
+</html>

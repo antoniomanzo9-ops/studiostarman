@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Work - Studio Starman</title>
+<meta name="description" content="Studio Starman work: decision logs, case studies, and the method in public.">
+<meta property="og:title" content="Work - Studio Starman">
+<meta property="og:description" content="Real decisions. Real briefs. What the AI did. What Antonio corrected.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/work">
+<meta property="og:image" content="https://studiostarman.com/images/ourstudio/backstage-mirror.png">
+<meta property="og:site_name" content="Studio Starman">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://studiostarman.com/work">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23A80000'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="cd-tokens.css">
+<link rel="stylesheet" href="cd-components.css">
+<style>
+.page{min-height:100vh;padding:clamp(120px,16vw,220px) clamp(24px,7vw,110px) 80px;background:#010101;color:#E8E4DF}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.55fr);gap:clamp(48px,8vw,120px);align-items:end}
+.eyebrow{font:400 11px/1 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A80000;margin-bottom:26px}
+h1{font-family:var(--font-display);font-size:clamp(4rem,12vw,11rem);line-height:.82;text-transform:uppercase;letter-spacing:0;max-width:900px}
+.intro{font:400 13px/1.8 'Space Mono',monospace;color:rgba(232,228,223,.58);max-width:420px}
+.cases{margin-top:clamp(76px,11vw,140px);display:grid;gap:1px;background:rgba(232,228,223,.08);max-width:1040px}
+.case{display:grid;grid-template-columns:140px minmax(0,1fr) auto;gap:28px;background:#010101;padding:30px 0;align-items:baseline}
+.case-date{font:400 11px/1 'Space Mono',monospace;color:#A80000}
+.case h2{font:700 15px/1.35 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.case p{margin-top:10px;font:400 12px/1.7 'Space Mono',monospace;color:rgba(232,228,223,.5);max-width:560px}
+.case a{font:400 11px/1 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#E8E4DF}
+.case a:hover{color:#A80000}
+.footer-lite{padding:48px clamp(24px,7vw,110px);border-top:1px solid rgba(232,228,223,.08);font:400 11px/1.7 'Space Mono',monospace;color:rgba(232,228,223,.5);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-lite a{color:#E8E4DF}.footer-lite a:hover{color:#A80000}
+@media(max-width:760px){.hero,.case{grid-template-columns:1fr}.case{gap:14px}.case a{margin-top:8px}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+<div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"><animate attributeName="seed" from="0" to="100" dur="1.5s" repeatCount="indefinite"/></feTurbulence><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.5"/></svg></div>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-brand">Studio Starman</a>
+  <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span></button>
+  <div class="nav-links">
+    <a href="studio.html">Studio</a>
+    <a href="work.html" aria-current="page">Work</a>
+    <a href="products.html">Products</a>
+    <a href="lab.html">Lab</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<main class="page">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Decision logs</p>
+      <h1>Work that shows the work.</h1>
+    </div>
+    <p class="intro">Case studies will live here as decision logs: the brief, the system response, the correction, and the final signal.</p>
+  </section>
+
+  <section class="cases" aria-label="Case studies">
+    <article class="case">
+      <span class="case-date">13 APR 2026</span>
+      <div>
+        <h2>Studio Starman identity reset</h2>
+        <p>One day. Ten agents. One rejected direction. A complete public repositioning from myth to commercial machine with a soul.</p>
+      </div>
+      <a href="index.html">Read signal</a>
+    </article>
+    <article class="case">
+      <span class="case-date">COMING</span>
+      <div>
+        <h2>Nouvelle Vague as proof of method</h2>
+        <p>A private night becomes a living case study for surface, depth, audience, and refusal.</p>
+      </div>
+      <a href="nouvelle-vague.html">Enter</a>
+    </article>
+  </section>
+</main>
+
+<footer class="footer-lite">
+  <span>© 2026 Studio Starman</span>
+  <a href="mailto:hello@studiostarman.com">hello@studiostarman.com</a>
+</footer>
+<script src="cd-core.js"></script>
+</body>
+</html>

@@ -39,7 +39,7 @@
   margin-bottom: 28px;
 }
 .c-hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(3rem, 9vw, 8rem);
   font-weight: 900;
   font-style: italic;
@@ -71,7 +71,7 @@
 /* ── PRICING ── */
 .c-pricing { background: #000; }
 .c-pricing-intro {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 2.8vw, 2.2rem);
   font-weight: 900;
   font-style: italic;
@@ -119,7 +119,7 @@
   display: block;
 }
 .c-plan-name {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 900;
   font-style: italic;
@@ -132,7 +132,7 @@
   margin-bottom: 32px;
 }
 .c-plan-price {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 2.8rem;
   font-weight: 900;
   color: #E8E4DF;
@@ -214,7 +214,7 @@
   align-items: start;
 }
 .c-form-left h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 3.5vw, 2.8rem);
   font-weight: 900;
   font-style: italic;
@@ -321,7 +321,7 @@
 /* ── PROCESS ── */
 .c-process { background: #000; }
 .c-process-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 3.5vw, 2.8rem);
   font-weight: 900;
   font-style: italic;
@@ -350,7 +350,7 @@
   display: block;
 }
 .c-step-name {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 700;
   font-style: italic;
@@ -393,14 +393,13 @@
 <div class="grain"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="gF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gF)" opacity="0.45"/></svg></div>
 
 <nav class="nav" id="mainNav">
-  <a href="/" class="nav-brand">
-    <img src="images/ourstudio/logo4claude.png" alt="Studio Starman" style="height:18px;width:auto;opacity:.85;filter:brightness(1.1)">
-  </a>
+  <a href="index.html" class="nav-brand">Studio Starman</a>
+  <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span></button>
   <div class="nav-links">
     <a href="studio.html">Studio</a>
-    <a href="nouvelle-vague.html">Nouvelle Vague</a>
-    <a href="collection.html">Collection</a>
-    <a href="honey.html">Honey</a>
+    <a href="work.html">Work</a>
+    <a href="products.html">Products</a>
+    <a href="lab.html">Lab</a>
     <a href="contact.html" aria-current="page">Contact</a>
   </div>
 </nav>
@@ -482,7 +481,7 @@
       <h2 class="c-plan-name">Custom</h2>
       <p class="c-plan-tagline">Per costruzioni complesse o continuative</p>
       <p class="c-plan-price">Parliamo<sub>.</sub></p>
-      <p class="c-plan-billing">Scopato per progetto</p>
+      <p class="c-plan-billing">Su misura per progetto</p>
       <ul class="c-plan-items">
         <li>Capsule moda con Nouvelle Vague</li>
         <li>Sistema agenti AI (addestramento custom)</li>
@@ -505,7 +504,7 @@
   <div class="c-form-grid">
     <div class="c-form-left">
       <h2>Dimmi<br>da dove<br><span>vieni.</span></h2>
-      <p>Leggiamo ogni messaggio. Nessuna risposta automatica. Se c'è una conversazione da avere, Antonio la legge per primo. Prima di mandare qualsiasi cosa, rispondi a una domanda: <em>Quale momento della tua vita ha cambiato il modo in cui vedi?</em></p>
+      <p>Raccontaci cosa stai costruendo. Antonio legge per primo. Risposta entro 48 ore.</p>
       <div class="c-form-contact">
         <div class="c-contact-item">
           <strong>Email</strong>
@@ -523,30 +522,24 @@
     </div>
     <form class="c-form" action="mailto:hello@studiostarman.com" method="GET" enctype="text/plain">
       <div class="c-field">
-        <label for="name">Il tuo nome</label>
-        <input type="text" id="name" name="name" placeholder="Nome / Brand" autocomplete="name">
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name" placeholder="Antonio" autocomplete="name" required>
       </div>
       <div class="c-field">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="dove-ti-abbiamo-trovato@studio.lab" autocomplete="email">
+        <input type="email" id="email" name="email" placeholder="you@brand.com" autocomplete="email" required>
       </div>
       <div class="c-field">
-        <label for="service">Mi interessa</label>
-        <select id="service" name="service">
-          <option value="">Scegli un servizio</option>
-          <option value="Honey Access">Honey — Lead Intelligence</option>
-          <option value="Studio Partnership">Studio Partnership</option>
-          <option value="Campaign">Campagna</option>
-          <option value="Brand Identity">Identità di Marca</option>
-          <option value="Shooting / Production">Shooting / Produzione</option>
-          <option value="Fashion Capsule">Capsule Moda</option>
-          <option value="AI Agents">Agenti AI</option>
-          <option value="Custom">Custom / Altro</option>
-        </select>
+        <label for="brand">Brand / azienda</label>
+        <input type="text" id="brand" name="brand" placeholder="Studio / brand / progetto">
       </div>
       <div class="c-field">
-        <label for="message">Cosa stai costruendo</label>
-        <textarea id="message" name="body" placeholder="Raccontaci il tuo brand, la sfida che hai, quello che vuoi diventare."></textarea>
+        <label for="budget">Budget</label>
+        <input type="text" id="budget" name="budget" placeholder="EUR 2.400 / mese, campagna, custom">
+      </div>
+      <div class="c-field">
+        <label for="message">Messaggio</label>
+        <textarea id="message" name="body" placeholder="Raccontaci cosa stai costruendo." required></textarea>
       </div>
       <button type="submit" class="c-form-submit">Parla</button>
     </form>

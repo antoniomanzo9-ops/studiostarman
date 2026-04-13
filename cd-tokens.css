@@ -17,11 +17,12 @@
    Krea    → Magnetic cursor, AI-alive feedback, reattività
    ═══════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=tusker-grotesk@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
   /* ═══ CORE — THE VOID ═══ */
-  --black: #020202;
+  --black: #010101;
   --deep: #030305;
   --white: #E8E4DF;           /* Bone, not paper */
   --cream: #f0ece4;
@@ -91,8 +92,8 @@
      Jost Variable: supports wght 100-900 as continuous axis.
      font-variation-settings: "wght" 200 for sub-pixel weight.
      The heartbeat engine drives wght dynamically. */
-  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-  --font-body: 'Space Mono', 'SF Mono', 'Fira Mono', monospace;
+  --font-display: 'Tusker Grotesk', 'Bebas Neue';
+  --font-body: 'Space Mono', monospace;
 
   /* ── Fluid type scale ── */
   --text-xs: clamp(0.625rem, 0.6rem + 0.15vw, 0.75rem);    /* 10-12px — meta, labels */

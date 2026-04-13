@@ -122,24 +122,55 @@
 }
 .nav-brand {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 26px;
   font-weight: 900;
-  font-style: italic;
-  letter-spacing: .12em;
+  letter-spacing: 0;
+  line-height: .85;
+  text-transform: uppercase;
   color: var(--white);
   text-decoration: none;
 }
 .nav-links { display: flex; gap: clamp(20px,3vw,40px) }
 .nav a {
-  font-size: 9px;
-  letter-spacing: .45em;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: rgba(232,228,223,.55);
   text-decoration: none;
-  transition: color .3s ease;
+  transition: color .2s ease;
 }
 .nav a:hover,
-.nav a[aria-current="page"] { color: #E8E4DF; }
+.nav a[aria-current="page"] { color: var(--red); }
+.nav-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(232,228,223,.3);
+  border-radius: 4px;
+  color: var(--white);
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+}
+.nav-toggle span,
+.nav-toggle::before,
+.nav-toggle::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.nav-toggle span { top: 20px; }
+.nav-toggle::before { top: 14px; }
+.nav-toggle::after { top: 26px; }
+.nav-open .nav-toggle span { opacity: 0; }
+.nav-open .nav-toggle::before { transform: translateY(6px) rotate(45deg); }
+.nav-open .nav-toggle::after { transform: translateY(-6px) rotate(-45deg); }
 .nav-back {
   font-size: 9px;
   letter-spacing: .4em;
@@ -279,9 +310,31 @@
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .nav { padding: 20px 24px }
-  .nav-links { gap: 16px }
-  .nav a { font-size: 8px; letter-spacing: .25em }
+  html { cursor: auto }
+  body { cursor: auto }
+  .cur,
+  .cur-ring { display: none }
+  .nav { padding: 18px 20px; mix-blend-mode: normal }
+  .nav-toggle { display: block; z-index: 2 }
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    gap: 28px;
+    background: rgba(1,1,1,.96);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .nav-open .nav-links {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .nav a { font-size: 18px; letter-spacing: .1em; text-align: center }
+  .nav-brand { font-size: 24px }
   .cd-footer-grid { grid-template-columns: 1fr; gap: 32px }
   .cd-footer { padding: 60px 24px 32px }
   .bif-global { bottom: 16px; right: 16px; width: 12px; height: 12px }
