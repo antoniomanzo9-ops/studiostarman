@@ -3,3 +3,8 @@ Thumbs.db
 .playwright-cli/
 output/
 node_modules/
+
+# Video files — hosted on Cloudflare R2
+*.mp4
+*.webm
+*.mov
