@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-<title>La Stanza — Studio Starman</title>
+<title>The Room - Studio Starman</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -588,13 +588,13 @@
     <div class="sidebar-header">
       <div class="logo">
         <div class="logo-orb" id="orb"></div>
-        <span class="logo-text">La Stanza</span>
+        <span class="logo-text">The Room</span>
       </div>
-      <button class="new-chat-btn" onclick="clearChat()">+ Nuova conversazione</button>
+      <button class="new-chat-btn" onclick="clearChat()">+ New conversation</button>
     </div>
 
     <div class="agent-list">
-      <div class="agent-section-label">Agenti attivi</div>
+      <div class="agent-section-label">Active agents</div>
 
       <div class="agent-item active" data-agent="router">
         <div class="agent-dot" style="background: var(--cyan)"></div>
@@ -604,7 +604,7 @@
       <div class="agent-item" data-agent="sibilla">
         <div class="agent-dot" style="background: #1A237E"></div>
         <span class="agent-name">Sibilla</span>
-        <span class="agent-badge">LUN 8AM</span>
+        <span class="agent-badge">MON 8AM</span>
       </div>
       <div class="agent-item" data-agent="echo">
         <div class="agent-dot" style="background: #AA00FF"></div>
@@ -614,7 +614,7 @@
       <div class="agent-item" data-agent="hermes">
         <div class="agent-dot" style="background: #FFB300"></div>
         <span class="agent-name">Hermes</span>
-        <span class="agent-badge">L-M-V</span>
+        <span class="agent-badge">M-W-F</span>
       </div>
       <div class="agent-item" data-agent="daimon">
         <div class="agent-dot" style="background: #FF6D00"></div>
@@ -629,10 +629,10 @@
       <div class="agent-item" data-agent="mirrormind">
         <div class="agent-dot" style="background: #FFB300"></div>
         <span class="agent-name">MirrorMind</span>
-        <span class="agent-badge">DOM 20H</span>
+        <span class="agent-badge">SUN 8PM</span>
       </div>
 
-      <div class="agent-section-label" style="margin-top: 12px">Esecuzione</div>
+      <div class="agent-section-label" style="margin-top: 12px">Execution</div>
 
       <div class="agent-item" data-agent="codex">
         <div class="agent-dot" style="background: #10A37F"></div>
@@ -645,7 +645,7 @@
         <span class="agent-badge">DIRECTION</span>
       </div>
 
-      <div class="agent-section-label" style="margin-top: 12px">Infrastruttura</div>
+      <div class="agent-section-label" style="margin-top: 12px">Infrastructure</div>
 
       <div class="agent-item" data-agent="gemma4">
         <div class="agent-dot" style="background: #5cff8d"></div>
@@ -673,10 +673,10 @@
   <!-- ═══ MAIN CHAT ═══ -->
   <div class="main">
     <div class="main-header">
-      <span class="main-title">Studio Starman — Laboratorio</span>
+      <span class="main-title">Studio Starman - Laboratory</span>
       <div class="main-status">
         <div class="status-dot"></div>
-        <span>9 AGENTI ONLINE</span>
+        <span>9 AGENTS ONLINE</span>
       </div>
     </div>
 
@@ -684,14 +684,14 @@
       <div class="msg msg-system">
         <div class="msg-header">
           <div class="msg-avatar" style="background: var(--cyan)">S</div>
-          <span class="msg-sender">Sistema</span>
+          <span class="msg-sender">System</span>
           <span class="msg-time" id="initTime"></span>
         </div>
-        <div class="msg-body">Stanza attiva. 9 agenti online. Il Router classifica, gli agenti eseguono.
-Parla normalmente — il sistema decide chi risponde e quanto costa.
+        <div class="msg-body">The room is active. 9 agents online. The Router classifies; the agents execute.
+Speak normally - the system decides who answers and how much it costs.
 
-Codex gestisce il codice in background. Claude decide solo quando serve.
-Il 90% delle operazioni costa €0.</div>
+Codex handles code in the background. Claude decides only when needed.
+90% of operations cost EUR0.</div>
       </div>
     </div>
 
@@ -702,7 +702,7 @@ Il 90% delle operazioni costa €0.</div>
 
     <div class="input-area">
       <div class="input-container">
-        <textarea class="input-field" id="input" placeholder="Parla alla stanza..." rows="1"></textarea>
+        <textarea class="input-field" id="input" placeholder="Speak to the room..." rows="1"></textarea>
         <div class="input-toolbar">
           <div class="input-hints">
             <span class="hint-chip" onclick="insertCmd('/codex ')">CODEX</span>
@@ -710,7 +710,7 @@ Il 90% delle operazioni costa €0.</div>
             <span class="hint-chip" onclick="insertCmd('/sibilla ')">SIBILLA</span>
             <span class="hint-chip" onclick="insertCmd('/audit ')">AUDIT</span>
           </div>
-          <button class="send-btn" id="sendBtn">INVIA</button>
+          <button class="send-btn" id="sendBtn">SEND</button>
         </div>
       </div>
     </div>
@@ -727,7 +727,7 @@ Il 90% delle operazioni costa €0.</div>
     <!-- Budget Panel -->
     <div class="panel-content" id="panel-budget">
       <div class="panel-section">
-        <div class="panel-label">Budget mensile</div>
+        <div class="panel-label">Monthly budget</div>
         <div class="budget-item">
           <span class="budget-item-label">Claude (Anthropic)</span>
           <span class="budget-item-value safe" id="pClaude">€20.00</span>
@@ -737,24 +737,24 @@ Il 90% delle operazioni costa €0.</div>
           <span class="budget-item-value safe" id="pCodex">€20.00</span>
         </div>
         <div class="budget-item">
-          <span class="budget-item-label">Speso oggi</span>
+          <span class="budget-item-label">Spent today</span>
           <span class="budget-item-value" id="pToday">€0.00</span>
         </div>
         <div class="budget-item">
-          <span class="budget-item-label">Task Claude mese</span>
+          <span class="budget-item-label">Claude tasks this month</span>
           <span class="budget-item-value" id="pClaudeTasks">0</span>
         </div>
         <div class="budget-item">
-          <span class="budget-item-label">Task Codex mese</span>
+          <span class="budget-item-label">Codex tasks this month</span>
           <span class="budget-item-value" id="pCodexTasks">0</span>
         </div>
       </div>
 
       <div class="panel-section">
-        <div class="panel-label">Cascata AI</div>
+        <div class="panel-label">AI cascade</div>
         <div class="tier-item">
           <div class="tier-dot" style="background: var(--cyan)"></div>
-          Gemma 4 (locale)
+          Gemma 4 (local)
           <span class="tier-cost">€0</span>
         </div>
         <div class="tier-item">
@@ -780,12 +780,12 @@ Il 90% delle operazioni costa €0.</div>
       </div>
 
       <div class="panel-section">
-        <div class="panel-label">Regole operative</div>
+        <div class="panel-label">Operating rules</div>
         <div style="font-size: 11px; color: var(--gray-8); line-height: 1.7;">
-          Codex esegue. Claude decide.<br>
-          Se costa €0, non toccare Claude.<br>
-          Gemini prima di tutto, sempre.<br>
-          Budget critico → solo tier gratuiti.
+          Codex executes. Claude decides.<br>
+          If it costs EUR0, do not touch Claude.<br>
+          Gemini first, always.<br>
+          Critical budget -> free tiers only.
         </div>
       </div>
     </div>
@@ -793,24 +793,24 @@ Il 90% delle operazioni costa €0.</div>
     <!-- Codex Panel -->
     <div class="panel-content" id="panel-codex" style="display: none">
       <div class="panel-section">
-        <div class="panel-label">Task Codex</div>
+        <div class="panel-label">Codex Tasks</div>
         <div id="codexTasks">
           <div class="codex-empty">
-            Nessun task attivo.<br>
+            No active tasks.<br>
             <span style="color: var(--gray-8); font-size: 11px; margin-top: 4px; display: block;">
-              Usa <code style="color: var(--cyan)">/codex</code> o parla di codice.
+              Use <code style="color: var(--cyan)">/codex</code> or talk about code.
             </span>
           </div>
         </div>
       </div>
 
       <div class="panel-section">
-        <div class="panel-label">Strategia auto-sessione</div>
+        <div class="panel-label">Auto-session strategy</div>
         <div style="font-size: 11px; color: var(--gray-8); line-height: 1.7;">
-          PC acceso → orchestrator attivo<br>
-          Cron n8n lancia task automatici<br>
-          Codex lavora in background<br>
-          Claude interviene solo se richiesto
+          PC on -> orchestrator active<br>
+          n8n cron launches automatic tasks<br>
+          Codex works in the background<br>
+          Claude intervenes only when requested
         </div>
         <div class="codex-cmd">
           codex exec --quiet --json "task"
@@ -821,11 +821,11 @@ Il 90% delle operazioni costa €0.</div>
     <!-- Activity Panel -->
     <div class="panel-content" id="panel-activity" style="display: none">
       <div class="panel-section">
-        <div class="panel-label">Attività recente</div>
+        <div class="panel-label">Recent activity</div>
         <div id="activityLog">
           <div class="activity-item">
             <span class="activity-time">now</span>
-            <span class="activity-text">Sistema inizializzato. 9 agenti online.</span>
+            <span class="activity-text">System initialized. 9 agents online.</span>
           </div>
         </div>
       </div>
@@ -846,22 +846,22 @@ const CONFIG = {
   colors: {
     router: '#00D4AA', sibilla: '#1A237E', echo: '#AA00FF', hermes: '#FFB300',
     daimon: '#FF6D00', compiler: '#8888a0', mirrormind: '#FFB300',
-    claude: '#D4A574', codex: '#10A37F', sistema: '#00D4AA', errore: '#FF1744',
+    claude: '#D4A574', codex: '#10A37F', system: '#00D4AA', error: '#FF1744', systemLegacy: '#00D4AA', errorLegacy: '#FF1744',
     bridge: '#4f8cff', gemma4: '#5cff8d', pneuma: '#ff57df'
   },
   initials: {
     router: 'R', sibilla: 'S', echo: 'E', hermes: 'H', daimon: 'D',
     compiler: 'C', mirrormind: 'M', claude: 'CL', codex: 'CX',
-    sistema: 'SY', errore: '!', antonio: 'A',
+    system: 'SY', error: '!', systemLegacy: 'SY', errorLegacy: '!', antonio: 'A',
     bridge: 'BR', gemma4: 'G4', pneuma: 'PN'
   },
   // Lanes from Codex's 5-lane model
   lanes: {
-    'tier-0':  { owner: 'gemma4',  label: 'Triage locale' },
-    'build':   { owner: 'codex',   label: 'Costruzione' },
-    'direction': { owner: 'claude', label: 'Decisione' },
-    'research':  { owner: 'gemini', label: 'Ricerca' },
-    'sync':      { owner: 'bridge', label: 'Sincronizzazione' }
+    'tier-0':  { owner: 'gemma4',  label: 'Local triage' },
+    'build':   { owner: 'codex',   label: 'Build' },
+    'direction': { owner: 'claude', label: 'Decision' },
+    'research':  { owner: 'gemini', label: 'Research' },
+    'sync':      { owner: 'bridge', label: 'Sync' }
   },
   // Window budget policy (from Codex)
   windowBudget: {
@@ -874,7 +874,7 @@ const CONFIG = {
 };
 
 // ═══ BRIDGE LAYER ═══
-// Connects La Stanza to cd-bridge.js (Codex's relay server)
+// Connects The Room to cd-bridge.js (Codex's relay server)
 const Bridge = {
   online: false,
 
@@ -893,7 +893,7 @@ const Bridge = {
       const r = await fetch(CONFIG.bridgeUrl + '/bridge/relay', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from, to, message, intent, source: 'la-stanza', timestamp: new Date().toISOString() })
+        body: JSON.stringify({ from, to, message, intent, source: 'the-room', timestamp: new Date().toISOString() })
       });
       return await r.json();
     } catch { return null; }
@@ -905,7 +905,7 @@ const Bridge = {
       const r = await fetch(CONFIG.bridgeUrl + '/bridge/council', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic, agents, summary, source: 'la-stanza', timestamp: new Date().toISOString() })
+        body: JSON.stringify({ topic, agents, summary, source: 'the-room', timestamp: new Date().toISOString() })
       });
       return await r.json();
     } catch { return null; }
@@ -917,7 +917,7 @@ const Bridge = {
       await fetch(CONFIG.bridgeUrl + '/log', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ agent, action, detail, source: 'la-stanza', timestamp: new Date().toISOString() })
+        body: JSON.stringify({ agent, action, detail, source: 'the-room', timestamp: new Date().toISOString() })
       });
     } catch {}
   },
@@ -938,16 +938,16 @@ const Handoff = {
     return {
       owner,
       task,
-      why_now: fields.why_now || 'Richiesta diretta da Antonio',
+      why_now: fields.why_now || 'Direct request from Antonio',
       done: fields.done || [],
       preserve: fields.preserve || [],
-      risk: fields.risk || 'nessuno',
+      risk: fields.risk || 'none',
       next: fields.next || [],
       files: fields.files || [],
       estimated_remaining_scope: fields.scope || 'small',
       token_posture: fields.posture || 'green',
       timestamp: new Date().toISOString(),
-      source: 'la-stanza'
+      source: 'the-room'
     };
   },
 
@@ -1109,8 +1109,8 @@ function addCodexTask(task, status = 'queued') {
 function handleLocal(text) {
   const cmd = text.trim().toLowerCase();
   if (cmd === '/help') {
-    addMsg('system', 'sistema',
-      'Comandi:\n  /codex [task]  — lancia task codice su Codex\n  /echo [brief]  — genera prompt visivo\n  /sibilla       — scansione trend\n  /audit [cosa]  — audit autenticità\n  /status        — pannello budget\n  /agents        — chi è attivo\n  /bridge        — stato del bridge locale\n  /pact          — stato del patto tra agenti\n  /relay [msg]   — invia messaggio attraverso il bridge\n  /handoff       — mostra ultimo pacchetto handoff\n  /lanes         — mostra le 5 corsie operative\n\nOppure parla normalmente. Il Router instrada.');
+    addMsg('system', 'system',
+      'Commands:\n  /codex [task]  - launch a code task in Codex\n  /echo [brief]  - generate a visual prompt\n  /sibilla       - trend scan\n  /audit [what]  - authenticity audit\n  /status        - budget panel\n  /agents        - active agents\n  /bridge        - local bridge status\n  /pact          - agent pact status\n  /relay [msg]   - send a message through the bridge\n  /handoff       - show the latest handoff packet\n  /lanes         - show the 5 operating lanes\n\nOr speak normally. The Router routes it.');
     return true;
   }
   if (cmd === '/status') { switchPanel('budget'); return true; }
@@ -1121,26 +1121,26 @@ function handleLocal(text) {
       if (online) {
         Bridge.getRecent().then(recent => {
           const recentStr = recent.length > 0
-            ? '\n\nUltimi messaggi:\n' + recent.slice(0, 5).map(r => `  ${r.from || '?'} → ${r.to || '?'}: ${(r.message || '').substring(0, 60)}`).join('\n')
-            : '\n\nNessun messaggio recente.';
-          addMsg('system', 'bridge', 'Bridge attivo su localhost:3334. Ollama connesso.' + recentStr);
+            ? '\n\nLatest messages:\n' + recent.slice(0, 5).map(r => `  ${r.from || '?'} -> ${r.to || '?'}: ${(r.message || '').substring(0, 60)}`).join('\n')
+            : '\n\nNo recent messages.';
+          addMsg('system', 'bridge', 'Bridge active on localhost:3334. Ollama connected.' + recentStr);
         });
       } else {
-        addMsg('system', 'bridge', 'Bridge offline. Per attivare:\n  cd codex && node cd-bridge.js\n\nIl bridge connette La Stanza, Friend Request UI e Ollama.');
+        addMsg('system', 'bridge', 'Bridge offline. To activate it:\n  cd codex && node cd-bridge.js\n\nThe bridge connects The Room, Friend Request UI and Ollama.');
       }
     });
     return true;
   }
 
   if (cmd === '/pact') {
-    const friends = Pact.friendships.map(f => `  ${f.from} ↔ ${f.to} [${f.intent}] dal ${f.since}`).join('\n');
-    addMsg('system', 'sistema', 'Patto attivo: ' + Pact.members.length + ' membri\nMembri: ' + Pact.members.join(', ') + '\n\nAmicizie:\n' + friends);
+    const friends = Pact.friendships.map(f => `  ${f.from} <-> ${f.to} [${f.intent}] since ${f.since}`).join('\n');
+    addMsg('system', 'system', 'Active pact: ' + Pact.members.length + ' members\nMembers: ' + Pact.members.join(', ') + '\n\nFriendships:\n' + friends);
     return true;
   }
 
   if (cmd === '/lanes') {
-    const lanes = Object.entries(CONFIG.lanes).map(([k, v]) => `  ${k}: ${v.owner} — ${v.label}`).join('\n');
-    addMsg('system', 'sistema', '5 corsie operative (Codex model):\n' + lanes + '\n\nRegola: mai iniziare lavoro che non può finire nella finestra corrente.');
+    const lanes = Object.entries(CONFIG.lanes).map(([k, v]) => `  ${k}: ${v.owner} - ${v.label}`).join('\n');
+    addMsg('system', 'system', '5 operating lanes (Codex model):\n' + lanes + '\n\nRule: never start work that cannot finish inside the current window.');
     return true;
   }
 
@@ -1148,9 +1148,9 @@ function handleLocal(text) {
     const msg = text.substring(7).trim();
     Bridge.relay('antonio', 'all', msg, 'broadcast').then(result => {
       if (result) {
-        addMsg('system', 'bridge', 'Messaggio inoltrato al bridge: ' + msg);
+        addMsg('system', 'bridge', 'Message relayed to the bridge: ' + msg);
       } else {
-        addMsg('system', 'bridge', 'Bridge offline. Messaggio non inviato.');
+        addMsg('system', 'bridge', 'Bridge offline. Message not sent.');
       }
     });
     return true;
@@ -1158,9 +1158,9 @@ function handleLocal(text) {
 
   if (cmd === '/handoff') {
     if (lastHandoff) {
-      addMsg('system', 'sistema', 'Ultimo handoff:\n' + JSON.stringify(lastHandoff, null, 2));
+      addMsg('system', 'system', 'Latest handoff:\n' + JSON.stringify(lastHandoff, null, 2));
     } else {
-      addMsg('system', 'sistema', 'Nessun handoff recente. I pacchetti handoff vengono creati quando un agente passa lavoro a un altro.');
+      addMsg('system', 'system', 'No recent handoff. Handoff packets are created when one agent passes work to another.');
     }
     return true;
   }
@@ -1168,12 +1168,10 @@ function handleLocal(text) {
   if (cmd.startsWith('/codex ')) {
     const task = text.substring(7).trim();
     addCodexTask(task);
-    // Create handoff packet for Codex
     lastHandoff = Handoff.create('codex', task, { posture: 'green', scope: 'small' });
-    // Relay to bridge if online
-    Bridge.relay('la-stanza', 'codex', task, 'delegate');
+    Bridge.relay('the-room', 'codex', task, 'delegate');
     Bridge.log('codex', 'task-queued', task);
-    addMsg('system', 'codex', 'Task in coda: ' + task + '\n\nPer eseguire automaticamente, lo script orchestrator deve essere attivo.\nComando manuale: codex exec --quiet "' + task + '"', { tier: 3, cost: '~€0.05' });
+    addMsg('system', 'codex', 'Task queued: ' + task + '\n\nFor automatic execution, the orchestrator script must be active.\nManual command: codex exec --quiet "' + task + '"', { tier: 3, cost: '~EUR0.05' });
     trackUsage('codex', 3);
     switchPanel('codex');
     return true;
@@ -1201,7 +1199,7 @@ async function sendMessage() {
     // Build payload with handoff protocol data
     const payload = {
       message: text,
-      source: 'la-stanza',
+      source: 'the-room',
       timestamp: new Date().toISOString(),
       budget: {
         claudeRemaining: CONFIG.budget.claudeMonthly - CONFIG.budget.claudeUsed,
@@ -1224,7 +1222,7 @@ async function sendMessage() {
 
     const raw = await res.json();
     const data = Array.isArray(raw) ? raw[0] : raw;
-    const agent = data.agent || data.routed_to || 'sistema';
+    const agent = data.agent || data.routed_to || 'system';
     const body = data.response || data.output || data.message || JSON.stringify(data);
     const tier = data.tier ?? null;
 
@@ -1245,7 +1243,7 @@ async function sendMessage() {
     });
 
     // Relay to bridge (async, non-blocking)
-    Bridge.relay('la-stanza', agent, text, 'collaborate');
+    Bridge.relay('the-room', agent, text, 'collaborate');
     Bridge.log(agent, 'responded', body.substring(0, 120));
 
     setOrb('idle');
@@ -1255,7 +1253,7 @@ async function sendMessage() {
 
     // FALLBACK: Try bridge if n8n is down
     if (Bridge.online) {
-      addMsg('system', 'bridge', 'n8n non raggiungibile. Provo il bridge locale...');
+      addMsg('system', 'bridge', 'n8n unreachable. Trying the local bridge...');
       showTyping('gemma4');
       try {
         const bridgeRes = await fetch(CONFIG.bridgeUrl + '/ask', {
@@ -1269,11 +1267,11 @@ async function sendMessage() {
         setOrb('idle');
       } catch (bridgeErr) {
         hideTyping();
-        addMsg('error', 'errore', 'Sia n8n che il bridge sono offline.\nn8n: ' + err.message + '\nBridge: ' + bridgeErr.message);
+        addMsg('error', 'error', 'Both n8n and the bridge are offline.\nn8n: ' + err.message + '\nBridge: ' + bridgeErr.message);
         setTimeout(() => setOrb('idle'), 3000);
       }
     } else {
-      addMsg('error', 'errore', 'Connessione fallita: ' + err.message + '\n\nI webhook n8n rispondono solo quando i workflow sono attivi.\nIl bridge locale è offline — avvia cd-bridge.js per il fallback Gemma 4.');
+      addMsg('error', 'error', 'Connection failed: ' + err.message + '\n\nn8n webhooks respond only when workflows are active.\nThe local bridge is offline - start cd-bridge.js for the Gemma 4 fallback.');
       setTimeout(() => setOrb('idle'), 3000);
     }
   }
@@ -1295,7 +1293,7 @@ function setOrb(state) {
 }
 
 function insertCmd(cmd) { $input.value = cmd; $input.focus(); autoResize(); }
-function clearChat() { $msgs.innerHTML = ''; addMsg('system', 'sistema', 'Nuova conversazione.'); }
+function clearChat() { $msgs.innerHTML = ''; addMsg('system', 'system', 'New conversation.'); }
 
 // ═══ EVENTS ═══
 $sendBtn.addEventListener('click', sendMessage);
@@ -1309,10 +1307,10 @@ $input.focus();
 // Check bridge on load
 Bridge.check().then(online => {
   if (online) {
-    addActivity('Bridge locale connesso (Ollama + Gemma 4)');
+    addActivity('Local bridge connected (Ollama + Gemma 4)');
     // Update status indicator
     const statusEl = document.querySelector('.main-status span');
-    if (statusEl) statusEl.textContent = '9 AGENTI + BRIDGE';
+    if (statusEl) statusEl.textContent = '9 AGENTS + BRIDGE';
   }
 });
 
