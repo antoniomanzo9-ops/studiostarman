@@ -465,6 +465,162 @@ body.cursor-active .cursor {
   .cta { width: 100%; }
   .final h2 { font-size: clamp(3rem, 19vw, 5.8rem); }
 }
+
+.inner-studio-preview {
+  background: #010101;
+  color: #E8E4DF;
+  padding: 120px 0;
+  border-top: 1px solid rgba(232, 228, 223, 0.1);
+  border-bottom: 1px solid rgba(232, 228, 223, 0.1);
+}
+
+.inner-studio-preview .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.inner-studio-preview .section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #A80000;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.inner-studio-preview .section-title {
+  font-family: 'Tusker Grotesk', 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin: 0 0 32px 0;
+  color: #E8E4DF;
+}
+
+.inner-studio-preview .section-subhead {
+  font-family: 'Space Mono', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 0 80px 0;
+  color: #E8E4DF;
+  opacity: 0.8;
+}
+
+.inner-studio-preview .agents-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(232, 228, 223, 0.1);
+  margin-bottom: 64px;
+}
+
+.inner-studio-preview .agent-card {
+  background: #010101;
+  padding: 40px 32px;
+  position: relative;
+  transition: background 300ms ease;
+}
+
+.inner-studio-preview .agent-card:hover {
+  background: #1a0000;
+}
+
+.inner-studio-preview .agent-number {
+  font-family: 'Tusker Grotesk', 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  font-size: 48px;
+  color: #A80000;
+  display: block;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.inner-studio-preview .agent-price {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: #E8E4DF;
+  position: absolute;
+  top: 40px;
+  right: 32px;
+}
+
+.inner-studio-preview .agent-name {
+  font-family: 'Tusker Grotesk', 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px 0;
+  color: #E8E4DF;
+}
+
+.inner-studio-preview .agent-role {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #A80000;
+  margin: 0 0 16px 0;
+}
+
+.inner-studio-preview .agent-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #E8E4DF;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.inner-studio-preview .section-cta {
+  border-top: 1px solid rgba(232, 228, 223, 0.1);
+  padding-top: 40px;
+}
+
+.inner-studio-preview .text-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #E8E4DF;
+  text-decoration: none;
+  border-bottom: 1px solid #A80000;
+  padding-bottom: 4px;
+  transition: color 200ms ease;
+}
+
+.inner-studio-preview .text-link:hover {
+  color: #A80000;
+}
+
+@media (max-width: 1024px) {
+  .inner-studio-preview .agents-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .inner-studio-preview {
+    padding: 80px 0;
+  }
+  .inner-studio-preview .container {
+    padding: 0 24px;
+  }
+  .inner-studio-preview .agents-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 40px;
+  }
+  .inner-studio-preview .section-subhead {
+    margin-bottom: 48px;
+  }
+}
 </style>
 </head>
 <body>
@@ -512,6 +668,68 @@ body.cursor-active .cursor {
       <p class="log-line"><strong>20:31</strong> - v2: Complete. The director smiled.</p>
     </div>
   </section>
+
+  <section class="inner-studio-preview">
+  <div class="container">
+    <span class="section-label">THE INNER STUDIO</span>
+    <h2 class="section-title">Ten voices. One method. Installable.</h2>
+    <p class="section-subhead">Fifteen years of street photography became a prompt architect. Twenty-three years of reading crowds became an oracle. Now they live in your Claude Code folder.</p>
+
+    <div class="agents-grid">
+      <div class="agent-card">
+        <span class="agent-number">01</span>
+        <span class="agent-price">€29</span>
+        <h3 class="agent-name">Echo</h3>
+        <p class="agent-role">Prompt Architect</p>
+        <p class="agent-desc">The eye from fifteen years with a camera. Turns any brief into three concepts with technical prompts.</p>
+      </div>
+
+      <div class="agent-card">
+        <span class="agent-number">02</span>
+        <span class="agent-price">€29</span>
+        <h3 class="agent-name">Sibilla</h3>
+        <p class="agent-role">Strategic Oracle</p>
+        <p class="agent-desc">Twenty-three years of reading rooms. Cultural scanning, pattern recognition, strategic decrees.</p>
+      </div>
+
+      <div class="agent-card">
+        <span class="agent-number">03</span>
+        <span class="agent-price">€19</span>
+        <h3 class="agent-name">Daimon</h3>
+        <p class="agent-role">Authenticity Audit</p>
+        <p class="agent-desc">Three questions on every deliverable. Is it true? Is it necessary? Is it ours?</p>
+      </div>
+
+      <div class="agent-card">
+        <span class="agent-number">04</span>
+        <span class="agent-price">€29</span>
+        <h3 class="agent-name">Il Regista</h3>
+        <p class="agent-role">Film Director</p>
+        <p class="agent-desc">Trained on NOWNESS aesthetics. Visions into sequences. Emotions into shots.</p>
+      </div>
+
+      <div class="agent-card">
+        <span class="agent-number">05</span>
+        <span class="agent-price">€29</span>
+        <h3 class="agent-name">L'Architetto</h3>
+        <p class="agent-role">Interface Designer</p>
+        <p class="agent-desc">Trained on Stitch, Figma, design systems. Chaos into structure.</p>
+      </div>
+
+      <div class="agent-card">
+        <span class="agent-number">06</span>
+        <span class="agent-price">€29/mo</span>
+        <h3 class="agent-name">Pneuma</h3>
+        <p class="agent-role">The DJ — Berghain Protocol</p>
+        <p class="agent-desc">Reads attention, translates into frequency. A resident DJ that never stops.</p>
+      </div>
+    </div>
+
+    <div class="section-cta">
+      <a href="/products.html" class="text-link">See all ten agents →</a>
+    </div>
+  </div>
+</section>
 
   <section class="section services" aria-label="Services">
     <div class="services-head">
