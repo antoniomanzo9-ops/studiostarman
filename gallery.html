@@ -212,6 +212,26 @@ body{background:var(--black);color:var(--white);font-family:'Space Mono',monospa
   .hscroll-big{font-size:clamp(3rem,10vw,6rem)}
   .amb-line{display:none}
 }
+
+nav a, .nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+nav a::after, .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #A80000;
+  transition: width 300ms ease;
+}
+
+nav a:hover::after, .nav-link:hover::after {
+  width: 100%;
+}
 </style>
 </head>
 <body>

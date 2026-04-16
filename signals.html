@@ -356,7 +356,27 @@
       .sg-form { flex-direction: column; }
       .sg-input { border-right: 1px solid rgba(232, 228, 223, .1); }
     }
-  </style>
+  
+nav a, .nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+nav a::after, .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #A80000;
+  transition: width 300ms ease;
+}
+
+nav a:hover::after, .nav-link:hover::after {
+  width: 100%;
+}
+</style>
 </head>
 <body data-cursor="violet">
 <div class="scroll-indicator" aria-hidden="true"></div>

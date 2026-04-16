@@ -618,6 +618,26 @@ body:has(#paySwitch.crypto) .nv-card .price-crypto { display: block !important; 
 @supports not ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
   .market-nav { background: rgba(2,2,2,.94); }
 }
+
+nav a, .nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+nav a::after, .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #A80000;
+  transition: width 300ms ease;
+}
+
+nav a:hover::after, .nav-link:hover::after {
+  width: 100%;
+}
 </style>
 </head>
 <body>

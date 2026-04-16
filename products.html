@@ -35,6 +35,26 @@ h1{font-family:var(--font-display);font-size:clamp(4rem,12vw,11rem);line-height:
 .footer-lite{background:#010101;color:rgba(232,228,223,.5);padding:48px clamp(24px,7vw,110px);font:400 11px/1.7 'Space Mono',monospace;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .footer-lite a{color:#E8E4DF}.footer-lite a:hover{color:#A80000}
 @media(max-width:860px){.hero,.products{grid-template-columns:1fr}.product{min-height:260px}}
+
+nav a, .nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+nav a::after, .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #A80000;
+  transition: width 300ms ease;
+}
+
+nav a:hover::after, .nav-link:hover::after {
+  width: 100%;
+}
 </style>
 </head>
 <body>

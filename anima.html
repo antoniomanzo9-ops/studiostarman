@@ -953,6 +953,26 @@ body {
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--black); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+nav a, .nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+nav a::after, .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #A80000;
+  transition: width 300ms ease;
+}
+
+nav a:hover::after, .nav-link:hover::after {
+  width: 100%;
+}
 </style>
 </head>
 <body>
