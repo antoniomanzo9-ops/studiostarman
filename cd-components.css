@@ -40,6 +40,7 @@
   z-index: 9000;
   pointer-events: none;
   opacity: var(--grain-opacity, .08);
+  mix-blend-mode: overlay;
 }
 .grain svg { width: 100%; height: 100% }
 
