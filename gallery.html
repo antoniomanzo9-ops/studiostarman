@@ -3,269 +3,697 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CREATIVE DISASTER — April: Partenope</title>
+<title>Investigations - Studio Starman</title>
+<meta name="description" content="Studio Starman documents problems that do not have names yet through visual research, AI systems, and territorial investigation.">
+<meta property="og:title" content="Investigations - Studio Starman">
+<meta property="og:description" content="Every work begins with a signal. Every signal is already real.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiostarman.com/gallery">
+<link rel="canonical" href="https://studiostarman.com/gallery">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23020202'/%3E%3Cpath d='M2 8h12M8 2v12' stroke='%23A80000' stroke-width='1.5'/%3E%3C/svg%3E">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=tusker-grotesk@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
   --black: #020202;
   --white: #E8E4DF;
   --red: #A80000;
-  --muted: rgba(232,228,223,0.35);
-  --muted-s: rgba(232,228,223,0.55);
+  --font-display: 'Tusker Grotesk', 'Bebas Neue', sans-serif;
+  --font-body: 'Space Mono', monospace;
 }
 
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-::selection{background:var(--red);color:var(--black)}
-html{overflow-x:hidden;cursor:none}
-body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
-/* ── CURSOR ── */
-.cur{position:fixed;width:10px;height:10px;background:var(--red);border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1)}
-.cur.big{width:60px;height:60px;background:rgba(168,0,0,.35)}
-.cur-ring{position:fixed;width:40px;height:40px;border:1px solid var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:.2}
-
-/* ── GRAIN (SVG feTurbulence) ── */
-.grain{position:fixed;inset:0;width:100%;height:100%;z-index:9000;pointer-events:none;opacity:.06;mix-blend-mode:overlay}
-.grain svg{width:100%;height:100%}
-
-/* ── AMBIENT VERTICAL LINE ── */
-.amb-line{position:fixed;left:50%;top:0;width:1px;height:100vh;z-index:100;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,var(--red) 30%,var(--red) 70%,transparent 100%);opacity:.04}
-
-/* ── PRELOADER ── */
-.pre{position:fixed;inset:0;background:var(--black);z-index:9500;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px}
-.pre.done{pointer-events:none}
-.pre-t{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;font-style:italic;color:var(--white)}
-.pre-m{font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--red)}
-.pre-bar{width:160px;height:1px;background:rgba(232,228,223,.06)}
-.pre-fill{height:100%;width:0%;background:var(--red)}
-
-/* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
-.nav-b{font-family:'Playfair Display',serif;font-size:12px;font-weight:900;font-style:italic;letter-spacing:.12em;color:var(--white);transition:transform .3s cubic-bezier(.16,1,.3,1)}
-.nav-r,.nav-vague{font-size:10px;letter-spacing:0;text-transform:uppercase;color:var(--muted);transition:opacity .3s}
-.nav-vague{text-decoration:none}
-.nav-vague:hover{color:var(--white)}
-
-/* ── SCROLL PROGRESS ── */
-.sp{position:fixed;left:0;top:0;width:2px;height:0%;background:var(--red);z-index:9100}
-
-/* ── PROGRESS DOTS ── */
-.dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:8px;mix-blend-mode:difference}
-.dot{width:5px;height:5px;border-radius:50%;background:rgba(232,228,223,.15);transition:all .5s cubic-bezier(.16,1,.3,1);cursor:pointer}
-.dot.on{background:var(--red);transform:scale(2)}
-
-/* ══════════════════════════════════════════
-   SECTIONS
-   ══════════════════════════════════════════ */
-
-/* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 32px;position:relative}
-.hero-t{font-size:clamp(3.5rem,12vw,11rem);font-weight:700;line-height:.82;text-transform:uppercase;letter-spacing:-.03em;text-align:center;position:relative}
-.hero-t .c{display:inline-block;opacity:0;transform:translateY(100%) rotateX(90deg);transform-origin:bottom center}
-.hero-t .r{color:var(--red)}
-.hero-sub{font-size:clamp(.6rem,.9vw,.75rem);letter-spacing:.5em;text-transform:uppercase;color:var(--muted);margin-top:48px;opacity:0;max-width:500px;text-align:center;line-height:1.8}
-.hero-gallery{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);text-align:center;opacity:0}
-.hero-gallery p{font-family:'Space Mono',monospace;font-size:clamp(.65rem,.9vw,.8rem);color:var(--muted);letter-spacing:.2em;text-transform:uppercase}
-
-/* ── GLITCH ── */
-.glitch{position:relative}
-.glitch.active::before,
-.glitch.active::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;opacity:.8}
-.glitch.active::before{color:var(--red);clip-path:polygon(0 0,100% 0,100% 33%,0 33%);transform:translate(-3px,-2px);animation:g1 .15s linear 2}
-.glitch.active::after{color:var(--white);clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%);transform:translate(3px,2px);animation:g2 .15s linear 2}
-@keyframes g1{0%{transform:translate(-3px,-2px)}25%{transform:translate(3px,1px)}50%{transform:translate(-2px,3px)}75%{transform:translate(2px,-3px)}100%{transform:translate(-3px,-2px)}}
-@keyframes g2{0%{transform:translate(3px,2px)}25%{transform:translate(-3px,-1px)}50%{transform:translate(2px,-3px)}75%{transform:translate(-2px,3px)}100%{transform:translate(3px,2px)}}
-
-/* ── FULL BLEED IMAGE ── */
-.bleed{position:relative;width:100%;overflow:hidden}
-.bleed img{width:100%;height:100%;object-fit:cover;display:block}
-.bleed-tall{min-height:90vh}
-.bleed-tall img{position:absolute;inset:0}
-
-/* ── SCANLINES on image sections ── */
-.bleed::after,
-.webgl-wrap::after,
-.split-img::after,
-.dual::after{
-  content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);
-  mix-blend-mode:multiply
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* ── TEXT SECTION ── */
-.txt{padding:100px 32px;display:flex;align-items:center;justify-content:center;min-height:50vh}
-.txt-inner{max-width:600px;text-align:center}
-.txt-inner h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;font-style:italic;line-height:1.05;margin-bottom:20px}
-.txt-inner h2 span{color:var(--red)}
-.txt-inner p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted);line-height:1.7}
-
-/* ── SPLIT GRID ── */
-.split{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
-.split-img{position:relative;overflow:hidden}
-.split-img img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05)}
-.split-text{display:flex;align-items:center;justify-content:center;padding:64px}
-.split-text-inner{max-width:420px}
-.split-text-inner h3{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;font-style:italic;line-height:1.05;margin-bottom:16px}
-.split-text-inner h3 span{color:var(--red)}
-.split-text-inner p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted);line-height:1.7}
-
-/* ── DUAL IMAGE ── */
-.dual{display:grid;grid-template-columns:1fr 1fr;gap:4px;position:relative}
-.dual img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* ── DARK FIGURES (full bleed with fog) ── */
-.fog-wrap{position:relative;width:100%;min-height:90vh;overflow:hidden}
-.fog-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.fog-wrap::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:radial-gradient(ellipse at center,transparent 30%,var(--black) 85%)}
-.fog-wrap::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);
-  mix-blend-mode:multiply}
-.fog-quote{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:32px}
-.fog-quote blockquote{font-family:'Playfair Display',serif;font-size:clamp(1rem,1.8vw,1.4rem);font-weight:900;font-style:italic;text-align:center;color:var(--white);max-width:400px;line-height:1.5;opacity:.9}
-.fog-quote blockquote span{color:var(--red)}
-
-/* ── HORIZONTAL SCROLL (VANITY) ── */
-.hscroll{position:relative;overflow:hidden}
-.hscroll-bg{position:absolute;inset:0;z-index:0}
-.hscroll-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.12);opacity:.6}
-.hscroll-track{display:flex;align-items:center;height:100vh;position:relative;z-index:2}
-.hscroll-inner{display:flex;align-items:center;gap:clamp(60px,10vw,160px);padding:0 10vw;white-space:nowrap}
-.hscroll-phrase{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,2.4rem);font-weight:900;font-style:italic;color:var(--muted);flex-shrink:0;opacity:0}
-.hscroll-big{font-size:clamp(4rem,14vw,12rem);font-weight:700;font-family:'Space Mono',monospace;color:var(--red);text-transform:uppercase;letter-spacing:-.04em;flex-shrink:0;opacity:0}
-
-/* ── EGG ── */
-.egg-section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px;position:relative}
-.egg-wrap{position:relative;display:flex;align-items:center;justify-content:center;max-width:600px;width:90%}
-.egg-wrap img{width:100%;display:block;opacity:0;transform:scale(.92);transition:opacity 1.8s cubic-bezier(.16,1,.3,1),transform 1.8s cubic-bezier(.16,1,.3,1)}
-.egg-wrap.visible img{opacity:1;transform:scale(1)}
-.egg-wrap::after{content:'';position:absolute;inset:-20%;border-radius:50%;z-index:-1;
-  background:radial-gradient(ellipse at center,rgba(168,0,0,.15) 0%,transparent 60%);
-  opacity:0;transition:opacity 1.5s ease;
-  animation:none}
-.egg-wrap.visible::after{opacity:1;animation:eggGlow 4s ease-in-out infinite}
-@keyframes eggGlow{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.05);opacity:1}}
-.egg-text{max-width:500px;text-align:center;margin-top:48px;opacity:0}
-.egg-text p{font-size:clamp(.8rem,1vw,.9rem);color:var(--muted);line-height:1.7}
-.egg-text p + p{margin-top:12px}
-
-/* ── REVELATION ── */
-.reveal{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 32px;position:relative;overflow:hidden}
-.reveal-bg{position:absolute;inset:0;z-index:0}
-.reveal-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.7) brightness(.18);display:block}
-.reveal-bg::after{content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at center,transparent 20%,var(--black) 75%)}
-.reveal-content{position:relative;z-index:2;text-align:center}
-.reveal-1{font-size:clamp(1rem,2vw,1.6rem);text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin-bottom:24px;opacity:0;filter:blur(10px);transform:scale(.9)}
-.reveal-2{font-size:clamp(3.5rem,12vw,10rem);font-weight:700;text-transform:uppercase;line-height:.82;letter-spacing:-.03em;text-align:center;opacity:0;transform:translateY(60px) scale(.9);filter:blur(20px)}
-.reveal-2 span{color:var(--red)}
-
-/* ── CODA ── */
-.coda{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:80px 32px;position:relative;overflow:hidden}
-.coda-bg{position:absolute;inset:0;z-index:0}
-.coda-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.1);display:block}
-.coda-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px}
-.coda-l{font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--muted);opacity:0}
-.coda-l a{color:var(--red);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
-.coda-l a:hover{border-color:var(--red)}
-.coda-end{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--muted-s);margin-top:24px;text-align:center;max-width:380px;line-height:1.5;opacity:0}
-
-/* ── GALLERY LABEL ── */
-.gl{position:absolute;bottom:32px;left:32px;z-index:50;max-width:280px;opacity:0}
-.gl-n{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
-.gl-t{font-family:'Playfair Display',serif;font-size:clamp(.85rem,1.2vw,1.05rem);font-weight:900;font-style:italic;color:var(--white);margin-bottom:4px}
-.gl-c{font-size:10px;color:var(--muted);line-height:1.4}
-.gl-line{width:30px;height:1px;background:var(--red);opacity:.3;margin:8px 0}
-.gl-y{font-size:8px;letter-spacing:.3em;color:var(--muted);margin-top:4px}
-
-/* ── CANVAS (WebGL) ── */
-.webgl-wrap{position:relative;width:100%;min-height:90vh;overflow:hidden}
-.webgl-wrap canvas{position:absolute;inset:0;width:100%;height:100%}
-
-/* ── CRT / VISUAL DNA ── */
-.scanlines-g{position:fixed;inset:0;z-index:8999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);mix-blend-mode:multiply}
-.hero-t{text-shadow:-1.5px 0 rgba(168,0,0,.12),1.5px 0 rgba(0,255,65,.08)}
-.txt-inner h2{text-shadow:-1px 0 rgba(168,0,0,.1),1px 0 rgba(0,255,65,.06)}
-.split-text-inner h3{text-shadow:-1px 0 rgba(168,0,0,.08),1px 0 rgba(0,255,65,.05)}
-.reveal-2{text-shadow:-2px 0 rgba(168,0,0,.15),2px 0 rgba(0,255,65,.1)}
-.fog-quote blockquote{text-shadow:-1px 0 rgba(168,0,0,.1),1px 0 rgba(0,255,65,.06)}
-.sp{box-shadow:0 0 6px rgba(0,255,65,.2)}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:2px}
-::-webkit-scrollbar-track{background:var(--black)}
-::-webkit-scrollbar-thumb{background:var(--red)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .split{grid-template-columns:1fr}
-  .split-text{padding:40px 24px;min-height:40vh}
-  .split.reverse-m{direction:ltr}
-  .split.reverse-m .split-img{order:1}
-  .split.reverse-m .split-text{order:2}
-  .dual{grid-template-columns:1fr;gap:2px}
-  .dots{display:none}
-  .nav{padding:14px 20px}
-  .gl{bottom:16px;left:16px}
-  .fog-wrap{min-height:70vh}
-  .hscroll-big{font-size:clamp(3rem,10vw,6rem)}
-  .amb-line{display:none}
+html {
+  background: var(--black);
+  color: var(--white);
+  cursor: none;
+  overflow-x: hidden;
 }
 
-nav a, .nav-link {
-  position: relative;
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::selection,
+::selection {
+  background: var(--red);
+  color: var(--white);
+}
+
+a {
+  color: inherit;
   text-decoration: none;
 }
 
-nav a::after, .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #A80000;
-  transition: width 300ms ease;
+button,
+a {
+  cursor: none;
 }
 
-nav a:hover::after, .nav-link:hover::after {
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 0;
+  height: 2px;
+  background: var(--red);
+  pointer-events: none;
+}
+
+.grain-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
   width: 100%;
+  height: 100%;
+  opacity: .11;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.cursor,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.cursor {
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(168, 0, 0, .55);
+  transition: width .25s ease, height .25s ease, border-color .25s ease;
+}
+
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--red);
+}
+
+body.cursor-active .cursor {
+  width: 70px;
+  height: 70px;
+  border-color: rgba(232, 228, 223, .5);
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 8000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 64px;
+  color: var(--white);
+  mix-blend-mode: difference;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: .8;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 34px;
+}
+
+.nav a {
+  position: relative;
+  font-size: 11px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: rgba(232, 228, 223, .66);
+  transition: color .2s ease;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--white);
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1px;
+  background: var(--red);
+  transition: width .25s ease;
+}
+
+.nav a:hover::after,
+.nav a[aria-current="page"]::after {
+  width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(232, 228, 223, .36);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--white);
+}
+
+.nav-toggle span,
+.nav-toggle::before,
+.nav-toggle::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.nav-toggle span {
+  top: 20px;
+}
+
+.nav-toggle::before {
+  top: 14px;
+}
+
+.nav-toggle::after {
+  top: 26px;
+}
+
+.nav-open .nav-toggle span {
+  opacity: 0;
+}
+
+.nav-open .nav-toggle::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-open .nav-toggle::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+main {
+  background: var(--black);
+}
+
+.section {
+  position: relative;
+  padding: 120px 64px;
+}
+
+.label {
+  margin: 0 0 20px;
+  font-size: 11px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--red);
+}
+
+.display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.hero {
+  min-height: 100svh;
+  display: grid;
+  align-items: end;
+  padding-top: 140px;
+  padding-bottom: 72px;
+  border-bottom: 1px solid rgba(232, 228, 223, .15);
+}
+
+.hero-inner {
+  max-width: 1160px;
+}
+
+.hero-title {
+  max-width: 1120px;
+  font-size: 124px;
+  line-height: .82;
+}
+
+.hero-sub {
+  max-width: 720px;
+  margin: 34px 0 0;
+  color: rgba(232, 228, 223, .72);
+  font-size: 14px;
+}
+
+.hero-ledger {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 86px;
+  border-top: 1px solid rgba(232, 228, 223, .15);
+  border-bottom: 1px solid rgba(232, 228, 223, .15);
+}
+
+.hero-ledger span {
+  padding: 18px 20px;
+  color: rgba(232, 228, 223, .72);
+  font-size: 11px;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(232, 228, 223, .15);
+}
+
+.hero-ledger span:last-child {
+  border-right: 0;
+}
+
+.active {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  padding: 0;
+}
+
+.active-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.active-media video {
+  width: 100%;
+  height: 112%;
+  object-fit: cover;
+  object-position: 63% center;
+  filter: grayscale(1) contrast(1.24) brightness(.54);
+  transform: translateY(var(--video-shift, 0));
+}
+
+.active-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(2, 2, 2, .9), rgba(2, 2, 2, .34) 42%, rgba(2, 2, 2, .68)),
+    linear-gradient(0deg, rgba(2, 2, 2, .86), rgba(2, 2, 2, 0) 42%);
+}
+
+.active-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1180px;
+  padding: 0 64px 72px;
+}
+
+.active-meta,
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-bottom: 18px;
+  color: var(--red);
+  font-size: 11px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.active-title {
+  max-width: 960px;
+  font-size: 110px;
+  line-height: .82;
+}
+
+.active-problem {
+  max-width: 760px;
+  margin: 30px 0 38px;
+  color: rgba(232, 228, 223, .82);
+  font-size: 15px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 13px 18px;
+  border: 1px solid var(--red);
+  border-radius: 0;
+  color: var(--white);
+  font-size: 11px;
+  text-transform: uppercase;
+  transition: background .2s ease, color .2s ease;
+}
+
+.cta:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+.archive {
+  border-top: 1px solid rgba(232, 228, 223, .15);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, .76fr) minmax(280px, .24fr);
+  gap: 56px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: 92px;
+  line-height: .86;
+}
+
+.section-copy {
+  margin: 0;
+  color: rgba(232, 228, 223, .68);
+  font-size: 13px;
+}
+
+.case-list {
+  border-top: 1px solid rgba(232, 228, 223, .2);
+}
+
+.case-file {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) 140px;
+  gap: 34px;
+  padding: 30px 0;
+  border-bottom: 1px solid rgba(232, 228, 223, .2);
+}
+
+.case-number {
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: .9;
+}
+
+.case-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.case-problem {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: rgba(232, 228, 223, .74);
+  font-size: 13px;
+}
+
+.case-status {
+  justify-self: end;
+  align-self: start;
+  padding-top: 6px;
+  color: var(--red);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.redacted {
+  color: rgba(232, 228, 223, .38);
+}
+
+.method {
+  min-height: 76svh;
+  display: grid;
+  align-items: center;
+  border-top: 1px solid rgba(232, 228, 223, .15);
+  border-bottom: 1px solid rgba(232, 228, 223, .15);
+}
+
+.method-statement {
+  max-width: 820px;
+  margin: 0 0 72px;
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+.method-strip {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid rgba(232, 228, 223, .2);
+  border-bottom: 1px solid rgba(232, 228, 223, .2);
+}
+
+.method-step,
+.method-arrow {
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.method-arrow {
+  color: var(--red);
+  font-family: var(--font-body);
+  font-size: 18px;
+}
+
+.entry {
+  min-height: 70svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.entry h2 {
+  max-width: 850px;
+  font-size: 98px;
+  line-height: .82;
+}
+
+.entry .cta {
+  margin-top: 34px;
+}
+
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 960px) {
+  html,
+  body,
+  button,
+  a {
+    cursor: auto;
+  }
+
+  .cursor,
+  .cursor-dot {
+    display: none;
+  }
+
+  .nav {
+    padding: 18px 20px;
+    mix-blend-mode: normal;
+  }
+
+  .nav-brand {
+    font-size: 24px;
+  }
+
+  .nav-toggle {
+    display: block;
+    z-index: 2;
+  }
+
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    gap: 24px;
+    background: var(--black);
+    transform: translateY(-100%);
+    transition: transform .25s ease;
+  }
+
+  .nav-open .nav-links {
+    transform: translateY(0);
+  }
+
+  .nav a {
+    font-size: 14px;
+  }
+
+  .section {
+    padding: 92px 20px;
+  }
+
+  .hero {
+    padding-top: 112px;
+    padding-bottom: 46px;
+  }
+
+  .hero-title {
+    font-size: 62px;
+  }
+
+  .hero-sub {
+    font-size: 12px;
+  }
+
+  .hero-ledger {
+    grid-template-columns: 1fr;
+    margin-top: 50px;
+  }
+
+  .hero-ledger span {
+    border-right: 0;
+    border-bottom: 1px solid rgba(232, 228, 223, .15);
+  }
+
+  .hero-ledger span:last-child {
+    border-bottom: 0;
+  }
+
+  .active-content {
+    padding: 0 20px 42px;
+  }
+
+  .active-media video {
+    height: 100%;
+    object-position: 70% center;
+  }
+
+  .active-title {
+    font-size: 64px;
+  }
+
+  .active-problem {
+    font-size: 13px;
+  }
+
+  .section-head {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .section-title {
+    font-size: 58px;
+  }
+
+  .case-file {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .case-status {
+    justify-self: start;
+  }
+
+  .case-title {
+    font-size: 36px;
+  }
+
+  .method-statement {
+    font-size: 15px;
+  }
+
+  .method-strip {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .method-step {
+    min-height: 62px;
+    border-bottom: 1px solid rgba(232, 228, 223, .18);
+    font-size: 34px;
+  }
+
+  .method-arrow {
+    min-height: 38px;
+    font-size: 14px;
+  }
+
+  .entry h2 {
+    font-size: 58px;
+  }
+}
+
+@media (max-width: 430px) {
+  body {
+    font-size: 13px;
+  }
+
+  .hero-title {
+    font-size: 48px;
+  }
+
+  .active-title {
+    font-size: 50px;
+  }
+
+  .section-title,
+  .entry h2 {
+    font-size: 48px;
+  }
+
+  .case-number {
+    font-size: 34px;
+  }
+
+  .case-title {
+    font-size: 30px;
+  }
 }
 </style>
 </head>
 <body>
 <div class="scroll-indicator" aria-hidden="true"></div>
+<canvas class="grain-canvas" id="grainCanvas" aria-hidden="true"></canvas>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
-<!-- CURSOR -->
-<div class="cur" id="cur"></div>
-<div class="cur-ring" id="ring"></div>
-
-<!-- SCANLINES — global CRT decay -->
-<div class="scanlines-g"></div>
-
-<!-- GRAIN (SVG feTurbulence, animated) -->
-<div class="grain" id="grain">
-  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-    <filter id="grainF">
-      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" seed="0">
-        <animate attributeName="seed" from="0" to="100" dur="1.5s" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feColorMatrix type="saturate" values="0"/>
-    </filter>
-    <rect width="100%" height="100%" filter="url(#grainF)" opacity="0.5"/>
-  </svg>
-</div>
-
-<!-- AMBIENT VERTICAL LINE -->
-<div class="amb-line"></div>
-
-<!-- SCROLL PROGRESS -->
-<div class="sp" id="sp"></div>
-
-<!-- NAV -->
-<nav class="nav" id="mainNav">
-  <a href="index.html" class="nav-brand">Studio Starman</a>
+<nav class="nav" id="siteNav" aria-label="Primary navigation">
+  <a class="nav-brand" href="index.html">Studio Starman</a>
   <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span></button>
   <div class="nav-links">
     <a href="studio.html">Studio</a>
@@ -276,779 +704,201 @@ nav a:hover::after, .nav-link:hover::after {
   </div>
 </nav>
 
-<!-- DOTS -->
-<div class="dots" id="dots"></div>
-
-<!-- PRELOADER -->
-<div class="pre" id="pre">
-  <div class="pre-t">Studio Starman</div>
-  <div class="pre-m">April 2026 — Partenope</div>
-  <div class="pre-bar"><div class="pre-fill" id="pf"></div></div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════
-     1. ENTRANCE — AM I ULYSSES?
-     ═══════════════════════════════════════════════ -->
-<section class="hero" data-s="Entrance">
-  <h1 class="hero-t glitch" id="ht" data-text="AM I ULYSSES?">
-    <span class="c">A</span><span class="c">M</span>&nbsp;<span class="c r">I</span><br>
-    <span class="c">U</span><span class="c">L</span><span class="c">Y</span><span class="c">S</span><span class="c">S</span><span class="c">E</span><span class="c">S</span><span class="c r">?</span>
-  </h1>
-  <p class="hero-sub" id="hsub">A city born on the pain of a woman who could not win</p>
-  <div class="hero-gallery" id="hg">
-    <p>This is not a website. This is a gallery.</p>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     2. THE SONG — partenope-reaching (WebGL)
-     ═══════════════════════════════════════════════ -->
-<section class="webgl-wrap" data-s="I — The Song">
-  <canvas id="c01"></canvas>
-  <div class="gl" id="gl01">
-    <div class="gl-n">Opera I</div>
-    <div class="gl-t">The Song</div>
-    <div class="gl-line"></div>
-    <div class="gl-c">She sang not to seduce but to exist.</div>
-    <div class="gl-y">2026</div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     3. THE WATER — water-text (full bleed, no overlay)
-     ═══════════════════════════════════════════════ -->
-<section class="bleed bleed-tall" data-s="II — The Water">
-  <img src="images/water-text.jpg" alt="The water makes them slow — submerged text dissolving beneath the surface" width="834" height="461" loading="lazy" id="img02">
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     4. TEXT BREAK
-     ═══════════════════════════════════════════════ -->
-<section class="txt" data-s>
-  <div class="txt-inner" id="txt01">
-    <h2>She didn't throw herself into the sea because he <span>escaped.</span></h2>
-    <p>She died because he didn't look. Not tragedy. Wounded vanity.</p>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     5. THE GAZE — audience-glass (split)
-     ═══════════════════════════════════════════════ -->
-<section class="split" data-s="III — The Gaze">
-  <div class="split-img">
-    <img src="images/audience-glass.png" alt="The gaze — an audience seen through frosted glass, watching and being watched" width="2000" height="1125" loading="lazy" id="img03">
-  </div>
-  <div class="split-text">
-    <div class="split-text-inner" id="st01">
-      <h3>Who is <span>watching</span> whom?</h3>
-      <p>The glass between seeing and being seen is thinner than you think.</p>
+<main>
+  <section class="section hero" aria-labelledby="manifesto-title">
+    <div class="hero-inner reveal">
+      <p class="label">Studio Starman / Investigations / 2026</p>
+      <h1 class="display hero-title" id="manifesto-title">We document problems that don't have names yet.</h1>
+      <p class="hero-sub">Geographic. Emotional. Political. The gap between what is happening and what will be felt in 10 years - that is our subject.</p>
+      <div class="hero-ledger" aria-label="Operational fields">
+        <span>Visual research</span>
+        <span>AI education</span>
+        <span>Spatial evidence</span>
+        <span>Future tensions</span>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-<!-- ═══════════════════════════════════════════════
-     6. THE WITNESSES — dark-figures (fog)
-     ═══════════════════════════════════════════════ -->
-<section class="fog-wrap" data-s="IV — The Witnesses">
-  <img src="images/dark-figures.png" alt="The witnesses — dark silhouettes emerging from fog, observing in silence" width="2000" height="1125" loading="lazy" id="img04">
-  <div class="fog-quote" id="fq01">
-    <blockquote>A siren who dies<br>not from <span>rejection</span><br>but from being ignored.</blockquote>
-  </div>
-  <div class="gl" id="gl04">
-    <div class="gl-n">Opera IV</div>
-    <div class="gl-t">The Witnesses</div>
-    <div class="gl-line"></div>
-    <div class="gl-c">Every myth needs witnesses. Every audience needs a victim.</div>
-    <div class="gl-y">2026</div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     7. THE BODY BECOMES THE LAND — dual (no text)
-     ═══════════════════════════════════════════════ -->
-<section class="dual" data-s="V — The Body Becomes the Land">
-  <div>
-    <img src="images/volcano-brand.jpg" alt="Studio Starman — volcanic terrain branded with fire and pressure" width="842" height="465" loading="lazy" id="img05a">
-  </div>
-  <div>
-    <img src="images/volcano-text.jpg" alt="The mountain will do what it wants — Solfatara steam rising over scorched earth" width="826" height="449" loading="lazy" id="img05b">
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     8. VANITY — horizontal scroll
-     ═══════════════════════════════════════════════ -->
-<section class="hscroll" data-s="VI — Vanity">
-  <div class="hscroll-bg">
-    <img src="images/ornate-room.png" alt="An ornate Neapolitan room — gilded decay, baroque excess turned inward" width="2000" height="1125" loading="lazy">
-  </div>
-  <div class="hscroll-track" id="hscrollTrack">
-    <div class="hscroll-inner" id="hscrollInner">
-      <span class="hscroll-phrase">She built palaces from pain.</span>
-      <span class="hscroll-phrase">Gilded every wound.</span>
-      <span class="hscroll-phrase">Called it beauty.</span>
-      <span class="hscroll-phrase">Called it culture.</span>
-      <span class="hscroll-phrase">Called it survival.</span>
-      <span class="hscroll-big">ARE YOU LOOKING AT ME?</span>
+  <section class="active" aria-labelledby="active-title">
+    <div class="active-media" aria-hidden="true">
+      <video src="https://pub-27e6f1c30ca9405f9c7666f52daf06ad.r2.dev/primovideofinitocompleto.mp4" autoplay muted loop playsinline preload="metadata"></video>
     </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     9. THE CITY — naples-aerial (split)
-     ═══════════════════════════════════════════════ -->
-<section class="split" data-s="VII — The City">
-  <div class="split-text">
-    <div class="split-text-inner" id="st03">
-      <h3>Her body became <span>the city.</span></h3>
-      <p>Every building a scar. Every street a nerve ending.</p>
+    <div class="active-content reveal">
+      <div class="active-meta">
+        <span>Investigation 01</span>
+        <span>Open</span>
+        <span>Campi Flegrei</span>
+        <span>2026</span>
+      </div>
+      <h2 class="display active-title" id="active-title">Partenope / Am I Ulysses?</h2>
+      <p class="active-problem">The problem is a territory built on borrowed myth, volcanic risk, and a woman converted into civic identity after disappearing. The city keeps asking whether beauty can survive when its founding body is treated as evidence and wound.</p>
+      <a class="cta" href="gallery-3d.html">Enter</a>
     </div>
-  </div>
-  <div class="split-img">
-    <img src="images/naples-aerial.png" alt="Naples from above — the city sprawling across the bay, body becoming geography" width="2000" height="1125" loading="lazy" id="img07">
-  </div>
-</section>
+  </section>
 
+  <section class="section archive" aria-labelledby="archive-title">
+    <div class="section-head reveal">
+      <div>
+        <p class="label">Archive / Case files</p>
+        <h2 class="display section-title" id="archive-title">Investigations list</h2>
+      </div>
+      <p class="section-copy">Each entry records a tension, a territory, and a working status. The medium is secondary. The problem is the file.</p>
+    </div>
 
-<!-- ═══════════════════════════════════════════════
-     10. TEXT BREAK
-     ═══════════════════════════════════════════════ -->
-<section class="txt" data-s>
-  <div class="txt-inner" id="txt02">
-    <h2>Every palazzo, every song, every gesture is Partenope still asking the same <span>question.</span></h2>
-  </div>
-</section>
+    <div class="case-list">
+      <article class="case-file reveal">
+        <div class="case-number">001</div>
+        <div>
+          <div class="case-meta">
+            <span>2026</span>
+            <span>Campi Flegrei</span>
+          </div>
+          <h3 class="case-title">Am I Ulysses?</h3>
+          <p class="case-problem">The geography of a city born from someone else's pain.</p>
+        </div>
+        <div class="case-status">Open</div>
+      </article>
 
+      <article class="case-file reveal">
+        <div class="case-number">002</div>
+        <div>
+          <div class="case-meta">
+            <span>2026</span>
+            <span>Napoli</span>
+          </div>
+          <h3 class="case-title">Partenope</h3>
+          <p class="case-problem">What happens to beauty when the body that created it disappears.</p>
+        </div>
+        <div class="case-status">Open</div>
+      </article>
 
-<!-- ═══════════════════════════════════════════════
-     11. THE EGG — golden-egg-dark (breathing)
-     ═══════════════════════════════════════════════ -->
-<section class="egg-section" data-s="VIII — The Egg">
-  <div class="egg-wrap" id="eggWrap">
-    <img src="images/golden-egg-dark.jpg" alt="The golden egg — Virgil's egg beneath Castel dell'Ovo, glowing in darkness" width="2000" height="1125" loading="lazy">
-  </div>
-  <div class="egg-text" id="eggText">
-    <p>Beneath Castel dell'Ovo, Virgil placed an egg.</p>
-    <p>Not a miracle. An awareness. The moment you realize you can choose.</p>
-    <p>Partenope died wanting to be seen. The egg doesn't need to be seen. It holds.</p>
-  </div>
-</section>
+      <article class="case-file reveal">
+        <div class="case-number">003</div>
+        <div>
+          <div class="case-meta">
+            <span>2026</span>
+            <span>In development</span>
+          </div>
+          <h3 class="case-title redacted">[Redacted]</h3>
+          <p class="case-problem">The file is active. Public naming is not yet possible.</p>
+        </div>
+        <div class="case-status">In progress</div>
+      </article>
+    </div>
+  </section>
 
+  <section class="section method" aria-labelledby="method-title">
+    <div class="reveal">
+      <p class="label">Method / Visible process</p>
+      <h2 class="display section-title" id="method-title">How a file becomes visible</h2>
+      <p class="method-statement">We begin with a signal - something happening in the world. We run it through research, photography, AI systems, spatial thinking. We produce an investigation. The investigation becomes visible work.</p>
+      <div class="method-strip" aria-label="Process">
+        <span class="method-step">Signal</span>
+        <span class="method-arrow">&rarr;</span>
+        <span class="method-step">Research</span>
+        <span class="method-arrow">&rarr;</span>
+        <span class="method-step">Transformation</span>
+        <span class="method-arrow">&rarr;</span>
+        <span class="method-step">Visible form</span>
+      </div>
+    </div>
+  </section>
 
-<!-- ═══════════════════════════════════════════════
-     12. REVELATION — egg-in-waves bg
-     ═══════════════════════════════════════════════ -->
-<section class="reveal" data-s="Revelation">
-  <div class="reveal-bg">
-    <img src="images/egg-in-waves.jpg" alt="The egg carried by waves — revelation rising from the Tyrrhenian Sea" width="2000" height="1125" loading="lazy">
-  </div>
-  <div class="reveal-content">
-    <p class="reveal-1" id="rv1">You are not Ulysses.</p>
-    <h2 class="reveal-2" id="rv2">YOU ARE<br>THE <span>EGG.</span></h2>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     13. THE IMPOSSIBLE CITY — city-sphere
-     ═══════════════════════════════════════════════ -->
-<section class="bleed bleed-tall" data-s="IX — The Impossible City">
-  <img src="images/city-sphere.png" alt="The impossible city — Naples folded into a sphere, gravity suspended" width="2000" height="1125" loading="lazy" id="img10">
-  <div class="gl" id="gl10">
-    <div class="gl-n">Opera IX</div>
-    <div class="gl-t">The Impossible City</div>
-    <div class="gl-line"></div>
-    <div class="gl-c">A city that shouldn't exist, floating above its own impossibility.</div>
-    <div class="gl-y">2026</div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     14. CODA
-     ═══════════════════════════════════════════════ -->
-<section class="coda" data-s="Coda">
-  <div class="coda-bg">
-    <img src="images/naples-aerial.png" alt="Naples from above — the coda, a wound that learned to sing" width="2000" height="1125" loading="lazy">
-  </div>
-  <div class="coda-content">
-    <p class="coda-l">Studio Starman — April 2026</p>
-    <p class="coda-l">Concept & Direction — Antonio Lazzaro</p>
-    <p class="coda-l"><a href="https://studiostarman.com" target="_blank">studiostarman.com</a></p>
-    <p class="coda-end" id="codaEnd">Naples is not a place.<br>It's a wound that learned to sing.</p>
-  </div>
-</section>
-
-
-<!-- LIBS -->
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <section class="section entry" aria-labelledby="entry-title">
+    <div class="reveal">
+      <p class="label">Open archive</p>
+      <h2 class="display" id="entry-title">The archive grows. Something is always open.</h2>
+      <a class="cta" href="contact.html">Start here</a>
+    </div>
+  </section>
+</main>
 
 <script>
-(()=>{
-'use strict';
-
-// ── LENIS ──
-const lenis = new Lenis({ duration:1.5, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
-gsap.registerPlugin(ScrollTrigger);
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add(t=>lenis.raf(t*1000));
-gsap.ticker.lagSmoothing(0);
-(function r(t){lenis.raf(t);requestAnimationFrame(r)})(0);
-
-let mx=innerWidth/2, my=innerHeight/2, smx=mx, smy=my;
-
-// ── PRELOADER ──
-const pre=document.getElementById('pre'), pf=document.getElementById('pf');
-let lp=0;
-(function t(){lp+=(100-lp)*.02;pf.style.width=lp+'%';if(lp<99)requestAnimationFrame(t)})();
-window.addEventListener('load',()=>{
-  lp=100;pf.style.width='100%';
-  setTimeout(()=>{
-    gsap.to(pre,{opacity:0,duration:1.2,ease:'power2.inOut',onComplete:()=>{
-      pre.classList.add('done');pre.style.display='none';go();
-    }});
-  },500);
+const nav = document.getElementById('siteNav');
+const toggle = nav.querySelector('.nav-toggle');
+toggle.addEventListener('click', () => {
+  const open = nav.classList.toggle('nav-open');
+  toggle.setAttribute('aria-expanded', String(open));
+  toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
 });
 
-// ── CURSOR ──
-const cur=document.getElementById('cur'), ring=document.getElementById('ring');
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-(function ac(){
-  smx+=(mx-smx)*.1; smy+=(my-smy)*.1;
-  cur.style.left=mx+'px'; cur.style.top=my+'px';
-  ring.style.left=smx+'px'; ring.style.top=smy+'px';
-  requestAnimationFrame(ac);
-})();
-// Expand cursor on links and interactive elements
-function bindCursorHover(){
-  document.querySelectorAll('a,.dot,.nav-b').forEach(el=>{
-    el.addEventListener('mouseenter',()=>cur.classList.add('big'));
-    el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
-  });
+const grain = document.getElementById('grainCanvas');
+const gctx = grain.getContext('2d');
+function sizeGrain() {
+  grain.width = window.innerWidth;
+  grain.height = window.innerHeight;
 }
-bindCursorHover();
-
-// ── MAGNETIC NAV LOGO ──
-const navB=document.getElementById('navB');
-navB.addEventListener('mousemove',e=>{
-  const r=navB.getBoundingClientRect();
-  const cx=r.left+r.width/2, cy=r.top+r.height/2;
-  const dx=(e.clientX-cx)*0.25, dy=(e.clientY-cy)*0.25;
-  navB.style.transform=`translate(${dx}px,${dy}px)`;
+function drawGrain() {
+  const image = gctx.createImageData(grain.width, grain.height);
+  const data = image.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const shade = Math.random() * 255;
+    data[i] = shade;
+    data[i + 1] = shade;
+    data[i + 2] = shade;
+    data[i + 3] = 24;
+  }
+  gctx.putImageData(image, 0, 0);
+}
+sizeGrain();
+drawGrain();
+window.addEventListener('resize', () => {
+  sizeGrain();
+  drawGrain();
 });
-navB.addEventListener('mouseleave',()=>{
-  navB.style.transform='translate(0,0)';
+setInterval(drawGrain, 1000 / 10);
+
+const cursor = document.getElementById('cursor');
+const dot = document.getElementById('cursorDot');
+let mx = window.innerWidth / 2;
+let my = window.innerHeight / 2;
+let cx = mx;
+let cy = my;
+document.addEventListener('mousemove', event => {
+  mx = event.clientX;
+  my = event.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top = my + 'px';
+});
+function cursorTick() {
+  cx += (mx - cx) * .14;
+  cy += (my - cy) * .14;
+  cursor.style.left = cx + 'px';
+  cursor.style.top = cy + 'px';
+  requestAnimationFrame(cursorTick);
+}
+cursorTick();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
 });
 
-// ── SCROLL PROGRESS ──
-const sp=document.getElementById('sp');
-function updateScrollProgress(){
-  const p=scrollY/(document.documentElement.scrollHeight-innerHeight);
-  sp.style.height=(p*100)+'%';
-  return p;
+const indicator = document.querySelector('.scroll-indicator');
+const activeVideo = document.querySelector('.active-media video');
+function updateScroll() {
+  const scrollTop = window.scrollY;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
+  indicator.style.width = (progress * 100) + '%';
+
+  if (activeVideo) {
+    const rect = activeVideo.getBoundingClientRect();
+    const shift = Math.max(-40, Math.min(40, rect.top * -0.04));
+    activeVideo.style.setProperty('--video-shift', shift + 'px');
+  }
 }
-window.addEventListener('scroll',updateScrollProgress);
+window.addEventListener('scroll', updateScroll, { passive: true });
+window.addEventListener('resize', updateScroll);
+updateScroll();
 
-// ── DOTS ──
-const sections=document.querySelectorAll('[data-s]');
-const dotsC=document.getElementById('dots');
-sections.forEach((s,i)=>{
-  const d=document.createElement('div');
-  d.className='dot';
-  d.addEventListener('click',()=>{
-    lenis.scrollTo(s,{duration:2});
-  });
-  dotsC.appendChild(d);
-});
-const allDots=[...dotsC.querySelectorAll('.dot')];
-
-// ── CHAPTER TRACKER (IntersectionObserver) ──
-const navR=document.getElementById('navR');
-const sObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const i=[...sections].indexOf(e.target);
-      allDots.forEach((d,j)=>d.classList.toggle('on',j===i));
-      const label=e.target.getAttribute('data-s');
-      if(label) navR.textContent=label;
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
     }
   });
-},{threshold:.25});
-sections.forEach(s=>sObs.observe(s));
-
-// ── GLITCH EFFECT (every 5s) ──
-const heroTitle=document.getElementById('ht');
-setInterval(()=>{
-  heroTitle.classList.add('active');
-  setTimeout(()=>heroTitle.classList.remove('active'),300);
-},5000);
-
-
-// ═══════════════════════════════════════
-// THREE.JS — Section 01 displacement
-// ═══════════════════════════════════════
-function initHeroImage(){
-  const canvas=document.getElementById('c01');
-  const section=canvas.parentElement;
-  const renderer=new THREE.WebGLRenderer({canvas,alpha:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,100);
-  camera.position.z=1;
-
-  function resize(){
-    const r=section.getBoundingClientRect();
-    renderer.setSize(r.width,r.height);
-    camera.aspect=r.width/r.height;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-
-  new THREE.TextureLoader().load('images/partenope-reaching.jpg',tex=>{
-    const fs=`
-      uniform sampler2D uTex;
-      uniform float uTime;
-      uniform vec2 uMouse;
-      varying vec2 vUv;
-      void main(){
-        vec2 uv=vUv;
-        float d=distance(uv,uMouse);
-        // Water ripple from cursor
-        float ripple=sin(d*25.0-uTime*2.5)*exp(-d*4.5)*0.012;
-        uv+=ripple;
-        // Slow drift
-        uv.x+=sin(uv.y*6.0+uTime*.3)*.0015;
-        uv.y+=cos(uv.x*5.0+uTime*.25)*.0015;
-        vec4 c=texture2D(uTex,uv);
-        // Near-monochrome
-        float g=dot(c.rgb,vec3(.299,.587,.114));
-        c.rgb=mix(vec3(g),c.rgb,.12);
-        c.rgb=pow(c.rgb*.6,vec3(1.1));
-        // Red bleed near cursor
-        c.r+=smoothstep(.3,.0,d)*.12;
-        // Cinematic vignette
-        c.rgb*=1.0-smoothstep(.2,.85,distance(vUv,vec2(.5)));
-        gl_FragColor=c;
-      }`;
-    const vs=`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
-    const asp=tex.image.width/tex.image.height;
-    const geo=new THREE.PlaneGeometry(asp*1.2,1.2,48,48);
-    const mat=new THREE.ShaderMaterial({
-      uniforms:{uTex:{value:tex},uTime:{value:0},uMouse:{value:new THREE.Vector2(.5,.5)}},
-      vertexShader:vs,fragmentShader:fs
-    });
-    const r=section.getBoundingClientRect();
-    const s=Math.max((r.width/r.height)/asp,1)*1.6;
-    const mesh=new THREE.Mesh(geo,mat);
-    mesh.scale.set(s,s,1);
-    scene.add(mesh);
-
-    let vis=false;
-    new IntersectionObserver(e=>{vis=e[0].isIntersecting},{threshold:.05}).observe(section);
-
-    (function a(){
-      if(vis){
-        mat.uniforms.uTime.value+=.016;
-        const r=section.getBoundingClientRect();
-        mat.uniforms.uMouse.value.set(
-          THREE.MathUtils.clamp((mx-r.left)/r.width,0,1),
-          THREE.MathUtils.clamp(1-(my-r.top)/r.height,0,1)
-        );
-        renderer.render(scene,camera);
-      }
-      requestAnimationFrame(a);
-    })();
-  });
-
-  window.addEventListener('resize',resize);
-}
-initHeroImage();
-
-
-// ═══════════════════════════════════════
-// GSAP ANIMATIONS
-// ═══════════════════════════════════════
-function go(){
-
-  // Hero chars — rotateX entrance
-  gsap.to('.hero-t .c',{
-    opacity:1, y:0, rotateX:0,
-    duration:1.3, stagger:.04, ease:'expo.out', delay:.15
-  });
-  gsap.to('#hsub',{opacity:1,duration:1.5,delay:1.2,ease:'power2.out'});
-  gsap.to('#hg',{opacity:1,duration:1.8,delay:1.8,ease:'power2.out'});
-
-  // Hero parallax out
-  gsap.to('.hero-t',{yPercent:20,opacity:0,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
-  gsap.to('#hsub',{yPercent:40,opacity:0,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
-  gsap.to('#hg',{yPercent:60,opacity:0,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
-
-  // Gallery labels
-  document.querySelectorAll('.gl').forEach(gl=>{
-    gsap.to(gl,{opacity:1,duration:1,ease:'power2.out',
-      scrollTrigger:{trigger:gl.parentElement,start:'top 50%',toggleActions:'play none none reverse'}});
-  });
-
-  // Full bleed images — parallax
-  document.querySelectorAll('.bleed-tall img').forEach(img=>{
-    gsap.fromTo(img,{y:'-5%'},{y:'5%',ease:'none',
-      scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:1.5}});
-  });
-
-  // Text sections
-  document.querySelectorAll('.txt-inner').forEach(t=>{
-    gsap.fromTo(t,{opacity:0,y:40},{opacity:1,y:0,duration:1.2,ease:'power3.out',
-      scrollTrigger:{trigger:t,start:'top 75%',toggleActions:'play none none reverse'}});
-  });
-
-  // Split text blocks
-  document.querySelectorAll('.split-text-inner').forEach(t=>{
-    gsap.fromTo(t,{opacity:0,y:30},{opacity:1,y:0,duration:1,ease:'power3.out',
-      scrollTrigger:{trigger:t,start:'top 70%',toggleActions:'play none none reverse'}});
-  });
-
-  // Split images — scale on scroll (scrub)
-  document.querySelectorAll('.split-img img').forEach(img=>{
-    gsap.to(img,{scale:1,ease:'none',
-      scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:2}});
-  });
-
-  // Dual images — staggered reveal
-  document.querySelectorAll('.dual > div').forEach((item,i)=>{
-    gsap.fromTo(item,{opacity:0,y:30},{opacity:1,y:0,duration:1,delay:i*.15,ease:'power3.out',
-      scrollTrigger:{trigger:item.parentElement,start:'top 70%',toggleActions:'play none none reverse'}});
-  });
-
-  // Fog quote
-  gsap.fromTo('#fq01 blockquote',{opacity:0,y:20},{opacity:.9,y:0,duration:1.5,ease:'power3.out',
-    scrollTrigger:{trigger:'.fog-wrap',start:'top 40%',toggleActions:'play none none reverse'}});
-
-  // ── HORIZONTAL SCROLL (VANITY) ──
-  const hInner=document.getElementById('hscrollInner');
-  const hTrack=document.getElementById('hscrollTrack');
-  if(hInner && hTrack){
-    // Calculate total scroll distance
-    const getScrollWidth=()=>hInner.scrollWidth - window.innerWidth;
-
-    const hTl=gsap.timeline({
-      scrollTrigger:{
-        trigger:'.hscroll',
-        start:'top top',
-        end:()=>'+='+hInner.scrollWidth,
-        pin:true,
-        scrub:1,
-        invalidateOnRefresh:true
-      }
-    });
-    hTl.to(hInner,{x:()=>-getScrollWidth(),ease:'none'});
-
-    // Staggered reveal of phrases
-    document.querySelectorAll('.hscroll-phrase, .hscroll-big').forEach((ph,i)=>{
-      gsap.to(ph,{opacity:1,duration:.5,
-        scrollTrigger:{trigger:ph,start:'left 80%',end:'left 50%',scrub:1,
-          containerAnimation:hTl,
-        }
-      });
-    });
-  }
-
-  // ── EGG (classList toggle for CSS transition) ──
-  const eggWrap=document.getElementById('eggWrap');
-  const eggText=document.getElementById('eggText');
-  ScrollTrigger.create({
-    trigger:'.egg-section',
-    start:'top 50%',
-    onEnter:()=>{
-      eggWrap.classList.add('visible');
-      gsap.to(eggText,{opacity:1,y:0,duration:1.5,delay:.5,ease:'power3.out'});
-    },
-    onLeaveBack:()=>{
-      eggWrap.classList.remove('visible');
-      gsap.set(eggText,{opacity:0});
-    }
-  });
-  gsap.set(eggText,{opacity:0,y:30});
-
-  // ── REVELATION ──
-  // Glitch burst on enter
-  ScrollTrigger.create({
-    trigger:'.reveal',
-    start:'top 60%',
-    onEnter:()=>{
-      heroTitle.classList.add('active');
-      setTimeout(()=>heroTitle.classList.remove('active'),400);
-    },
-    once:true
-  });
-
-  gsap.to('#rv1',{opacity:1,scale:1,filter:'blur(0px)',duration:1.5,ease:'power3.out',
-    scrollTrigger:{trigger:'.reveal',start:'top 50%',toggleActions:'play none none reverse'}});
-  gsap.to('#rv2',{opacity:1,y:0,scale:1,filter:'blur(0px)',duration:2,ease:'expo.out',
-    scrollTrigger:{trigger:'.reveal',start:'top 35%',toggleActions:'play none none reverse'}});
-
-  // ── IMPOSSIBLE CITY — parallax handled by bleed-tall ──
-
-  // ── CODA ──
-  document.querySelectorAll('.coda-l').forEach((l,i)=>{
-    gsap.to(l,{opacity:1,duration:1.2,delay:i*.15,ease:'power2.out',
-      scrollTrigger:{trigger:'.coda',start:'top 70%',toggleActions:'play none none none'}});
-  });
-  gsap.to('#codaEnd',{opacity:1,duration:2,delay:.3,ease:'power2.out',
-    scrollTrigger:{trigger:'.coda',start:'top 60%',toggleActions:'play none none none'}});
-
-  // Refresh ScrollTrigger after everything is set up
-  ScrollTrigger.refresh();
-}
-
-
-// ═══════════════════════════════════════
-// AMBIENT AUDIO (Web Audio API)
-// ═══════════════════════════════════════
-let aOn=false;
-function sA(){
-  if(aOn)return;aOn=true;
-  const ac=new(AudioContext||webkitAudioContext)();
-  const comp=ac.createDynamicsCompressor();
-  comp.threshold.value=-30;comp.ratio.value=4;comp.connect(ac.destination);
-
-  // Feedback delay for depth
-  const del=ac.createDelay();del.delayTime.value=.35;
-  const fb=ac.createGain();fb.gain.value=.2;
-  del.connect(fb);fb.connect(del);del.connect(comp);
-
-  function osc(f,v,t,type='sine'){
-    const o=ac.createOscillator(),g=ac.createGain();
-    o.type=type;o.frequency.value=f;g.gain.value=0;
-    o.connect(g);g.connect(comp);if(t)g.connect(del);
-    o.start();g.gain.linearRampToValueAtTime(v,ac.currentTime+5);
-    return{o,g};
-  }
-  // 35Hz sine drone + 70Hz harmonic + 28Hz triangle sub
-  const d1=osc(35,.08,true);
-  osc(70,.025,false);
-  osc(28,.03,false,'triangle');
-
-  // Heartbeat every ~1050ms
-  function hb(){
-    const o=ac.createOscillator(),g=ac.createGain();
-    o.type='sine';o.frequency.value=48;
-    g.gain.setValueAtTime(0,ac.currentTime);
-    g.gain.linearRampToValueAtTime(.04,ac.currentTime+.03);
-    g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.3);
-    o.connect(g);g.connect(comp);
-    o.start(ac.currentTime);o.stop(ac.currentTime+.35);
-    setTimeout(hb,1050);
-  }
-  setTimeout(hb,3500);
-
-  // Drone pitch rises with scroll (35 -> 50Hz) + volume swells
-  window.addEventListener('scroll',()=>{
-    const p=scrollY/(document.documentElement.scrollHeight-innerHeight);
-    d1.o.frequency.setTargetAtTime(35+p*15,ac.currentTime,.5);
-    d1.g.gain.setTargetAtTime(.05+p*.06,ac.currentTime,.3);
-  });
-}
-document.addEventListener('click',sA,{once:true});
-document.addEventListener('scroll',sA,{once:true});
-document.addEventListener('touchstart',sA,{once:true});
-
-// ═══════════════════════════════════════
-// SCROLL VELOCITY DETECTION
-// The site FEELS how you move
-// ═══════════════════════════════════════
-let scrollVel=0, lastScrollY=scrollY, lastScrollT=performance.now();
-const grainEl=document.getElementById('grain');
-
-function trackVelocity(){
-  const now=performance.now();
-  const dt=now-lastScrollT;
-  if(dt>0){
-    const dy=Math.abs(scrollY-lastScrollY);
-    const rawVel=dy/dt; // px/ms
-    scrollVel+=(rawVel-scrollVel)*.15; // smooth
-  }
-  lastScrollY=scrollY;
-  lastScrollT=now;
-
-  // Grain reacts to velocity (0.04 calm → 0.15 fast)
-  const grainTarget=Math.min(.15,.04+scrollVel*.8);
-  grainEl.style.opacity=grainTarget;
-
-  // Ambient line opacity reacts
-  const ambLine=document.querySelector('.amb-line');
-  if(ambLine) ambLine.style.opacity=Math.min(.12,.03+scrollVel*.5);
-
-  requestAnimationFrame(trackVelocity);
-}
-trackVelocity();
-
-
-// ═══════════════════════════════════════
-// BIF BREATHING ORB
-// Persistent element — color maps to section emotional state
-// ═══════════════════════════════════════
-(function initBifOrb(){
-  const orb=document.createElement('div');
-  orb.id='bifOrbG';
-  orb.style.cssText=`
-    position:fixed;bottom:32px;right:32px;width:44px;height:44px;
-    border-radius:50%;z-index:800;pointer-events:none;
-    transition:background-color 4s ease,box-shadow 4s ease;
-    animation:bifBreatheG 5s ease-in-out infinite;
-  `;
-  const glow=document.createElement('div');
-  glow.style.cssText=`
-    position:fixed;bottom:24px;right:24px;width:60px;height:60px;
-    border-radius:50%;z-index:799;pointer-events:none;opacity:.08;
-    filter:blur(20px);transition:background-color 4s ease;
-    animation:bifBreatheG 5s ease-in-out infinite;
-  `;
-  document.body.appendChild(glow);
-  document.body.appendChild(orb);
-
-  const style=document.createElement('style');
-  style.textContent=`@keyframes bifBreatheG{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}`;
-  document.head.appendChild(style);
-
-  // Section → BIF emotional state mapping
-  const sectionStates={
-    'Entrance':      {color:'#0A0A0A',glow:'#1A1A2E',bpm:5},    // pace
-    'I — The Song':  {color:'#00D4AA',glow:'#003D32',bpm:10},   // calma
-    'II — The Water':{color:'#00D4AA',glow:'#003D32',bpm:10},   // calma
-    'III — The Gaze':{color:'#AA00FF',glow:'#2A0044',bpm:18},   // intuizione
-    'IV — The Witnesses':{color:'#FF6D00',glow:'#4A2000',bpm:27}, // fuoco
-    'V — The Body Becomes the Land':{color:'#FF6D00',glow:'#4A2000',bpm:27}, // fuoco
-    'VI — Vanity':   {color:'#FF1744',glow:'#4A0011',bpm:50},   // pericolo
-    'VII — The City':{color:'#FF6D00',glow:'#4A2000',bpm:27},   // fuoco
-    'VIII — The Egg':{color:'#AA00FF',glow:'#2A0044',bpm:18},   // intuizione
-    'Revelation':    {color:'#FFB300',glow:'#4A3400',bpm:11},    // calore
-    'IX — The Impossible City':{color:'#AA00FF',glow:'#2A0044',bpm:18}, // intuizione
-    'Coda':          {color:'#0A0A0A',glow:'#1A1A2E',bpm:5},    // pace
-  };
-  const defaultState={color:'#00D4AA',glow:'#003D32',bpm:10};
-
-  function setOrbState(s){
-    orb.style.backgroundColor=s.color;
-    orb.style.boxShadow=`0 0 30px ${s.glow}`;
-    glow.style.backgroundColor=s.color;
-    const dur=(60/s.bpm)+'s';
-    orb.style.animationDuration=dur;
-    glow.style.animationDuration=dur;
-  }
-  setOrbState(defaultState);
-
-  // Observe sections
-  const bifObs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const label=e.target.getAttribute('data-s');
-        const s=sectionStates[label]||defaultState;
-        setOrbState(s);
-      }
-    });
-  },{threshold:.3});
-  sections.forEach(s=>bifObs.observe(s));
-
-  // Velocity affects BPM — faster scroll = faster breathing
-  setInterval(()=>{
-    const velBoost=Math.min(2,1+scrollVel*3);
-    const currentDur=parseFloat(orb.style.animationDuration)||5;
-    orb.style.animationDuration=(currentDur/velBoost)+'s';
-    glow.style.animationDuration=(currentDur/velBoost)+'s';
-  },200);
-})();
-
-
-// ═══════════════════════════════════════
-// CURSOR MEMORY — Ephemeral traces
-// Like touching water
-// ═══════════════════════════════════════
-(function initCursorMemory(){
-  const canvas=document.createElement('canvas');
-  canvas.style.cssText='position:fixed;inset:0;width:100%;height:100%;z-index:9998;pointer-events:none;';
-  document.body.appendChild(canvas);
-  const ctx=canvas.getContext('2d');
-  let W,H;
-  function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
-  resize();
-  window.addEventListener('resize',resize);
-
-  const particles=[];
-  const MAX=120;
-  let lastMx=mx,lastMy=my;
-
-  function tick(){
-    ctx.clearRect(0,0,W,H);
-
-    // Spawn particles on movement
-    const dx=mx-lastMx,dy=my-lastMy;
-    const speed=Math.sqrt(dx*dx+dy*dy);
-    if(speed>2 && particles.length<MAX){
-      particles.push({
-        x:mx,y:my,
-        vx:(Math.random()-.5)*.3,
-        vy:(Math.random()-.5)*.3,
-        life:1,
-        decay:.008+Math.random()*.008,
-        size:1.5+Math.random()*2,
-      });
-    }
-    lastMx=mx;lastMy=my;
-
-    // Update & draw
-    for(let i=particles.length-1;i>=0;i--){
-      const p=particles[i];
-      p.x+=p.vx;
-      p.y+=p.vy;
-      p.life-=p.decay;
-      if(p.life<=0){particles.splice(i,1);continue}
-
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);
-      ctx.fillStyle=`rgba(168,0,0,${p.life*.25})`;
-      ctx.fill();
-    }
-
-    requestAnimationFrame(tick);
-  }
-  tick();
-})();
-
-
-})();
-</script>
-<script>
-(function() {
-  const indicator = document.querySelector('.scroll-indicator');
-  if (!indicator) return;
-
-  function updateIndicator() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    indicator.style.width = scrolled + '%';
-  }
-
-  window.addEventListener('scroll', updateIndicator, { passive: true });
-  window.addEventListener('resize', updateIndicator);
-  updateIndicator();
-})();
+}, { threshold: .16 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
