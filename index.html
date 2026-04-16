@@ -737,9 +737,213 @@ nav a:hover::after, .nav-link:hover::after {
     align-items: stretch;
   }
 }
+
+/* === Starman Gate === */
+/* STARMAN entry gate */
+.starman-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 40000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #030303;
+  isolation: isolate;
+  cursor: auto;
+  transition: opacity 1s cubic-bezier(.16,1,.3,1), filter 1s cubic-bezier(.16,1,.3,1);
+}
+.starman-gate.gone { display: none }
+.starman-gate.exiting {
+  opacity: 0;
+  filter: blur(16px);
+  pointer-events: none;
+}
+.starman-gate-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform: scale(1.01);
+}
+.starman-gate-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 46%;
+  opacity: .92;
+  filter: contrast(1.08) saturate(1.04) brightness(.9);
+  transform: scale(1.03);
+  animation: starmanImageDrift 18s ease-in-out infinite alternate;
+}
+.starman-gate.exiting .starman-gate-media img {
+  transform: scale(1.1);
+  filter: contrast(1.1) saturate(1.12) brightness(.7) blur(8px);
+}
+.starman-gate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 42%, rgba(0,0,0,.36) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.06) 0%, rgba(0,0,0,.28) 62%, rgba(0,0,0,.84) 100%);
+  pointer-events: none;
+}
+.starman-gate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 7px),
+    linear-gradient(120deg, transparent 0%, rgba(255,255,255,.06) 48%, transparent 58%);
+  mix-blend-mode: screen;
+  opacity: .46;
+  pointer-events: none;
+  animation: starmanGlassSweep 7s ease-in-out infinite;
+}
+.starman-gate-panel {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: min(520px, calc(100% - 40px));
+  margin-top: min(44vh, 420px);
+  padding: 16px;
+  text-align: center;
+}
+.starman-kicker {
+  margin: 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0;
+  color: rgba(244,248,248,.7);
+  text-transform: uppercase;
+  text-shadow: 0 1px 20px rgba(0,0,0,.8);
+}
+.starman-enter {
+  position: relative;
+  appearance: none;
+  border: 1px solid rgba(244,248,248,.28);
+  border-radius: 8px;
+  background: rgba(244,248,248,.08);
+  color: #f4f8f8;
+  padding: 15px 30px 16px;
+  min-width: 230px;
+  min-height: 58px;
+  font-family: var(--font-display), 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 24px 80px rgba(0,0,0,.42),
+    0 0 0 1px rgba(0,212,170,.05);
+  transition:
+    transform .45s cubic-bezier(.16,1,.3,1),
+    border-color .45s cubic-bezier(.16,1,.3,1),
+    background .45s cubic-bezier(.16,1,.3,1),
+    box-shadow .45s cubic-bezier(.16,1,.3,1);
+}
+.starman-enter:hover,
+.starman-enter:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(244,248,248,.58);
+  background: rgba(244,248,248,.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    0 28px 90px rgba(0,0,0,.52),
+    0 0 28px rgba(0,212,170,.18);
+  outline: none;
+}
+.starman-enter:active { transform: translateY(0) scale(.99) }
+.starman-enter span {
+  display: inline-block;
+  transform: translateY(1px);
+}
+.starman-enter::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 7px;
+  background: linear-gradient(120deg, rgba(255,255,255,.14), rgba(255,255,255,0) 44%, rgba(0,212,170,.12));
+  opacity: .72;
+  pointer-events: none;
+}
+.starman-gate-note {
+  margin: 0;
+  max-width: 300px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: 1.7;
+  color: rgba(244,248,248,.68);
+  text-shadow: 0 1px 20px rgba(0,0,0,.9);
+}
+@keyframes starmanImageDrift {
+  from { transform: scale(1.03) translate3d(-.6%, -.4%, 0) }
+  to { transform: scale(1.07) translate3d(.7%, .4%, 0) }
+}
+@keyframes starmanGlassSweep {
+  0%, 100% { transform: translateX(-2%); opacity: .36 }
+  50% { transform: translateX(2%); opacity: .56 }
+}
+@media (max-width: 760px) {
+  .starman-gate-media img {
+    object-position: 50% 36%;
+    filter: contrast(1.05) saturate(1.02) brightness(.82);
+  }
+  .starman-gate::before {
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.2) 45%, rgba(0,0,0,.9) 100%),
+      linear-gradient(90deg, rgba(0,0,0,.45), rgba(0,0,0,.08), rgba(0,0,0,.45));
+  }
+  .starman-gate-panel {
+    width: min(360px, calc(100% - 28px));
+    margin-top: min(48vh, 390px);
+    gap: 14px;
+    padding: 12px;
+  }
+  .starman-kicker { font-size: 10px }
+  .starman-enter {
+    min-width: 210px;
+    min-height: 56px;
+    padding: 14px 24px 15px;
+    font-size: 20px;
+  }
+  .starman-gate-note {
+    font-size: 10px;
+    max-width: 260px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .starman-gate-media img,
+  .starman-gate::after {
+    animation: none;
+  }
+}
+.starman-gate.gone { display:none; }
 </style>
 </head>
 <body>
+<div class="starman-gate" id="starmanGate" role="dialog" aria-modal="true" aria-label="STARMAN entry">
+  <div class="starman-gate-media" aria-hidden="true">
+    <img src="images/ourstudio/hf_20260410_235101_ba3106cf-480b-49c5-ba35-a6499b12c71b%20%281%29.png" alt="">
+  </div>
+  <div class="starman-gate-panel">
+    <p class="starman-kicker">Studio Starman</p>
+    <button class="starman-enter" id="starmanEnter" type="button" aria-label="Enter STARMAN">
+      <span>STARMAN</span>
+    </button>
+    <p class="starman-gate-note">Click to enter.</p>
+  </div>
+</div>
 <div class="scroll-indicator" aria-hidden="true"></div>
 <canvas class="grain-canvas" id="grainCanvas" aria-hidden="true"></canvas>
 <div class="cursor" id="cursor" aria-hidden="true"></div>
@@ -1042,6 +1246,35 @@ if (window.gsap && window.ScrollTrigger) {
   window.addEventListener('scroll', updateIndicator, { passive: true });
   window.addEventListener('resize', updateIndicator);
   updateIndicator();
+})();
+</script>
+<script>
+// ── Starman Gate ──
+(function() {
+  var gate = document.getElementById('starmanGate');
+  var btn  = document.getElementById('starmanEnter');
+  if (!gate || !btn) return;
+
+  // If already entered in this session, skip immediately
+  try {
+    if (sessionStorage.getItem('cd-awakened')) {
+      gate.classList.add('gone');
+      return;
+    }
+  } catch(e) {}
+
+  document.body.style.overflow = 'hidden';
+
+  btn.addEventListener('click', function() {
+    if (gate.dataset.entered) return;
+    gate.dataset.entered = 'true';
+    try { sessionStorage.setItem('cd-awakened', '1'); } catch(e) {}
+    gate.classList.add('exiting');
+    setTimeout(function() {
+      gate.classList.add('gone');
+      document.body.style.overflow = '';
+    }, 950);
+  });
 })();
 </script>
 </body>
