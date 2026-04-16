@@ -582,6 +582,7 @@ body.dildo-page {
 </style>
 </head>
 <body class="dildo-page">
+<div class="scroll-indicator" aria-hidden="true"></div>
 <div class="dildo-shell" id="dildoShell">
   <div class="dildo-grain" aria-hidden="true"></div>
   <div class="dildo-scan" aria-hidden="true"></div>
@@ -986,6 +987,23 @@ body.dildo-page {
 
   loadImage(state.imageSrc);
   requestAnimationFrame(resizeCanvas);
+})();
+</script>
+<script>
+(function() {
+  const indicator = document.querySelector('.scroll-indicator');
+  if (!indicator) return;
+
+  function updateIndicator() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    indicator.style.width = scrolled + '%';
+  }
+
+  window.addEventListener('scroll', updateIndicator, { passive: true });
+  window.addEventListener('resize', updateIndicator);
+  updateIndicator();
 })();
 </script>
 </body>

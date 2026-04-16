@@ -657,6 +657,7 @@
   </style>
 </head>
 <body>
+<div class="scroll-indicator" aria-hidden="true"></div>
 
   <div class="cur" id="cursor"></div>
   <div class="cur-ring" id="cursor-ring"></div>
@@ -1005,5 +1006,22 @@
 
   <div class="bif-global" id="bif-orb" aria-hidden="true"></div>
   <script src="cd-core.js"></script>
+<script>
+(function() {
+  const indicator = document.querySelector('.scroll-indicator');
+  if (!indicator) return;
+
+  function updateIndicator() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    indicator.style.width = scrolled + '%';
+  }
+
+  window.addEventListener('scroll', updateIndicator, { passive: true });
+  window.addEventListener('resize', updateIndicator);
+  updateIndicator();
+})();
+</script>
 </body>
 </html>

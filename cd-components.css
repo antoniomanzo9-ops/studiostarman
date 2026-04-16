@@ -182,6 +182,18 @@
 }
 .nav-back:hover { color: var(--white) }
 
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: #A80000;
+  z-index: 10000;
+  pointer-events: none;
+  transition: width 100ms linear;
+}
+
 /* ── BIF ORB — Time-aware, breathing, alive ── */
 /* BIF knows what hour it is. The orb breathes at a BPM
    that matches the emotional state. Color shifts with

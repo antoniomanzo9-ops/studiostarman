@@ -371,6 +371,7 @@ body {
 </style>
 </head>
 <body>
+<div class="scroll-indicator" aria-hidden="true"></div>
 <div class="grain"></div>
 <div class="scanlines"></div>
 
@@ -1057,6 +1058,23 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
+</script>
+<script>
+(function() {
+  const indicator = document.querySelector('.scroll-indicator');
+  if (!indicator) return;
+
+  function updateIndicator() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    indicator.style.width = scrolled + '%';
+  }
+
+  window.addEventListener('scroll', updateIndicator, { passive: true });
+  window.addEventListener('resize', updateIndicator);
+  updateIndicator();
+})();
 </script>
 </body>
 </html>
